@@ -1,0 +1,11 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--progress-a {
+    position: fixed;
+    left: $measure * 2;
+    bottom: $measure * 2;
+    background-color: #f3f3f3;
+    overflow: hidden;
+    z-index: 1501;
+    padding: $measure;
+}

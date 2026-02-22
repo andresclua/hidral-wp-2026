@@ -1,0 +1,5 @@
+$base-path: "/wordpress-starter/" !default;
+
+@function asset-url($path) {
+  @return "#{$base-path}/#{$path}";
+}

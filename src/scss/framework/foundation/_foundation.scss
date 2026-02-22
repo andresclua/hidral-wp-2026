@@ -1,0 +1,32 @@
+//Foundations
+
+// Reset
+@forward './reset/reset.scss';
+
+
+// background
+// f--*-*
+@forward './background/background.scss';
+
+// Color
+// f--color-*
+@forward './color/color.scss';
+
+// Typography
+// f--font-*
+@forward './font/font.scss';
+
+// Gap
+// f--gap-*
+@forward './gap/gap.scss';
+
+// Grid System
+// f--container
+// f--row
+// f--col-*
+// f--offset-* 
+@forward './grid/grid.scss';
+
+// Spaces
+// f--sp-*
+@forward './spaces/spaces.scss';

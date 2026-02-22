@@ -1,0 +1,39 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$align-items-values:(
+  // baseline: baseline,
+  // stretch:stretch,
+  // flex-start:flex-start,
+  // flex-end:flex-end,
+  // center:center
+);
+
+$align-items-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin align-items-utility($align-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @each $name, $property in $align-prop {
+      $class-name: if($breakpoint-name == all, "", "-#{$breakpoint-name}");
+      .u--align-items#{$class-name}-#{$name}{
+        @if($breakpoint-value == 0) {
+          align-items: $property;
+        } @else {
+          @media screen and ($viewport-type: $breakpoint-value) {
+            align-items: $property;
+          }
+        }
+          
+      }
+    }
+  }
+}
+
+@include align-items-utility($align-items-values,$align-items-breakpoints)

@@ -1,0 +1,38 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$order-values: (
+    // first,
+    // 1,
+);
+
+$order-breakpoints: (
+    all: $all,
+    //   desktop: $desktop,
+    //   laptop: $laptop,
+    //   tabletl: $tabletl,
+    // tabletm: $tabletm,
+    //   tablets: $tablets,
+    //   mobile: $mobile,,
+);
+
+@mixin order-utility($order-values, $breakpoints) {
+    @each $breakpoint-name, $breakpoint-value in $breakpoints {
+      @each $value in $order-values {
+        $order: if($value == first, -1, $value);
+  
+        $class-name: if($breakpoint-name == all, "", "-#{$breakpoint-name}");
+  
+        .u--order#{$class-name}-#{$value} {
+          @if ($breakpoint-name == all) {
+            order: #{$order};
+          } @else {
+            @media screen and ($viewport-type: #{$breakpoint-value}) {
+              order: #{$order};
+            }
+          }
+        }
+      }
+    }
+  }
+
+@include order-utility($order-values, $order-breakpoints);

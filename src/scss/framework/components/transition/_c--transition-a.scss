@@ -1,0 +1,30 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+
+.c--transition-a {
+    @extend .u--position-fixed;
+    @extend .u--display-none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100vw;
+    height: 100vh;
+    z-index: 1500;
+    pointer-events: none;
+
+    &__item {
+        @extend .f--background-a;
+        height: 50%;
+
+        &--first {
+            transform: translateY(-100%);
+        }
+
+        &--second {
+            transform: translateY(100%);
+        }
+    }
+}

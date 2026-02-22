@@ -1,0 +1,40 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$flex-direction-values:(
+  // row:row,
+  // row-reverse:row-reverse,
+  // column-reverse:column-reverse,
+  // column: column
+);
+
+$flex-direction-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin flex-direction-utility($align-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $align-prop {
+        .u--flex-direction-#{$name}{
+            flex-direction:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $align-prop {
+            .u--flex-direction-#{$breakpoint-name}-#{$name}{
+                flex-direction:$property;
+            }
+        }
+      }
+    }
+  }
+}
+
+@include flex-direction-utility($flex-direction-values,$flex-direction-breakpoints)

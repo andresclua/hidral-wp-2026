@@ -1,0 +1,17 @@
+@use "@scss/framework/foundation/gap/make-gap" as *;
+
+.f--gap-a {
+    @include make-gap-a();
+}
+
+.f--gap-b {
+    @include make-gap-b();
+}
+
+.f--gap-c {
+    @include make-gap-c();
+}
+
+.f--gap-d {
+    @include make-gap-d();
+}

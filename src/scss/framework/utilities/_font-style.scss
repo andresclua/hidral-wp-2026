@@ -1,0 +1,38 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$font-style-values: (
+  // italic: italic,
+  // normal: normal,
+);
+
+$font-style-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+  
+  @mixin font-style-utility($font-style-prop, $breakpoints) {
+    @each $breakpoint-name, $breakpoint-value in $breakpoints {
+      @if ($breakpoint-value == 0) {
+        @each $name, $property in $font-style-prop {
+          .u--font-style-#{$name} {
+            font-style: $property;
+          }
+        }
+      } @else {
+        @media screen and ($viewport-type: $breakpoint-value) {
+          @each $name, $property in $font-style-prop {
+            .u--font-style-#{$breakpoint-name}-#{$name} {
+              font-style: $property;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @include font-style-utility($font-style-values, $font-style-breakpoints);

@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+
+.c--global-marquee-a{
+  padding:$measure*2 0;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  &__item{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      @extend .f--font-b;
+  }
+}

@@ -1,0 +1,8 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+@each $color-name, $color in $color-options {
+    .f--color-#{$color-name}{
+        color: map.get($color-options, $color-name);
+    }
+}

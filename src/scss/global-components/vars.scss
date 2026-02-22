@@ -1,0 +1,90 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+@use "@terrahq/gc/variables" with (
+//* GLOBAL VARIABLES
+$g-viewport-type: $viewport-type,
+$g-measure: $measure,
+$g-container-class: f--container,
+$g-row-class: f--row,
+$g-row-remove-gutter-class: f--row--remove-gutter,
+$g-transition-duration: 0.3s,
+$g-transition-timing-function: $ease-standard-a,
+
+//* btn
+$btn-padding: $measure $measure * 3,
+$btn-icon-gap: $measure,
+$btn-full-width-breakpoint: $mobile,
+
+//* pill
+$pill-padding: $measure $measure * 2,
+
+//* icon
+$icon-padding: $measure * 1.5,
+
+//* social
+$social-gap: $measure * 2,
+
+//* form fields
+$form-margin-bottom: $measure * 3,
+$input-padding: $measure * 0.5 $measure,
+$file-btn-padding: $measure * 0.5 $measure * 3,
+
+//* card
+$card-spaces-breakpoint: $tablets,
+$card-item-list-gap: $measure,
+$card-media-text-space: $measure * 2,
+$card-media-text-space-responsive: $measure,
+
+//* CTA
+$cta-item-list-gap: $measure $measure * 2,
+$cta-outside-container-col-class: (f--col-9 f--col-desktop-8),
+$cta-spaces-breakpoint: $tablets,
+$cta-inside-container-padding: $measure * 10 $measure * 10,
+$cta-inside-container-padding-responsive: $measure * 10 $measure * 7,
+$cta-outside-container-padding-y: $measure * 15,
+$cta-outside-container-padding-y-responsive: $measure * 10,
+
+//* layout
+$layout-one-col-width-class: (f--col-6 f--col-tabletm-10 f--col-mobile-12),
+$layout-two-col-media-width-class: (f--col-5 f--col-tablets-12),
+$layout-two-col-content-width-class: (
+  f--col-5 f--offset-1 f--col-tabletm-6 f--col-tablets-12 f--offset-tablets-0
+),
+$layout-two-col-only-content-first-width-class: (
+  f--col-5 f--col-tabletm-6 f--col-tablets-12
+),
+$layout-two-col-only-content-last-width-class: (
+  f--col-6 f--offset-0 f--col-tablets-12 f--offset-tabletm-0
+),
+$layout-spaces-breakpoint: $tablets,
+$layout-item-list-gap: $measure $measure * 2,
+
+//* hero
+$hero-spaces-breakpoint: $tablets,
+$hero-item-list-gap: $measure $measure * 2,
+$hero-two-col-only-content-first-width-class: (
+  f--col-7 f--col-tabletm-6 f--col-tablets-12
+),
+$hero-two-col-only-content-last-width-class: (
+  f--col-4 f--offset-1 f--col-tabletm-6 f--col-tablets-12 f--offset-tabletm-0
+),
+$hero-content-form-width-class: (f--col-6 f--col-tablets-12),
+
+//* message
+$message-spaces-breakpoint: $tablets,
+
+//* modal
+$modal-spaces-breakpoint: $tablets,
+
+//* accordion
+$accordion-padding: $measure * 4 $measure * 2 $measure * 3,
+
+//* tabs
+$tabs-breakpoint: $tablets,
+
+//* 404
+$error-404-spaces-breakpoint: $tablets,
+$error-404-item-list-gap: $measure $measure * 2,
+);
+
+@forward "@terrahq/gc/library";

@@ -1,0 +1,43 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+
+.c--global-marquee-b{
+  padding:$measure*2 0;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  &__item{
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 400px;
+        width: 300px;
+        margin: 0 $measure*2 ;
+        padding: 0 $measure*2;
+        position: relative;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: $border-radius-a;
+
+        &__title{
+            @extend .f--font-e;
+            white-space: nowrap;
+            position:absolute;
+            bottom:$measure;
+            left:$measure;
+            border: 1px solid rgba(map-get($colorbg-options,c),.2);
+            background:map-get($colorbg-options,b);
+            padding:$measure *0.25 $measure *0.5 ;
+             border-radius: $border-radius-a;
+            
+        }
+  }
+}

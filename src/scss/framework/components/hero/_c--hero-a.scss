@@ -1,0 +1,18 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--hero-a{
+    text-align: center;
+    &__title{
+         @extend .f--font-a;
+    }
+    &__subtitle{
+        @extend .f--font-c;
+        margin-top: $measure*3;
+    }
+    &__btn{
+        margin-top: $measure*3;
+        
+    }
+}

@@ -1,0 +1,47 @@
+@use "sass:map";
+@use "@scss/framework/foundation/foundation.scss" as *;
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@terrahq/gc/library" as *;
+@use "@scss/global-components/vars.scss" as *;
+
+.g--btn-01 {
+    @include make-btn-01();
+    @include make-btn-01-modifier(
+        $background-options: (
+            "background-color": map.get($color-options, a),
+        ),
+        $border-options: (
+            "border-radius": $g-measure*3.752,
+        ),
+        $hover-options: (
+            "background-color": lighten(map.get($color-options, a),20%),
+            "color": map-get($color-options, b) ,
+        ),
+        $font-options: (
+            "color": map.get($color-options, b),
+            "className": f--font-d,
+        ),
+    );
+    &--second{
+        @include make-btn-01-modifier(
+        $background-options: (
+            "background-color": transparent,
+        ),
+        $border-options: (
+            "border-color": map.get($color-options, b),
+            "border-radius": $g-measure*3.75,
+            "border-width": 2px,
+            "border-style": solid,
+        ),
+        $hover-options: (
+            "background-color": map.get($color-options, b),
+            "color": map.get($color-options, a) ,
+        ),
+        $font-options: (
+            "color": map.get($color-options, b),
+            "className": f--font-d,
+        ),
+    );
+    }
+    
+}

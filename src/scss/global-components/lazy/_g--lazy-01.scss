@@ -1,0 +1,8 @@
+@use "sass:map";
+@use "@scss/framework/foundation/foundation.scss" as *;
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/global-components/vars.scss" as *;
+
+.g--lazy-01 {
+    @include make-lazy-01();
+}

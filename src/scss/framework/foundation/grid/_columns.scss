@@ -1,0 +1,114 @@
+@use "@scss/framework/foundation/grid/make-columns" as *;
+@use "@scss/framework/_var/_vars.scss" as *;
+
+/* columns*/
+/* offset */
+
+// * columns
+$available-columns: (
+    // 1,
+    // 2,
+    // 3,
+    // 4,
+    // 5,
+    // 6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+);
+
+$columns-breakpoints: (
+  all: $all,
+//   desktop: $desktop,
+//   laptop: $laptop,
+//    tabletl: $tabletl,
+//   tabletm: $tabletm,
+//    tablets: $tablets,
+//   mobile: $mobile,
+);
+@mixin build-columns ($size,$bkpt,$availablecolumns) {
+    @for $i from 1 through $columns {
+        @if ($size == 'all') {
+            @each $column in $availablecolumns {
+                @if $i == $column {
+                    .f--col-#{$column}{
+                        @include make-col($column);
+                    } 
+                }
+            }
+        }@else{
+            @each $column in $availablecolumns {
+                @if $i == $column {
+                    .f--col-#{$size}-#{$column}{
+                        @media all and (#{$viewport-type}: #{$bkpt}){
+                            @include make-col-responsive($column);
+                        }
+                    }
+                }
+            }
+        }        
+    }
+}
+// Build Columns
+@each $size, $bkpt in $columns-breakpoints {
+    @include build-columns($size,$bkpt,$available-columns);
+}
+/* End Responsive Columns */
+
+/* Start Responsive Offset */
+$available-offset: (
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    // 6,
+    // 7,
+    // 8,
+    // 9,
+    // 10,
+    // 11
+);
+
+$offset-breakpoints: (
+  all: $all,
+//   desktop: $desktop,
+//   laptop: $laptop,
+//   tabletl: $tabletl,
+//   tabletm: $tabletm,
+//   tablets: $tablets,
+//   mobile: $mobile,
+);
+@mixin build-offset ($size,$bkpt,$availableoffset) {
+    @for $i from 0 through $columns {
+        @if ($size == 'all') {
+            @each $offset in $availableoffset {
+                @if $i == $offset {
+                    .f--offset-#{$offset}{
+                        @include make-offset($offset);
+                    } 
+                }
+            }
+        }@else{
+            @each $offset in $availableoffset {
+                @if $i == $offset {
+                    .f--offset-#{$size}-#{$offset}{
+                        @media all and (#{$viewport-type}: #{$bkpt}){
+                            @include make-offset($offset);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@each $size, $bkpt in $offset-breakpoints {
+    @include build-offset($size,$bkpt, $available-offset);
+}
+/* End Responsive Offset */
+

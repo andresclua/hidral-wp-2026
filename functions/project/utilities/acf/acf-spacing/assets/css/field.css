@@ -1,0 +1,68 @@
+/**
+ * Included when fields of this type are rendered for editing by publishers.
+ */
+.acf-field-FIELD-NAME .setting-font-size {
+    color: green;
+}
+
+.acf-field-spacing button {
+    max-width: 100%;
+    background-color: transparent;
+    border-radius: 2px;
+    border: 0;
+    display: inline-block;
+    font-family: Poppins, sans-serif;
+    font-size: 0.7rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    -webkit-transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.acf-field-spacing img {
+    display: block;
+    width: 100%;
+}
+
+.acf-field-spacing button.active {
+    opacity: 1;
+}
+.acf-field-spacing button.no-active {
+    opacity: 0.2;
+}
+.acf-field-spacing ul {
+    display: inline-flex;
+    width: 100%;
+}
+.acf-field-spacing li {
+    width: 13%;
+}
+
+.acf-field-spacing .js--top-title,
+.acf-field-spacing .js--bottom-title,
+.acf-field-spacing ul.js--top-space,
+.acf-field-spacing ul.js--bottom-space {
+    display: none;
+}
+
+.js--top-space,
+.js--bottom-space {
+    margin-left: 1rem;
+}
+.js--top-space button.active,
+.js--bottom-space button.active {
+    background-color: #dedede;
+    padding: 0.5rem 1.5rem;
+}
+.js--top-space button.no-active,
+.js--bottom-space button.no-active {
+    background-color: #dedede;
+    padding: 0.5rem 1.5rem;
+    opacity: 0.2;
+}

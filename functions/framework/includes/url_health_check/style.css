@@ -1,0 +1,93 @@
+/* Estilos básicos para el body */
+.lighthouse-table,
+.metrics-table{
+  margin: 1rem 0 2rem;
+}
+.tf-url_health_chequer table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tf-url_health_chequer th,
+.tf-url_health_chequer td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* Alinear el texto al centro en las celdas */
+}
+
+.tf-url_health_chequer th {
+  background-color: #f4f4f4;
+}
+
+.tf-url_health_chequer .success {
+  color: #36761C;
+  background-color: #D9EAD3;
+}
+
+.tf-url_health_chequer .warning {
+  color: #FF9900;
+  background-color: #FCE5CD;
+}
+
+.tf-url_health_chequer .danger {
+  color:  #FF0000;
+  background-color:  #F4CCCB;
+}
+
+.tf-url_health_chequer .different {
+  color: #FFFFFF;
+  background-color: #EA4236;
+}
+
+
+.tf-url_health_chequer input[type="number"] {
+  width: 60px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.tf--square{
+  height: 1rem;
+  width: 1rem;
+  display: inline-block;
+  margin-right: .5rem;
+}
+.tf--square-success {
+  background-color: #D9EAD3;
+}
+.tf--square-warning {
+  background-color: #FCE5CD;
+}
+.tf--square-danger {
+  background-color: #F4CCCB;
+}
+.tf--square-different {
+  background-color: #EA4236;
+}
+/* Estilos para la lista no ordenada con clase 'myClass' */
+  .tf-url_health_chequer ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .tf-url_health_chequer ul li {
+    padding: 10px 15px;
+    border-radius: 4px;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .tf-url_health_chequer h2 {
+    font-size: 2em;
+  }

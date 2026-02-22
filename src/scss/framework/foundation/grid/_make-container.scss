@@ -1,0 +1,35 @@
+@use "sass:meta";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+@mixin make-container() {
+  margin: 0 auto;
+  padding-right: $half-gutter-width;
+  padding-left: $half-gutter-width;
+  max-width: $f-container-max-width;
+  width: $f-container-width;
+  @media all and ($viewport-type: $tablets) {
+    width: $f-container-width-tablets;
+  }
+}
+
+@mixin make-container-fluid() {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  @if meta.variable-exists(f-container-fluid-max-width) {
+    max-width: $f-container-fluid-max-width;
+  } @else {
+    max-width: 100%;
+  }
+
+  & > [class*="f--row"] {
+    margin-right: 0;
+    margin-left: 0;
+
+    & > [class^="f--col"],
+    & > [class*="f--col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+//* Reset, GC
+@use "@scssFoundation/_foundation.scss";
+@use "@scssUtilities/_utilities.scss";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+//* Preloader
+@use "@scssComponents/preloader/_c--preloader-a.scss";
+
+@use "@scssComponents/header/_c--header-a.scss";
+@use "@scssComponents/footer/_c--footer-a.scss";
+
+//* Transition
+@use "@scssComponents/transition/_c--transition-a.scss";
+@use "@scssComponents/progress/_c--progress-a.scss";
+
+
+@use "@scssComponents/content/_c--content-a.scss";
+
+@use "@scssComponents/marquee/_c--global-marquee-a.scss";
+@use "@scssComponents/marquee/_c--global-marquee-b.scss";
+
+
+@use "@scssComponents/hero/_c--hero-a.scss";
+
+@use "@scssComponents/btn/_c--btn-a.scss";

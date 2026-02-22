@@ -1,0 +1,106 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+
+.c--brand-a{
+    display: flex;
+}
+
+.c--header-a{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: $measure*5 0;
+    z-index: 35;
+    &__wrapper{
+        position:relative;
+        background:map.get($color-options,b);
+        display: block;
+        border-radius: $border-radius-c*10;
+        padding:$measure $measure*3;
+        border:1px solid rgba(map.get($color-options, b),.2);
+        transition: all $time-b $ease-standard-a;
+        @media all and ($viewport-type: $tabletm) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        &--second{
+            border:1px solid rgba(map.get($color-options, a),.2);
+        }
+    }
+}
+
+.c--burger-a{
+    width:35px;
+    height: 35px;
+    background:map-get($color-options,a );
+    position: absolute;
+    right: $measure;
+    top:15px;
+    border-radius: $border-radius-a;
+    display: block;
+    z-index: 35;
+    @media all and ($viewport-type: $tabletm) {
+        display: none;
+    }
+}
+
+.c--nav-a{
+    display: none;
+    flex-direction: column;
+    background:white;
+    padding:$measure 0;
+    border-radius: $border-radius-a;
+    margin: 0;
+    list-style: none;
+    @media all and ($viewport-type: $tabletm) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: auto;
+        background: transparent;
+        opacity: 1;
+        padding: 0;
+    }
+    &__list-item{
+        display: block;
+        @media all and ($viewport-type: $tabletm) {
+            margin-left: $measure*2;
+        }
+        &__link{
+            text-decoration: none;
+            @extend .f--color-a;
+            display: block;
+            padding:$measure;
+            @media all and ($viewport-type: $tabletm) {
+                margin-left: $measure*2;
+                padding: 0;
+            }
+            &:hover{
+               text-decoration: underline;
+            }
+            &--second{
+                border: 1px solid rgba(map-get($colorbg-options,c),.2);
+                color:map-get($color-options,a );
+
+                padding:$measure $measure *2 $measure ;
+                border-radius: $border-radius-b *2;
+                transition:all ease-in-out $time-a;
+                &:hover{
+                    background:darken(map-get($colorbg-options,a), 5%);
+                     color:map-get($color-options,b );
+                     text-decoration: none;
+
+                }
+            }
+        }
+    }
+
+    &--is-active{
+       display: flex;
+    }
+}

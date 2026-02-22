@@ -1,0 +1,42 @@
+@use "@scss/framework/foundation/grid/make-container" as *;
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.f--container {
+  @include make-container();
+}
+
+// * container fluid
+// .f--container-fluid {
+//   @include make-container-fluid();
+//   @media all and ($viewport-type: $wide) {
+//     @include make-container();
+//     & > [class*="f--row"] {
+//       margin-right: $gutter-compensation;
+//       margin-left: $gutter-compensation;
+
+//       & > [class^="f--col"],
+//       & > [class*="f--col-"] {
+//         padding-right: $half-gutter-width;
+//         padding-left: $half-gutter-width;
+//       }
+//     }
+//   }
+//   // * container fluid for only small screens
+//   @each $name, $value in $f-container-contained-breakpoints {
+//     &--#{$name}-contained {
+//       @media all and ($viewport-type: $value) {
+//         @include make-container();
+//         & > [class*="f--row"] {
+//           margin-right: $gutter-compensation;
+//           margin-left: $gutter-compensation;
+
+//           & > [class^="f--col"],
+//           & > [class*="f--col-"] {
+//             padding-right: $half-gutter-width;
+//             padding-left: $half-gutter-width;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

@@ -1,0 +1,42 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$position-values:(
+  // relative:relative,
+  absolute:absolute,
+  fixed:fixed,
+  // sticky:sticky,
+  // inherit:inherit,
+  // unset:unset
+);
+
+$position-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin position-utility($position-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $position-prop {
+        .u--position-#{$name}{
+          position:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $position-prop {
+          .u--position-#{$breakpoint-name}-#{$name}{
+            position:$property;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include position-utility($position-values,$position-breakpoints)

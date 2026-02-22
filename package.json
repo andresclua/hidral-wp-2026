@@ -1,0 +1,52 @@
+{
+  "name": "wp-vite-starter-2024",
+  "version": "1.0.0",
+  "description": "vite starter",
+  "main": "index.js",
+  "scripts": {
+    "virtual": "cross-env NODE_ENV=virtual vite",
+    "local": "NODE_ENV=local vite build",
+    "build": "NODE_ENV=production vite build"
+  },
+  "author": "andresclua@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "gulp": "^5.0.0",
+    "gulp-sftp-up4": "^0.1.8",
+    "minimist": "^1.2.8",
+    "ssh2-sftp-client": "^10.0.3",
+    "vite": "^6.0.0",
+    "vite-plugin-live-reload": "^3.0.3"
+  },
+  "dependencies": {
+    "@andresclua/debounce-throttle": "^1.0.1",
+    "@andresclua/infinite-marquee-gsap": "^0.0.15",
+    "@andresclua/jsutil": "^4.0.4",
+    "@swup/body-class-plugin": "^3.3.0",
+    "@swup/debug-plugin": "^4.0.4",
+    "@swup/forms-plugin": "^3.6.0",
+    "@swup/head-plugin": "^2.2.0",
+    "@swup/js-plugin": "^3.1.1",
+    "@swup/scripts-plugin": "^2.1.0",
+    "@terrahq/anchor-to": "^0.0.4",
+    "@terrahq/collapsify": "^0.0.22",
+    "@terrahq/gc": "file:terrahq-gc-0.0.12.tgz",
+    "@terrahq/helpers": "^0.0.87",
+    "@terrahq/lazy": "^0.0.1",
+    "@terrahq/modal": "^0.0.3",
+    "@terrahq/wysiwyg": "^1.0.0",
+    "blazy": "^1.8.2",
+    "boostify": "^0.0.20",
+    "dotenv": "^16.4.5",
+    "gsap": "^3.12.5",
+    "mitt": "^3.0.1",
+    "postcss-safe-parser": "^7.0.1",
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.86.1",
+    "stylelint": "^17.0.0",
+    "stylelint-scss": "^7.0.0",
+    "swup": "^4.6.1",
+    "vite-plugin-stylelint": "^6.0.4"
+  }
+}

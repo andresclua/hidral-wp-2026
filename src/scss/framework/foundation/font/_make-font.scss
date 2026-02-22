@@ -1,0 +1,55 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+@mixin make-font-a($weight: 600) {
+  font-family: $type-a;
+  font-weight: $weight;
+  line-height: 1.1;
+  font-size: 5rem;
+  @media all and ($viewport-type: $tablets) {
+    font-size: 4rem;
+  }
+}
+
+@mixin make-font-b($weight: 400) {
+  font-family: $type-a;
+  font-weight: $weight;
+  line-height: 1.3;
+  font-size: 3.5rem;  
+  @media all and ($viewport-type: $tablets) {
+    font-size: 2.5rem;
+  }
+}
+
+@mixin make-font-c($weight: 400) {
+  font-family: $type-a;
+  font-weight: $weight;
+  line-height: 1.3;
+  font-size: 2rem;
+  @media all and ($viewport-type: $tablets) {
+    font-size: 1.625rem;
+  }
+}
+
+@mixin make-font-d($weight: 400) {
+  font-family: $type-a;
+  font-weight: $weight;  
+  line-height: 1.4;
+  font-size: 1.5rem;
+  @media all and ($viewport-type: $tablets) {
+    font-size: 1.25rem;
+  }
+}
+
+@mixin make-font-e($weight: 400) {
+  font-family: $type-a;
+  font-weight: $weight;
+  line-height: 1.4;
+  font-size: 1rem;
+}
+
+@mixin make-font-f($weight: 400) {
+  font-family: $type-a;
+  font-weight: $weight;
+  line-height: 1.4;
+  font-size: 0.75rem;
+}

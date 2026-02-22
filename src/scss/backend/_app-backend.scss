@@ -1,0 +1,211 @@
+
+@use "@scss/framework/_var/_vars.scss" as *;
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
+}
+
+.css-kfhu3b{
+    display: none!important;
+}
+
+//* End Backend messages
+
+//* Backend sections
+.acf-fc-layout-handle {
+    background-color: #eeeeee;
+    color: #3c434a;
+}
+//* End Backend sections
+
+//* Backend sections modal
+.acf-fc-popup {
+    display: flex;
+    align-items: center;
+    & > ul {
+        width: 100% !important;
+        grid-template-columns: repeat(6, 1fr) !important;
+        grid-gap: 32px !important;
+        height: auto !important;
+        max-height: 100%;
+        background-color: #ffffff !important;
+        @media all and ($viewport-type: $tabletl) {
+            grid-template-columns: repeat(4, 1fr) !important;
+        }
+        @media all and ($viewport-type: $tablets) {
+            grid-template-columns: repeat(3, 1fr) !important;
+        }
+        @media all and ($viewport-type: $mobile) {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+        & > li {
+            white-space: initial;
+            display: flex;
+            & > a {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                box-shadow: none !important;
+                & > div.acf-fc-popup-label {
+                    height: 100%;
+                    background-color: #eeeeee;
+                    text-shadow: none;
+                    color: #0a132a;
+                    border-color: #eaf0f6;
+                    box-shadow: none;
+                }
+                & > div.acf-fc-popup-image {
+                    background-repeat: no-repeat !important;
+                    background-size: contain !important;
+                    transition: transform $time-b $ease-standard-a;
+                }
+                &:hover,
+                &:focus,
+                &:active {
+                    background: transparent;
+                    box-shadow: none;
+                    & > div.acf-fc-popup-label {
+                        background-color: #eeeeee;
+                    }
+                    & > div.acf-fc-popup-image {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+    }
+}
+.acf-flexible-content .layout.fc-modal {
+    max-width: 1500px !important;
+    .acf-fc-modal-content {
+        .acf-fields {
+            .acf-field-spacing {
+                .acf-input {
+                    ul {
+                        gap: 16px;
+                        li {
+                            width: calc(25% - ((16px * 3) / 4));
+                            max-width: 120px;
+                            min-width: 0;
+                            button {
+                                width: 100%;
+                                img {
+                                    object-fit: contain;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//* End Backend sections modal
+
+//* Backend edit section modal
+.layout.fc-modal {
+    .acf-fc-modal-title {
+        background-color: #eeeeee;
+    }
+    .acf-fc-modal-content {
+        .acf-fields {
+            .acf-field {
+                .acf-input {
+                    .js--padding {
+                        li {
+                            max-width: 25%;
+                            button {
+                                max-width: 100%;
+                                padding: 0;
+                                img {
+                                    height: auto;
+                                    max-width: 100%;
+                                    max-height: 100px;
+                                }
+                            }
+                        }
+                        & ~ h2 {
+                            font-weight: 600;
+                            font-size: 13px;
+                            padding-left: 0 !important;
+                        }
+                        & ~ ul {
+                            margin-left: 0 !important;
+                        }
+                        & ~ * button {
+                            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+                            font-size: 10px;
+                            line-height: 1.4em;
+                            background-color: #eeeeee;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//* End Backend edit section modal
+
+//* Backend images background
+.acf-image-uploader .image-wrap img {
+    // background-color: #fff !important;
+}
+//* End Backend images background
+
+//* Backend separate sections
+.acf-fields {
+    .acf-field {
+        .acf-input {
+            .acf-repeater {
+                .acf-table {
+                    tbody {
+                        .acf-row {
+                            td {
+                                .acf-table {
+                                    tbody {
+                                        .acf-row {
+                                            &:not(:first-child) {
+                                                td {
+                                                    border-top: 1px solid #eeeeee;
+                                                }
+                                            }
+                                            td {
+                                                border-top: 1px solid #eeeeee;
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            td.acf-field-image{
+                                background: #f1f1f1;
+                            }
+                            &:not(:first-child) {
+                                td {
+                                    border-top: 2px solid #8c8f94;
+                                    .acf-table {
+                                        tbody {
+                                            .acf-row {
+                                                &:not(:first-child) {
+                                                    td {
+                                                        border-top: 1px solid #eeeeee;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//* End Backend separate sections
+*{
+    box-sizing: border-box
+}

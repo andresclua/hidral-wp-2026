@@ -1,0 +1,28 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+@mixin make-col($i) {
+  $value: calc(100% / $columns)*$i;
+  flex: 0 0 $value;
+  max-width: $value;
+  min-height: 1px;
+  padding-right: $half-gutter-width;
+  padding-left: $half-gutter-width;
+  transition: width $time-a $ease-standard-a;
+}
+@mixin make-col-responsive($i) {
+  $value: calc(100% / $columns)*$i;
+  flex: 0 0 $value;
+  max-width: $value;
+}
+
+/* Start Responsive Offset */
+@mixin make-offset($i) {
+  $value: calc(100% / $columns)*$i;
+  margin-left: $value;
+  transition: $time-a; 
+}
+
+/* Start Responsive Order */
+@mixin make-order($i) {
+  order: $i;
+}

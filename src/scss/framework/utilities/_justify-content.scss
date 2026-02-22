@@ -1,0 +1,42 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$justify-content-properties:(
+  // space-between: space-between,
+  // space-around:space-around,
+  // space-evenly:space-evenly,
+  // flex-start:flex-start,
+  // flex-end:flex-end,
+  //  center:center
+);
+
+$justify-content-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  //  tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin justify-content-utility($justify-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $justify-prop {
+        .u--justify-content-#{$name}{
+          justify-content:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $justify-prop {
+            .u--justify-content-#{$breakpoint-name}-#{$name}{
+              justify-content:$property;
+            }
+        }
+      }
+    }
+  }
+}
+
+@include justify-content-utility($justify-content-properties,$justify-content-breakpoints)

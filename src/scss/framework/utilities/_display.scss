@@ -1,0 +1,46 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$display-values: (
+    block: block,
+    // hidden:hidden,
+    none: none,
+    // inline-block:inline-block,
+    // inline:inline,
+    // table:table,
+    // table-cell:table-cell,
+    // table-row:table-row,
+    // flex: flex,
+    // inline-flex:inline-flex
+);
+
+$display-breakpoints: (
+   all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+//   tabletl: $tabletl,
+//   tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin display-utility($display-prop, $breakpoints) {
+    @each $breakpoint-name, $breakpoint-value in $breakpoints {
+        @if ($breakpoint-value == 0) {
+            @each $name, $property in $display-prop {
+                .u--display-#{$name} {
+                    display: $property;
+                }
+            }
+        } @else {
+            @media screen and ($viewport-type: $breakpoint-value) {
+                @each $name, $property in $display-prop {
+                    .u--display-#{$breakpoint-name}-#{$name} {
+                        display: $property;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include display-utility($display-values, $display-breakpoints);

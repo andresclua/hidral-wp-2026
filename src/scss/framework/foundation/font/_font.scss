@@ -1,0 +1,28 @@
+@forward "@scss/framework/foundation/font/font-face";
+@use "@scss/framework/foundation/font/make-font" as *;
+
+/* Font library */
+
+.f--font-a {
+    @include make-font-a();
+}
+
+.f--font-b {
+    @include make-font-b();
+}
+
+.f--font-c {
+    @include make-font-c();
+}
+
+.f--font-d {
+    @include make-font-d();
+}
+
+.f--font-e {
+    @include make-font-e();
+}
+
+.f--font-f { 
+    @include make-font-f();
+}
