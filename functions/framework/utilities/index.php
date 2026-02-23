@@ -8,3 +8,4 @@ require THEME_PATH . '/functions/framework/utilities/wp-login-logo.php';
 require THEME_PATH . '/functions/framework/utilities/get-recipient-emails.php';
 require THEME_PATH . '/functions/framework/utilities/url-to-embed.php';
 require THEME_PATH . '/functions/framework/utilities/loadmore-helper.php';
+require THEME_PATH . '/functions/framework/utilities/get-placeholder-image.php';

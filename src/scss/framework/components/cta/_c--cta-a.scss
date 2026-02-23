@@ -1,0 +1,33 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--cta-a{
+    &__wrapper{
+        background-color: map.get($colorbg-options, c);
+        border-radius: $border-radius-a;
+        padding: $measure * 10 $measure * 4;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__icon{
+        width: $measure * 8;
+        height: $measure * 8;
+        color: map.get($color-options, a);
+        margin-bottom: $measure * 4;
+    }
+
+    &__title{
+        @extend .f--font-a;
+        color: map.get($color-options, b);
+        margin-bottom: $measure * 4;
+    }
+
+    &__btn{
+        margin-bottom: $measure * 4;
+    }
+}

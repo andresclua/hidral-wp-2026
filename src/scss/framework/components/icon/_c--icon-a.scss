@@ -1,0 +1,10 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--icon-a{
+    width: $measure * 2;
+    height: $measure * 2;
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: middle;
+}

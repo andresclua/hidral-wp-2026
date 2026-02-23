@@ -21,5 +21,14 @@
 
 
 @use "@scssComponents/hero/_c--hero-a.scss";
+@use "@scssComponents/hero/_c--hero-b.scss";
 
 @use "@scssComponents/btn/_c--btn-a.scss";
+@use "@scssComponents/cta/_c--cta-a.scss";
+
+
+
+@use "@scssComponents/icon/_c--icon-a.scss";
+@use "@scssComponents/card/_c--card-a.scss";
+
+img{width:100%}

@@ -30,17 +30,21 @@
 
 return [
 
-    // ============================================================================
-    // TEST 1: Ocultar excerpt y thumbnail en TODOS los posts
-    // ============================================================================
-    // Descomenta para probar - Ve a cualquier post y verás que falta excerpt/thumbnail
-    /*
     [
-        'identifier' => 'post',
+        'identifier' => 'page',
         'match_type' => 'post_type',
-        'hide_elements' => ['excerpt', 'thumbnail'],
+        'hide_elements' => ['editor'],
     ],
-    */
+    [
+        'identifier' => 'servicios',
+        'match_type' => 'post_type',
+        'hide_elements' => ['editor'],
+    ],
+    [
+        'identifier' => 'trabajos',
+        'match_type' => 'post_type',
+        'hide_elements' => ['editor'],
+    ],
 
     // ============================================================================
     // TEST 2: Redirect después de guardar un post de 'trabajo'

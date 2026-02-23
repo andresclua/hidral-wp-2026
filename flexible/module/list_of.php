@@ -1,6 +1,6 @@
 <section class="module_list_of <?= $spacingContent = get_spacing(($module['section_spacing'])); ?>">
     <div class="f--container">
-        <div class="f--row">
+        <div class="f--row f--gap-a">
         <?php
             if ($module['productos'] === 'manual' && !empty($module['manual_selection'])) {
                 $listOfQuery = $module['manual_selection'];

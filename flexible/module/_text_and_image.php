@@ -27,7 +27,7 @@
                                     'addFigcaption' => true,
                                     'figureClass' => 'media-wrapper'
                     );
-                    generate_image_tag($textAndMediaArgs)    
+                    render_wp_image($textAndMediaArgs)    
                 ?>
             </div>
             <div class="f--col-5 f--offset-1">

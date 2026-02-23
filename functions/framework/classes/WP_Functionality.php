@@ -29,10 +29,18 @@ class WP_Functionality {
   }
 
   protected function init() {
+    add_action('after_setup_theme', [$this, 'theme_support']);
     add_filter('upload_mimes', [$this, 'cc_mime_types']);
     add_action('get_header', [$this, 'remove_admin_login_header']);
     add_filter('display_post_states', [$this, 'wpsites_custom_post_states']);
     add_action('pre_get_posts', [$this, 'custom_set_default_has_password']);
+  }
+
+  /**
+   * Register theme support features.
+   */
+  public function theme_support() {
+    add_theme_support('post-thumbnails');
   }
 
   /**

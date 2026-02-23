@@ -24,6 +24,9 @@ switch ($module['acf_fc_layout']) {
     case 'Global_Marquee_Asset':
         include (locate_template('flexible/module/global_asset_marquee.php', false, false));
         break;
+    case 'text_and_image':
+        include (locate_template('flexible/module/_text_and_image.php', false, false));
+        break;
     case 'Gallery_Grid':
         include (locate_template('flexible/module/gallery_grid.php', false, false));
         break;

@@ -18,4 +18,15 @@
           text-decoration: underline;
       }
   }
+
+  &__bd{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__item{
+          display: flex;
+          gap: $measure * 2;
+      }
+  }
 }

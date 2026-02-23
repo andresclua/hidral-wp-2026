@@ -98,6 +98,13 @@ class Admin_Controller {
         if (!empty($this->hide_elements)) {
             add_action('admin_init', [$this, 'hide_metaboxes']);
             add_action('add_meta_boxes', [$this, 'hide_metaboxes'], 99);
+
+            if (in_array('editor', $this->hide_elements) && $this->match_type === 'post_type') {
+                $pt = $this->identifier;
+                add_filter('use_block_editor_for_post_type', function($use, $type) use ($pt) {
+                    return $type === $pt ? false : $use;
+                }, 10, 2);
+            }
         }
 
         // Handle redirects - use filter instead of action for better compatibility

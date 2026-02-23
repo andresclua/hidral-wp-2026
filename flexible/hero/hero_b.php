@@ -10,7 +10,7 @@
                         <?php endif; ?>
 
                         <?php if ($hero['link']): ?>
-                            <a class="c--hero-b__btn g--btn-01" href="<?= $hero['link'] ?>" class>Contactar</a>
+                            <a class="c--hero-b__btn c--btn-a" href="<?= $hero['link'] ?>" class>Contactar</a>
                         <?php endif; ?>
 
 

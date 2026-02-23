@@ -10,7 +10,7 @@ return [
       'rewrite' => ['slug' => 'trabajos', 'with_front' => false],
 
       // Supports: Solo título (ACF lo maneja todo)
-      'supports' => ['title'],
+      'supports' => ['title', 'excerpt', 'thumbnail'],
 
       'terra_hide_permalink' => true,
       'terra_hide_preview_button' => true,

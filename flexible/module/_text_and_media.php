@@ -27,7 +27,7 @@
                             'addFigcaption' => true,
                             'figureClass' => 'media-wrapper'
                 );
-                generate_image_tag($textAndMediaArgs)    
+                render_wp_image($textAndMediaArgs)    
                 ?>
             </div>
         </div>
