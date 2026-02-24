@@ -7,7 +7,7 @@
 <section class="module_short_content <?= $spacingContent ?> <?= $color_type === 'white-bg' ? 'f--background-b' : 'f--background-a' ?>">
     <div class="f--container">
         <div class="f--row">
-            <div class="f--col-8 f--col-tabletl-12">
+            <div class="f--col-tabletl-8 f--col-12">
                 <h2 class="f--font-c u--mb-2 <?= $color_type === 'white-bg' ? 'f--color-a' : 'f--color-b' ?>"><?= $title ?></h2>
                 <div class="c--content-a<?= $color_type !== 'white-bg' ? ' c--content-a--second-color' : '' ?> u--mb-2">
                     <?= $content ?>

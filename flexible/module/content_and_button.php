@@ -11,7 +11,7 @@
 <section class="content_and_button <?= $spacingContent ?> <?= $color_type === 'white-bg' ? 'f--background-b' : 'f--background-a' ?>">
     <div class="f--container">
         <div class="f--row">
-            <div class="f--col-8 f--col-tabletl-12 f--offset-2 f--offset-tabletl-0 u--text-align-center">
+            <div class="f--col-12 f--col-tabletl-6 f--offset-tabletl-3 u--text-align-center">
                <?php if ($title): ?>
                     <h2 class="f--font-b u--mb-4 <?= $color_type === 'white-bg' ? 'f--color-a' : 'f--color-b' ?> u--text-center"><?= $title ?></h2>
                 <?php endif; ?>

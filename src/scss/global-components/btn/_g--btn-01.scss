@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 @use "@scss/framework/foundation/foundation.scss" as *;
 @use "@scss/framework/_var/_vars.scss" as *;
 @use "@terrahq/gc/library" as *;
@@ -14,8 +15,8 @@
             "border-radius": $g-measure*3.752,
         ),
         $hover-options: (
-            "background-color": lighten(map.get($color-options, a),20%),
-            "color": map-get($color-options, b) ,
+            "background-color": color.adjust(map.get($color-options, a), $lightness: 20%),
+            "color": map.get($color-options, b) ,
         ),
         $font-options: (
             "color": map.get($color-options, b),

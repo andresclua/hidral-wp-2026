@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--gallery-grid-a {
+    overflow: hidden;
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $measure * 2;
+
+        @media screen and (#{$viewport-type}: #{$tabletl}) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+         &__item {
+        aspect-ratio: 3 / 4;
+        background-size: cover;
+        background-position: center;
+        border-radius: $border-radius-a;
+        overflow: hidden;
+        will-change: transform, opacity;
+    }
+    }
+
+   
+}

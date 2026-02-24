@@ -10,6 +10,6 @@
  * existing theme structure.
  */
 
- require get_template_directory() . '/functions/project/utilities/acf/acf-spacing/init.php'; 
+ require get_template_directory() . '/functions/project/utilities/acf/acf-spacing/init.php';
  
 ?>

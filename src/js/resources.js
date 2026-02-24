@@ -20,26 +20,26 @@ export const getAnimations = () => {
 
 export const getAutoAnimations = () => {
   return [
-    {
-      name: "heroA",
-      resource: async () => {
-        const { default: HeroA } = await import("@js/motion/hero/HeroA.js");
-        return HeroA;
-      },
-      options : {
-        selector: document.querySelector(".c--hero-a"),
-      }
-    },
-    {
-      name: "heroB",
-      resource: async () => {
-        const { default: HeroB } = await import("@js/motion/hero/HeroB.js");
-        return HeroB;
-      },
-      options : {
-        selector: document.querySelector(".c--hero-b"),
-      }
-    },
+    // {
+    //   name: "heroA",
+    //   resource: async () => {
+    //     const { default: HeroA } = await import("@js/motion/hero/HeroA.js");
+    //     return HeroA;
+    //   },
+    //   options : {
+    //     selector: document.querySelector(".c--hero-a"),
+    //   }
+    // },
+    // {
+    //   name: "heroB",
+    //   resource: async () => {
+    //     const { default: HeroB } = await import("@js/motion/hero/HeroB.js");
+    //     return HeroB;
+    //   },
+    //   options : {
+    //     selector: document.querySelector(".c--hero-b"),
+    //   }
+    // },
   ];
 };
 
@@ -71,6 +71,27 @@ export const getModules = () => {
         resource: async () => {
             const { default: ParallaxBackground } = await import("@js/handler/parallax-background/ParallaxBackground");
             return ParallaxBackground;
+        },
+    },
+    {
+        name: "Collapsify",
+        resource: async () => {
+            const { default: Collapsify } = await import("@terrahq/collapsify");
+            return Collapsify;
+        },
+    },
+    {
+        name: "ElasticGrid",
+        resource: async () => {
+            const { default: ElasticGrid } = await import("@js/handler/elastic-grid/ElasticGrid");
+            return ElasticGrid;
+        },
+    },
+    {
+        name: "GoogleMap",
+        resource: async () => {
+            const { default: GoogleMap } = await import("@js/handler/google-map/GoogleMap");
+            return GoogleMap;
         },
     },
   ];

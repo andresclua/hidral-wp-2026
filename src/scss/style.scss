@@ -30,5 +30,15 @@
 
 @use "@scssComponents/icon/_c--icon-a.scss";
 @use "@scssComponents/card/_c--card-a.scss";
+@use "@scssComponents/accordion/_c--accordion-a.scss";
 
-img{width:100%}
+@use "@scssComponents/media/_c--media-a.scss";
+@use "@scssComponents/media/_c--media-b.scss";
+
+@use "@scssComponents/gallery/_c--gallery-grid-a.scss";
+@use "@scssComponents/map/_c--map-a.scss";
+
+
+@use "@scssComponents/form/_c--form-a.scss";
+@use "@scssComponents/pill/_c--pill-a.scss";
+

@@ -5,6 +5,9 @@ import MarqueeHandler from "@js/handler/marquee/Handler.js";
 import ParallaxBackgroundHandler from "@js/handler/parallax-background/Handler.js";
 import Lottie from "@js/handler/lotties/Handler";
 import LoadMore from "@js/handler/LoadMore/Handler.js";
+import CollapsifyHandler from "@js/handler/collapsify/Handler.js";
+import ElasticGridHandler from "@js/handler/elastic-grid/Handler.js";
+import GoogleMapHandler from "@js/handler/google-map/Handler.js";
 
 
 class Main extends Core {
@@ -50,6 +53,9 @@ class Main extends Core {
 
         new MarqueeHandler({ ...this.handler, name: "MarqueeHandler" });
         new ParallaxBackgroundHandler({ ...this.handler, name: "ParallaxBackgroundHandler" });
+        new CollapsifyHandler({ ...this.handler, name: "Collapsify" });
+        new ElasticGridHandler({ ...this.handler, name: "ElasticGridHandler" });
+        new GoogleMapHandler({ ...this.handler, name: "GoogleMapHandler" });
         // new Lottie({ ...this.handler, name: "Lottie" });
         // new LoadMore({...this.handler, name:"LoadMore"})
 

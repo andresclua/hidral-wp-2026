@@ -1,29 +1,30 @@
 @use "sass:map";
+@use "sass:color";
 @use "@scss/framework/_var/_vars.scss" as *;
 @use "@scss/framework/utilities/utilities.scss" as *;
 @use "@scss/framework/foundation/foundation.scss" as *;
 .c--btn-a {
   display: inline-block;
-  border: 1px solid rgba(map-get($colorbg-options, c), 0.2);
-  color: map-get($color-options, a);
+  border: 1px solid rgba(map.get($colorbg-options, c), 0.2);
+  color: map.get($color-options, a);
   text-decoration: none;
   padding: $measure $measure * 2 $measure;
   border-radius: $border-radius-b * 2;
   transition: all ease-in-out $time-b;
   @extend .f--font-d;
   &:hover {
-    background: darken(map-get($colorbg-options, a), 5%);
-    color: map-get($color-options, b);
+    background: color.adjust(map.get($colorbg-options, a), $lightness: -5%);
+    color: map.get($color-options, b);
     text-decoration: none;
   }
 
   &--second {
-    border: 1px solid rgba(map-get($colorbg-options, b), 1);
-    color: map-get($color-options, b);
+    border: 1px solid rgba(map.get($colorbg-options, b), 1);
+    color: map.get($color-options, b);
 
     &:hover {
-        background: darken(map-get($colorbg-options, b), 1);
-        color: map-get($color-options, a);
+        background: color.adjust(map.get($colorbg-options, b), $lightness: -1%);
+        color: map.get($color-options, a);
         text-decoration: none;
     }
 

@@ -18,9 +18,9 @@ $order-breakpoints: (
 @mixin order-utility($order-values, $breakpoints) {
     @each $breakpoint-name, $breakpoint-value in $breakpoints {
       @each $value in $order-values {
-        $order: if($value == first, -1, $value);
+        $order: if(sass($value == first): -1; else: $value);
   
-        $class-name: if($breakpoint-name == all, "", "-#{$breakpoint-name}");
+        $class-name: if(sass($breakpoint-name == all): ""; else: "-#{$breakpoint-name}");
   
         .u--order#{$class-name}-#{$value} {
           @if ($breakpoint-name == all) {

@@ -37,7 +37,7 @@ body {
         @media all and ($viewport-type: $tablets) {
             grid-template-columns: repeat(3, 1fr) !important;
         }
-        @media all and ($viewport-type: $mobile) {
+        @media all and ($viewport-type: $tablets) {
             grid-template-columns: repeat(2, 1fr) !important;
         }
         & > li {

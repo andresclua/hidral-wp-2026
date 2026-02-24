@@ -8,7 +8,7 @@
 <section class="module_FAQ f--background-a <?= $spacingContent = get_spacing(($module['section_spacing'])); ?>">
     <div class="f--container">
         <div class="f--row">
-            <div class="f--col-5 f--col-tabletl-12">
+            <div class="f--col-tabletl-6 f--col-12">
                 <?php if ($title): ?>
                     <h2 class="f--font-c u--mb-2 f--color-b"><?= $title ?></h2>
                 <?php endif; ?>
@@ -16,7 +16,9 @@
                     <div class="c--content-a u--mb-2 f--color-b"><?= $description ?></div>
                 <?php endif; ?>
             </div>
-            <div class="f--col-7  f--col-tabletl-12 ">
+        </div>
+        <div class="f--row">    
+            <div class="f--col-7 ">
                 <div class="c--faq-a f--color-b">
                
                     <?php if ($faqItems): ?>

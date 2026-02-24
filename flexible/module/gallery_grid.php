@@ -1,26 +1,19 @@
-<?php 
-    $spacingContent = get_spacing(($module['section_spacing'])); 
-    $gallery = $module['gallery'];
-    // $description = $module['description'];
-    // $faqItems = $module['faq_item'];
-
+<?php
+    $spacingContent = get_spacing(($module['section_spacing']));
+    $gallery = $module['gallery'] ?? [];
 ?>
-<section class="module_gallery_grid  <?= $spacingContent = get_spacing(($module['section_spacing'])); ?>">
+<section class="module_gallery_grid c--gallery-grid-a <?= $spacingContent ?>">
     <div class="f--container">
-        <div class="f--row">
-            <?php if ($gallery): ?>
+        <?php if ($gallery): ?>
+            <div class="js--elastic-grid c--gallery-grid-a__wrapper">
                 <?php foreach ($gallery as $index => $item): ?>
-                <div class="f--col-4">
-                    <div class="c--card-b">
-                        <div class="c--card-b__wrapper" style="background-image: url('<?php echo $item['image']['url'] ?>');"></div>
-                        <p class="c--card-b__title"><?= $item['title'] ?></p>
-                    </div>
-                </div>
+                    <div class="js--elastic-grid__item c--gallery-grid-a__wrapper__item" style="background-image: url('<?= esc_url($item['image']['url']) ?>');"></div>
                 <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 <?php
 unset($spacingContent);
+unset($gallery);
 ?>

@@ -25,7 +25,7 @@ switch ($module['acf_fc_layout']) {
         include (locate_template('flexible/module/global_asset_marquee.php', false, false));
         break;
     case 'text_and_image':
-        include (locate_template('flexible/module/_text_and_image.php', false, false));
+        include (locate_template('flexible/module/text_and_image.php', false, false));
         break;
     case 'Gallery_Grid':
         include (locate_template('flexible/module/gallery_grid.php', false, false));
@@ -35,5 +35,11 @@ switch ($module['acf_fc_layout']) {
         break;
     case 'related':
         include (locate_template('flexible/module/related.php', false, false));
+        break;
+    case 'map':
+        include (locate_template('flexible/module/map.php', false, false));
+        break;
+    case 'contact':
+        include (locate_template('flexible/module/contact_form.php', false, false));
         break;
 }

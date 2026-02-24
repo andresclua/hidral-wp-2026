@@ -33,8 +33,8 @@
             position:absolute;
             bottom:$measure;
             left:$measure;
-            border: 1px solid rgba(map-get($colorbg-options,c),.2);
-            background:map-get($colorbg-options,b);
+            border: 1px solid rgba(map.get($colorbg-options,c),.2);
+            background:map.get($colorbg-options,b);
             padding:$measure *0.25 $measure *0.5 ;
              border-radius: $border-radius-a;
             

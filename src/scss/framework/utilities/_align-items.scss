@@ -5,7 +5,7 @@ $align-items-values:(
   // stretch:stretch,
   // flex-start:flex-start,
   // flex-end:flex-end,
-  // center:center
+  center:center
 );
 
 $align-items-breakpoints: (
@@ -21,7 +21,7 @@ $align-items-breakpoints: (
 @mixin align-items-utility($align-prop,$breakpoints){
   @each $breakpoint-name, $breakpoint-value in $breakpoints {
     @each $name, $property in $align-prop {
-      $class-name: if($breakpoint-name == all, "", "-#{$breakpoint-name}");
+      $class-name: if(sass($breakpoint-name == all): ""; else: "-#{$breakpoint-name}");
       .u--align-items#{$class-name}-#{$name}{
         @if($breakpoint-value == 0) {
           align-items: $property;

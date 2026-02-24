@@ -1,0 +1,8 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--media-b{
+   height: auto;
+   border-radius: $border-radius-a;
+}

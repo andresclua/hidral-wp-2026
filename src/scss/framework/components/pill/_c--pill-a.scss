@@ -1,0 +1,13 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--pill-a {
+    display: inline-block;
+    border: 1px solid rgba(map.get($colorbg-options, c), 0.2);
+    color: map.get($color-options, a);
+    text-decoration: none;
+    padding: ($measure * 0.5) ($measure * 1.5);
+    border-radius: $border-radius-b * 2;
+    @extend .f--font-f;
+}

@@ -4,7 +4,7 @@
 @use "@scss/framework/foundation/foundation.scss" as *;
 
 .c--card-a{
-    // height: 40vh;
+    $component: &;
     color:map.get($color-options, b );
     position:relative;
     display: block;
@@ -19,7 +19,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-                  border-radius: $border-radius-a;
+            border-radius: $border-radius-a;
+            transition: transform ease-in-out $time-b;
         }
     }
 
@@ -38,6 +39,16 @@
 
         &__btn{
             margin-top: $measure * 2;
+        }
+    }
+
+    &:hover{
+        #{$component}__media-wrapper__media{
+            transform: scale(1.02);
+        }
+        #{$component}__wrapper__btn{
+            background: map.get($colorbg-options, a);
+            color: map.get($color-options, b);
         }
     }
 }

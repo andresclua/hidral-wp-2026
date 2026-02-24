@@ -1,0 +1,15 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--media-a{
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: $border-radius-a;
+
+    @media screen and (#{$viewport-type}: #{$tabletm}) {
+        height: 80vh;
+    }
+}

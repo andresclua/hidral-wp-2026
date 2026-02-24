@@ -23,7 +23,7 @@ $colorbg-options: (
     d: $color-d 
 );
 
-$gradient-a: linear-gradient(90deg, map-get($color-options, a) 0%, map-get($color-options, d) 100%);
+$gradient-a: linear-gradient(90deg, map.get($color-options, a) 0%, map.get($color-options, d) 100%);
 
 
 // * TYPOGRAPHY
