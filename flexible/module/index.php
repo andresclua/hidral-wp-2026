@@ -33,10 +33,7 @@ switch ($module['acf_fc_layout']) {
     case 'content':
         include (locate_template('flexible/module/content.php', false, false));
         break;
-    case 'related':
-        include (locate_template('flexible/module/related.php', false, false));
-        break;
-    case 'map':
+case 'map':
         include (locate_template('flexible/module/map.php', false, false));
         break;
     case 'contact':
