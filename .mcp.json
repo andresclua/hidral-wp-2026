@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "wpengine-mysql": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@benborla29/mcp-server-mysql",
+        "--mysql-host",
+        "127.0.0.1",
+        "--mysql-port",
+        "3306",
+        "--mysql-user",
+        "hidralstg",
+        "--mysql-password",
+        "IJRTP7u5Ea6KGfG38SFs",
+        "--mysql-database",
+        "wp_hidralstg",
+        "--ssh-enabled",
+        "--ssh-host",
+        "hidralstg.ssh.wpengine.net",
+        "--ssh-port",
+        "22",
+        "--ssh-user",
+        "hidralstg",
+        "--ssh-private-key-path",
+        "/Users/andres/.ssh/wpengine_hidral"
+      ],
+      "env": {}
+    }
+  }
+}

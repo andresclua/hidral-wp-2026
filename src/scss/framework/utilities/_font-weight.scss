@@ -14,12 +14,12 @@ $font-weight-values: (
 
 $font-weight-breakpoints: (
   all: $all,
-  // desktop: $desktop,
-  // laptop: $laptop,
-  // tabletl: $tabletl,
-  // tabletm: $tabletm,
   // tablets: $tablets,
-  // mobile: $mobile,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
   
   @mixin font-weight-utility($font-weight-prop, $breakpoints) {

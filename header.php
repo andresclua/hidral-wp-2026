@@ -40,9 +40,7 @@
     <!-- Preloader -->
     <?php include(locate_template('components/preloader/preloader-a.php', false, false)); ?>
 
-    <div class="c--progress-a">
-        <span id="progress-counter"></span>
-    </div>
+   
 
     <!-- transitions -->
     <div class="c--transition-a js--transition">

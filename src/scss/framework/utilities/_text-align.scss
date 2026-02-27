@@ -6,12 +6,12 @@ $text-align-values: (
 
 $text-align-breakpoints: (
   all: $all,
-  // desktop: $desktop,
-  // laptop: $laptop,
-  // tabletl: $tabletl,
-  // tabletm: $tabletm,
   // tablets: $tablets,
-  // mobile: $mobile,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
 
 @mixin text-align-utility($text-prop, $breakpoints) {

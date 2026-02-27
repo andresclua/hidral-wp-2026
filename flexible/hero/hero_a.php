@@ -7,7 +7,7 @@
 <section class="<?= $spacingContentHero ?>">
     <div class="f--container">
         <div class="f--row">
-            <div class="f--col-8 f--col-tabletl-12 f--offset-2 f--offset-tabletl-0">
+            <div class="f--col-8 f--col-tabletl-8 f--offset-2 f--offset-tabletl-2">
                 <div class="c--hero-a">
                     <?php if ($title): ?>
                         <h3 class="c--hero-a__title"><?= $title ?></h3>

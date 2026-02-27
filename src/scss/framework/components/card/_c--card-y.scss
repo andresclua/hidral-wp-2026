@@ -1,0 +1,51 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/utilities/utilities.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--card-y{
+    background: map.get($colorbg-options, b);
+    border-radius: $border-radius-b;
+    overflow: hidden;
+
+    &__media-wrapper{
+
+        &__media{
+            width: 100%;
+            height: auto;
+            @extend .u--display-block;
+        }
+    }
+
+    &__hd{
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: $measure * 3 $measure * 3 0;
+
+        &__title{
+            @extend .f--font-d;
+            color: map.get($color-options, a);
+        }
+
+        &__subtitle{
+            @extend .f--font-d;
+            color: map.get($color-options, a);
+        }
+    }
+
+    &__bd{
+        padding: $measure * 2 $measure * 3 0;
+
+        &__content{
+            @extend .f--font-e;
+            color: map.get($color-options, a);
+        }
+    }
+
+    &__ft{
+        padding: $measure * 3;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

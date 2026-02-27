@@ -20,13 +20,13 @@ $ar-sizes: (
     // f: 0.33333333, //* 1/3
 );
 $ar-breakpoints: (
-   all: $all,
-//   desktop: $desktop,
-//   laptop: $laptop,
-//   tabletl: $tabletl,
-//   tabletm: $tabletm,
-//   tablets: $tablets,
-//   mobile: $mobile,
+  all: $all,
+  // tablets: $tablets,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
 
 @mixin ar-sizes($ar, $breakpoints) {

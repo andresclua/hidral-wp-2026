@@ -11,7 +11,6 @@
 
 //* Transition
 @use "@scssComponents/transition/_c--transition-a.scss";
-@use "@scssComponents/progress/_c--progress-a.scss";
 
 
 @use "@scssComponents/content/_c--content-a.scss";
@@ -25,11 +24,15 @@
 
 @use "@scssComponents/btn/_c--btn-a.scss";
 @use "@scssComponents/cta/_c--cta-a.scss";
+@use "@scssComponents/cta/_c--cta-b.scss";
 
 
 
 @use "@scssComponents/icon/_c--icon-a.scss";
 @use "@scssComponents/card/_c--card-a.scss";
+@use "@scssComponents/card/_c--card-b.scss";
+@use "@scssComponents/card/_c--card-x.scss";
+@use "@scssComponents/card/_c--card-y.scss";
 @use "@scssComponents/accordion/_c--accordion-a.scss";
 
 @use "@scssComponents/media/_c--media-a.scss";
@@ -39,6 +42,8 @@
 @use "@scssComponents/map/_c--map-a.scss";
 
 
+@use "@scssComponents/cooper/_c--cooper-x.scss";
 @use "@scssComponents/form/_c--form-a.scss";
 @use "@scssComponents/pill/_c--pill-a.scss";
+@use "@scssComponents/pill/_c--pill-h.scss";
 

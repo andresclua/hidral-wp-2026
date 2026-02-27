@@ -1,10 +1,11 @@
 <?php
 
-// Remove Posts and Comments from admin menu
+// Remove Posts, Comments and General Options from admin menu
 add_action('admin_menu', function () {
     remove_menu_page('edit.php');           // Posts
     remove_menu_page('edit-comments.php');  // Comments
-});
+    remove_menu_page('general-options');    // General Options (legacy)
+}, 999);
 
 // Remove Comments from admin bar
 add_action('admin_bar_menu', function ($wp_admin_bar) {

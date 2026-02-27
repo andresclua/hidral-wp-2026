@@ -11,12 +11,12 @@ $justify-content-properties:(
 
 $justify-content-breakpoints: (
   all: $all,
-  // desktop: $desktop,
-  // laptop: $laptop,
-  // tabletl: $tabletl,
+  // tablets: $tablets,
   // tabletm: $tabletm,
-  //  tablets: $tablets,
-  // mobile: $mobile,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
 
 @mixin justify-content-utility($justify-prop,$breakpoints){

@@ -10,12 +10,12 @@ $align-items-values:(
 
 $align-items-breakpoints: (
   all: $all,
-  // desktop: $desktop,
-  // laptop: $laptop,
-  // tabletl: $tabletl,
-  // tabletm: $tabletm,
   // tablets: $tablets,
-  // mobile: $mobile,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
 
 @mixin align-items-utility($align-prop,$breakpoints){

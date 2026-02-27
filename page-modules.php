@@ -23,4 +23,17 @@ if ($modules) {
 
 ?>
 
+<section>
+    <div class="f--container">
+        <div class="f--row">
+            <div class="f--col-6">
+                <?php include(locate_template('components/card/card-x.php', false, false)); ?>
+            </div>
+            <div class="f--col-6">
+                <?php include(locate_template('components/card/card-y.php', false, false)); ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <?php get_footer() ?>

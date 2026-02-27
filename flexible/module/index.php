@@ -39,4 +39,10 @@ case 'map':
     case 'contact':
         include (locate_template('flexible/module/contact_form.php', false, false));
         break;
+    case 'Stats':
+        include (locate_template('flexible/module/stats.php', false, false));
+        break;
+    case 'Global_CTA':
+        include (locate_template('flexible/module/global_cta.php', false, false));
+        break;
 }

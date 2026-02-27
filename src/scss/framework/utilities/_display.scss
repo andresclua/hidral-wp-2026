@@ -14,13 +14,13 @@ $display-values: (
 );
 
 $display-breakpoints: (
-   all: $all,
-  // desktop: $desktop,
-  // laptop: $laptop,
-//   tabletl: $tabletl,
-//   tabletm: $tabletm,
+  all: $all,
   // tablets: $tablets,
-  // mobile: $mobile,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
 
 @mixin display-utility($display-prop, $breakpoints) {

@@ -35,7 +35,7 @@ class Clean_Wp {
     add_filter('wpseo_metabox_prio', [$this, 'lower_wpseo_priority']);
     add_filter('tiny_mce_before_init', [$this, 'remove_headings_from_editor']);
     add_action('init', [$this, 'flush_rewritte']);
-    add_action('init', [$this, 'create_general_opts_panel']);
+    // add_action('init', [$this, 'create_general_opts_panel']);
     
     if (!is_admin()) {
       add_filter('script_loader_src', [$this, '_remove_query_strings_1'], 15, 1);

@@ -6,13 +6,13 @@ $order-values: (
 );
 
 $order-breakpoints: (
-    all: $all,
-    //   desktop: $desktop,
-    //   laptop: $laptop,
-    //   tabletl: $tabletl,
-    // tabletm: $tabletm,
-    //   tablets: $tablets,
-    //   mobile: $mobile,,
+  all: $all,
+  // tablets: $tablets,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
 );
 
 @mixin order-utility($order-values, $breakpoints) {
