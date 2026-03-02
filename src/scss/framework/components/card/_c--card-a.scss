@@ -47,7 +47,7 @@
             transform: scale(1.02);
         }
         #{$component}__wrapper__btn{
-            background: map.get($colorbg-options, a);
+            // background: map.get($colorbg-options, a);
             color: map.get($color-options, b);
         }
     }

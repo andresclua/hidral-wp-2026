@@ -21,6 +21,7 @@
       position: relative;
       flex-shrink: 0;
       cursor: pointer;
-      @extend .f--font-b;
+      @extend .f--font-a;
+      opacity: .2;
   }
 }

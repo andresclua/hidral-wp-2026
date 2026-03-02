@@ -21,7 +21,14 @@
                 <?php endif; ?>
 
                 <?php if ($link): ?>
-                    <a class="c--btn-a<?= $color_type !== 'white-bg' ? ' c--btn-a--second' : '' ?>" href="<?= $link ?>"><?= $button_label ?></a>
+                    <a class="c--btn-a<?= $color_type === 'white-bg' ? ' c--btn-a--second' : '' ?>" href="<?= $link ?>">
+                        <span class="c--btn-a__title"><?= $button_label ?></span>
+                        <svg class="c--btn-a__icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+
+                  
                 <?php endif; ?>
                 
             </div>

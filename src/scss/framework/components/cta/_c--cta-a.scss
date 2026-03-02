@@ -4,30 +4,47 @@
 @use "@scss/framework/foundation/foundation.scss" as *;
 
 .c--cta-a{
+    position: relative;
+    overflow: hidden;
+
+    &__media-wrapper{
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
     &__wrapper{
-        background-color: map.get($colorbg-options, c);
-        border-radius: $border-radius-a;
-        padding: $measure * 10 $measure * 4;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        position: relative;
+        z-index: 1;
+        padding: $measure * 8 $measure * 4;
+
+        @media screen and (#{$viewport-type}: #{$tabletm}){
+            padding: $measure * 12 $measure * 4;
+        }
+
+        &__title{
+            @extend .f--font-a;
+            color: map.get($color-options, b);
+            margin-bottom: $measure * 4;
+
+        }
+
     }
 
-    &__icon{
-        width: $measure * 8;
-        height: $measure * 8;
-        color: map.get($color-options, a);
-        margin-bottom: $measure * 4;
-    }
+    &:hover{
+        .c--btn-a{
+            background: map.get($colorbg-options, c);
+            color: map.get($color-options, b);
+        }
 
-    &__title{
-        @extend .f--font-a;
-        color: map.get($color-options, b);
-        margin-bottom: $measure * 4;
-    }
+        .c--btn-a__title{
+            color: map.get($color-options, b);
+        }
 
-    &__btn{
-        margin-bottom: $measure * 4;
+        .c--btn-a__icon{
+            background: map.get($colorbg-options, b);
+            color: map.get($color-options, c);
+        }
     }
 }

@@ -56,8 +56,7 @@ class Main extends Core {
         new CollapsifyHandler({ ...this.handler, name: "Collapsify" });
         new ElasticGridHandler({ ...this.handler, name: "ElasticGridHandler" });
         new GoogleMapHandler({ ...this.handler, name: "GoogleMapHandler" });
-        // new Lottie({ ...this.handler, name: "Lottie" });
-        // new LoadMore({...this.handler, name:"LoadMore"})
+        
 
         const { default: Navbar } = await import("@js/modules/Navbar.js");
         new Navbar({

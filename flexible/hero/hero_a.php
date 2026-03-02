@@ -16,7 +16,12 @@
                         <h1 class="c--hero-a__subtitle"><?= $subtitle ?></h1>
                     <?php endif; ?>
                     <?php if ($link): ?>
-                        <a class="c--hero-a__btn c--btn-a" href="<?= $link ?>">Contactar</a>
+                        <a class="c--hero-a__btn c--btn-a" href="<?= $link ?>">
+                            <span class="c--btn-a__title">Contactar</span>
+                            <svg class="c--btn-a__icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
                     <?php endif; ?>
                 </div>
             </div>

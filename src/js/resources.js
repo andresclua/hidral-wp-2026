@@ -114,13 +114,13 @@ export const getMinimal = () => {
                 return { ...module };
             },
         },
-        // {
-        //     name: "ScrollTrigger",
-        //     resource: async () => {
-        //         const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-        //         return ScrollTrigger;
-        //     },
-        // },
+        {
+            name: "ScrollTrigger",
+            resource: async () => {
+                const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+                return ScrollTrigger;
+            },
+        },
         {
             name: "Boostify",
             resource: async () => {

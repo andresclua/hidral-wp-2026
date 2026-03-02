@@ -3,28 +3,38 @@
 @use "@scss/framework/foundation/foundation.scss" as *;
 @use "sass:map";
 
-.c--accordion-a{
-  &__item{
-      &__hd{
-          padding:$measure*2 0;
-          @extend .f--color-b;
-          @extend .f--font-d;
-          border-bottom:1px solid #fff;
-          display: block;
-          width:100%;
-          text-align: left;
-          position:relative;
-          &__artwork{
-              position:absolute;
-              right:0;
-              top:0;
-              transform: translateY(25px) scale(1.8);
-          }
+.c--accordion-a {
+ $component: &;
+  &__item {
+    &__hd {
+      padding: $measure * 2 0;
+      @extend .f--color-b;
+      @extend .f--font-d;
+      border-bottom: 1px solid #fff;
+      display: block;
+      width: 100%;
+      text-align: left;
+      position: relative;
+      &__artwork {
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateY(25px) scale(1.8) rotate(-90deg);
+        transition: transform $time-b;
       }
-      &__bd{
-          &--is-active{
-              padding: $measure*2 0;
-          }
+
+      &--is-active{
+        #{$component}__item__hd__artwork{
+            transform: translateY(25px) scale(1.8) rotate(0deg);
+        }
       }
+
+
+    }
+    &__bd {
+      &--is-active {
+        padding: $measure * 2 0;
+      }
+    }
   }
 }

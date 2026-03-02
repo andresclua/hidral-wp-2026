@@ -11,7 +11,6 @@ class ParallaxBackground {
     }
 
     init(){
-        this.gsap.registerPlugin(this.ScrollTrigger);
         var half = this.speed / 2;
         this.tween = this.gsap.fromTo(this.DOM.element, {
             backgroundPosition: `50% ${50 - half}%`,
@@ -25,6 +24,8 @@ class ParallaxBackground {
                 scrub: true,
             },
         });
+
+        console.log('va')
     }
 
     destroy(){

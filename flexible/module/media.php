@@ -8,7 +8,7 @@
    <div class="f--container">
         <div class="f--row">
             <div class="f--col-12">
-                <div class="c--media-a js--parallax-background"  style="background-image: url('<?= $imageUrl ?>');" >
+                <div class="c--media-a js--parallax-background" data-speed="50" style="background-image: url('<?= $imageUrl ?>');" >
 
                 </div>
             </div>

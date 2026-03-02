@@ -16,7 +16,11 @@
                             </g>
                         </svg>
                     </a>
-                    <button class="c--burger-a js--burger"></button>
+                    <button class="c--burger-a js--burger">
+                        <span class="c--burger-a__item"></span>
+                        <span class="c--burger-a__item"></span>
+                        <span class="c--burger-a__item"></span>
+                    </button>
                     <ul class="c--nav-a js--navbar">
                         <li class="c--nav-a__list-item">
                             <a class="c--nav-a__list-item__link" href="<?= get_site_url() ?>/servicios/">Servicios</a>

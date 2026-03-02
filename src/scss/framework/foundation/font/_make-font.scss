@@ -4,9 +4,18 @@
   font-family: $type-a;
   font-weight: $weight;
   line-height: 1.1;
-  font-size: 5rem;
+  font-size: 2.5rem;
   @media all and ($viewport-type: $tablets) {
+    font-size: 3rem;
+  }
+  @media all and ($viewport-type: $tabletm) {
+    font-size: 3.5rem;
+  }
+  @media all and ($viewport-type: $tabletl) {
     font-size: 4rem;
+  }
+  @media all and ($viewport-type: $laptop) {
+    font-size: 5rem;
   }
 }
 
@@ -14,9 +23,15 @@
   font-family: $type-a;
   font-weight: $weight;
   line-height: 1.3;
-  font-size: 3.5rem;  
+  font-size: 2rem;
   @media all and ($viewport-type: $tablets) {
     font-size: 2.5rem;
+  }
+  @media all and ($viewport-type: $tabletm) {
+    font-size: 3rem;
+  }
+  @media all and ($viewport-type: $laptop) {
+    font-size: 3.5rem;
   }
 }
 
@@ -24,19 +39,31 @@
   font-family: $type-a;
   font-weight: $weight;
   line-height: 1.3;
-  font-size: 2rem;
+  font-size: 1.5rem;
   @media all and ($viewport-type: $tablets) {
     font-size: 1.625rem;
+  }
+  @media all and ($viewport-type: $tabletm) {
+    font-size: 1.75rem;
+  }
+  @media all and ($viewport-type: $laptop) {
+    font-size: 2rem;
   }
 }
 
 @mixin make-font-d($weight: 400) {
   font-family: $type-a;
-  font-weight: $weight;  
+  font-weight: $weight;
   line-height: 1.4;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   @media all and ($viewport-type: $tablets) {
     font-size: 1.25rem;
+  }
+  @media all and ($viewport-type: $tabletm) {
+    font-size: 1.375rem;
+  }
+  @media all and ($viewport-type: $laptop) {
+    font-size: 1.5rem;
   }
 }
 

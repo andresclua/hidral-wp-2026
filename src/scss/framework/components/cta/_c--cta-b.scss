@@ -4,42 +4,25 @@
 @use "@scss/framework/foundation/foundation.scss" as *;
 
 .c--cta-b{
+        $component: &;
     position: relative;
-    border-radius: $border-radius-a;
     overflow: hidden;
 
     &__media-wrapper{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        &__media{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        &::after{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(map.get($color-options, a), 0.6);
-        }
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     &__wrapper{
         position: relative;
         z-index: 1;
-        padding: $measure * 18 $measure * 4;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        padding: $measure * 8 $measure * 4;
+
+        @media screen and (#{$viewport-type}: #{$tabletm}){
+            padding: $measure * 12 $measure * 4;
+        }
 
         &__title{
             @extend .f--font-a;
@@ -48,9 +31,26 @@
         }
 
         &__subtitle{
-            @extend .f--font-e;
+            @extend .f--font-d;
             color: map.get($color-options, b);
             margin-bottom: $measure * 4;
+        }
+
+    }
+
+    &:hover{
+        .c--btn-a{
+            background: map.get($colorbg-options, c);
+            color: map.get($color-options, b);
+        }
+
+        .c--btn-a__title{
+            color: map.get($color-options, b);
+        }
+
+        .c--btn-a__icon{
+            background: map.get($colorbg-options, b);
+            color: map.get($color-options, c);
         }
     }
 }

@@ -7,7 +7,7 @@
                 foreach ($listOfQuery as $post) {
                     setup_postdata($post);
                     ?>
-                    <div class="f--col-3">
+                    <div class="f--col-12 f--col-tabletm-3">
                         <?php include(locate_template('components/card/card-a.php', false, false)); ?>
                     </div>
                     <?php
@@ -23,7 +23,7 @@
                     while ($listOfQuery->have_posts()) {
                         $listOfQuery->the_post();
                         ?>
-                        <div class="f--col-3">
+                        <div class="f--col-12 f--col-tabletm-3">
                             <?php include(locate_template('components/card/card-a.php', false, false)); ?>
                         </div>
                         <?php
