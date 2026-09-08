@@ -1,0 +1,134 @@
+<h2>Orden de secciones — Homepage Hidral</h2>
+<p class="subtitle">¿Cómo organizamos el flujo narrativo de la página? Tres propuestas de estructura.</p>
+
+<style>
+.wireflow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+.wf-block {
+  background: #e8e8e8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wf-block .num {
+  font-size: 11px;
+  font-weight: bold;
+  color: #888;
+  min-width: 18px;
+}
+.wf-block.highlight {
+  background: #d0d0d0;
+  border-color: #aaa;
+  font-weight: 600;
+}
+.wf-block.accent {
+  background: #444;
+  color: #fff;
+  border-color: #333;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.card {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: #999; }
+.card.selected { border-color: #333; box-shadow: 0 0 0 3px #33333322; }
+.card-header {
+  background: #333;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header .tag {
+  font-size: 10px;
+  font-weight: normal;
+  background: rgba(255,255,255,0.2);
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+.card-body {
+  padding: 14px;
+}
+.card-desc {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+</style>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-header">Opción A <span class="tag">Recomendada</span></div>
+    <div class="card-body">
+      <div class="wireflow">
+        <div class="wf-block accent"><span class="num">1</span> Hero + CTA principal</div>
+        <div class="wf-block highlight"><span class="num">2</span> 4 Servicios (categorías)</div>
+        <div class="wf-block"><span class="num">3</span> Trabajos puntuales (teaser)</div>
+        <div class="wf-block highlight"><span class="num">4</span> Confianza / Clientes</div>
+        <div class="wf-block"><span class="num">5</span> Módulo Abono</div>
+        <div class="wf-block"><span class="num">6</span> Quiénes somos</div>
+        <div class="wf-block"><span class="num">7</span> Blog (3 artículos)</div>
+        <div class="wf-block highlight"><span class="num">8</span> Contacto</div>
+      </div>
+      <p class="card-desc">Flujo lógico: presentación → oferta → prueba social → quiénes somos → acción. Separa abono como módulo activable entre confianza y empresa.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-header">Opción B</div>
+    <div class="card-body">
+      <div class="wireflow">
+        <div class="wf-block accent"><span class="num">1</span> Hero + CTA principal</div>
+        <div class="wf-block highlight"><span class="num">2</span> 4 Servicios (categorías)</div>
+        <div class="wf-block highlight"><span class="num">3</span> Quiénes somos (breve)</div>
+        <div class="wf-block"><span class="num">4</span> Confianza / Clientes</div>
+        <div class="wf-block"><span class="num">5</span> Trabajos puntuales (teaser)</div>
+        <div class="wf-block"><span class="num">6</span> Módulo Abono</div>
+        <div class="wf-block"><span class="num">7</span> Blog (3 artículos)</div>
+        <div class="wf-block highlight"><span class="num">8</span> Contacto</div>
+      </div>
+      <p class="card-desc">Introduce la empresa más temprano (después de los servicios). Útil si el cliente necesita conocer a Hidral antes de confiar en la oferta.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-header">Opción C</div>
+    <div class="card-body">
+      <div class="wireflow">
+        <div class="wf-block accent"><span class="num">1</span> Hero + CTA principal</div>
+        <div class="wf-block highlight"><span class="num">2</span> Confianza / Clientes</div>
+        <div class="wf-block highlight"><span class="num">3</span> 4 Servicios (categorías)</div>
+        <div class="wf-block"><span class="num">4</span> Módulo Abono</div>
+        <div class="wf-block"><span class="num">5</span> Trabajos puntuales (teaser)</div>
+        <div class="wf-block"><span class="num">6</span> Quiénes somos</div>
+        <div class="wf-block"><span class="num">7</span> Blog (3 artículos)</div>
+        <div class="wf-block highlight"><span class="num">8</span> Contacto</div>
+      </div>
+      <p class="card-desc">Prueba social inmediatamente después del hero — "estas empresas ya confían en nosotros". Útil si la credibilidad es el mayor bloqueador de conversión.</p>
+    </div>
+  </div>
+
+</div>

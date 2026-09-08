@@ -1,0 +1,109 @@
+<h2>Estructura completa — Homepage Hidral</h2>
+<p class="subtitle">Basado en el wireframe de Miro + brief. Confirmá el orden antes de crear el artboard en Figma.</p>
+
+<style>
+.struct-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+.col-title {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  margin-bottom: 10px;
+}
+.section-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sec {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+}
+.sec.hero { background: #01152a; color: #fff; border-color: #01152a; }
+.sec.services { background: #c6dcff; border-color: #a0c0f0; color: #003070; }
+.sec.trabajos { background: #eef2ff; border-color: #ccd4f0; color: #2a3a6a; }
+.sec.trust { background: #eef2ff; border-color: #ccd4f0; color: #2a3a6a; }
+.sec.abono { background: #fff9e6; border-color: #f0d080; color: #5a4000; }
+.sec.empresa { background: #eef2ff; border-color: #ccd4f0; color: #2a3a6a; }
+.sec.blog { background: #eef2ff; border-color: #ccd4f0; color: #2a3a6a; }
+.sec.contacto { background: #01152a; color: #fff; border-color: #01152a; }
+.sec-num {
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 20px;
+  opacity: 0.6;
+  padding-top: 1px;
+}
+.sec-body h4 { font-size: 13px; font-weight: 600; margin: 0 0 2px; }
+.sec-body p { font-size: 11px; margin: 0; opacity: 0.8; line-height: 1.4; }
+.badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.25);
+  color: inherit;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.badge.new { background: #d4edda; color: #155724; }
+.badge.opt { background: #fff3cd; color: #856404; }
+.badge.miro { background: rgba(0,0,0,0.1); }
+.divider {
+  border: none;
+  border-top: 2px dashed #ddd;
+  margin: 6px 0;
+}
+.note {
+  margin-top: 20px;
+  padding: 12px 14px;
+  background: #fffbf0;
+  border: 1px solid #f0d88a;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #5a4800;
+  line-height: 1.6;
+}
+</style>
+
+<div class="struct-wrap">
+  <div>
+    <div class="col-title">Miro (lo que ya existe)</div>
+    <div class="section-list">
+      <div class="sec hero"><span class="sec-num">1</span><div class="sec-body"><h4>Hero <span class="badge miro">Miro</span></h4><p>Propuesta de valor + CTA principal</p></div></div>
+      <div class="sec services"><span class="sec-num">2</span><div class="sec-body"><h4>Servicios <span class="badge miro">Miro</span></h4><p>4 categorías en cards con links</p></div></div>
+      <div class="sec trabajos"><span class="sec-num">3</span><div class="sec-body"><h4>Trabajos puntuales <span class="badge miro">Miro</span></h4><p>Acceso rápido a /trabajos/</p></div></div>
+      <div class="sec empresa"><span class="sec-num">4</span><div class="sec-body"><h4>Por qué Hidral <span class="badge miro">Miro</span></h4><p>Experiencia, equipo propio, respuesta rápida</p></div></div>
+      <div class="sec trust"><span class="sec-num">5</span><div class="sec-body"><h4>Confianza <span class="badge miro">Miro</span></h4><p>Edificios y administradores que confían</p></div></div>
+      <div class="sec contacto"><span class="sec-num">6</span><div class="sec-body"><h4>Contacto <span class="badge miro">Miro</span></h4><p>Módulo contacto</p></div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="col-title">Propuesta completa (Miro + brief)</div>
+    <div class="section-list">
+      <div class="sec hero"><span class="sec-num">1</span><div class="sec-body"><h4>Hero</h4><p>Propuesta de valor + CTA doble: servicios / trabajos</p></div></div>
+      <div class="sec services"><span class="sec-num">2</span><div class="sec-body"><h4>Servicios</h4><p>4 categorías en cards con links individuales</p></div></div>
+      <div class="sec trabajos"><span class="sec-num">3</span><div class="sec-body"><h4>Trabajos puntuales</h4><p>Teaser / acceso rápido + 2–3 trabajos destacados</p></div></div>
+      <div class="sec trust"><span class="sec-num">4</span><div class="sec-body"><h4>Confianza</h4><p>Banner rotativo — edificios y admins que confían</p></div></div>
+      <div class="sec abono"><span class="sec-num">5</span><div class="sec-body"><h4>Módulo Abono <span class="badge opt">Activable</span></h4><p>365 días disponibles · condiciones preferenciales</p></div></div>
+      <div class="sec empresa"><span class="sec-num">6</span><div class="sec-body"><h4>Por qué Hidral / Quiénes somos</h4><p>Historia, enfoque, equipo, diferenciadores</p></div></div>
+      <div class="sec blog"><span class="sec-num">7</span><div class="sec-body"><h4>Blog <span class="badge new">Nuevo</span></h4><p>3 artículos teaser — bajo mantenimiento</p></div></div>
+      <div class="sec contacto"><span class="sec-num">8</span><div class="sec-body"><h4>Contacto</h4><p>Módulo contacto (no CTA flotante)</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <strong>Notas:</strong> El <strong>Módulo Abono</strong> se puede activar/desactivar sin afectar el resto de la página. El <strong>Blog</strong> es nuevo respecto al Miro — se incluye pero con bajo costo de mantenimiento (máx. 3 artículos en homepage). ¿Confirmás este orden o querés mover/quitar algo?
+</div>

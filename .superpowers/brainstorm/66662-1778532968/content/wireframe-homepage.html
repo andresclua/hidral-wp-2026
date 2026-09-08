@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hidral — Wireframe Homepage</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f0f0;
+    color: #1a1a1a;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* ── Layout helpers ─────────────────────────── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .section { width: 100%; }
+
+  /* ── Wireframe chrome ───────────────────────── */
+  .wf-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #999;
+    background: #e8e8e8;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    padding: 2px 7px;
+    margin-bottom: 12px;
+  }
+  .wf-label.dark {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.2);
+    color: rgba(255,255,255,.6);
+  }
+  .placeholder-img {
+    background: #d8d8d8;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 12px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+  }
+  .placeholder-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(0,0,0,.04) 8px,
+      rgba(0,0,0,.04) 9px
+    );
+  }
+
+  /* ── Typography ─────────────────────────────── */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .eyebrow.light { color: rgba(255,255,255,.5); }
+
+  h1 { font-size: 52px; font-weight: 700; line-height: 1.08; letter-spacing: -.02em; }
+  h2 { font-size: 36px; font-weight: 700; line-height: 1.15; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; line-height: 1.3; }
+  h4 { font-size: 15px; font-weight: 600; }
+
+  /* ── Buttons ────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: opacity .15s;
+  }
+  .btn:hover { opacity: .85; }
+  .btn-primary { background: #1a1a1a; color: #fff; }
+  .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.45); }
+  .btn-dark { background: #2a2a2a; color: #fff; }
+  .btn-ghost { background: transparent; color: #1a1a1a; border: 1.5px solid #d0d0d0; }
+  .btn-sm { padding: 8px 18px; font-size: 13px; }
+
+  /* ═══════════════════════════════════════════════
+     NAVBAR
+  ═══════════════════════════════════════════════ */
+  .navbar {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .navbar-logo {
+    width: 110px;
+    height: 34px;
+    background: #d8d8d8;
+    border-radius: 3px;
+  }
+  .navbar-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .navbar-links li a {
+    text-decoration: none;
+    color: #3a3a3a;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .navbar-cta {
+    padding: 9px 22px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* ═══════════════════════════════════════════════
+     HERO
+  ═══════════════════════════════════════════════ */
+  .hero {
+    background: #111827;
+    padding: 110px 0 100px;
+  }
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,.15);
+  }
+  .hero h1 { color: #fff; margin-bottom: 20px; }
+  .hero-sub {
+    color: rgba(255,255,255,.6);
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 40px;
+    max-width: 540px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-image {
+    height: 340px;
+    background: #2a3348;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+  }
+  .hero-image::after {
+    content: 'Imagen edificio';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255,255,255,.2);
+    font-size: 13px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     SERVICIOS
+  ═══════════════════════════════════════════════ */
+  .servicios {
+    background: #fff;
+    padding: 88px 0;
+  }
+  .servicios-header {
+    margin-bottom: 48px;
+  }
+  .servicios-header h2 { margin-bottom: 12px; }
+  .servicios-header p {
+    color: #666;
+    font-size: 16px;
+    max-width: 580px;
+  }
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .servicio-card {
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #fafafa;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .servicio-card:hover {
+    border-color: #aaa;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07);
+  }
+  .servicio-icon {
+    width: 44px;
+    height: 44px;
+    background: #e8e8e8;
+    border-radius: 8px;
+  }
+  .servicio-card h3 { font-size: 17px; }
+  .servicio-card p { color: #666; font-size: 14px; line-height: 1.6; flex: 1; }
+  .servicio-link {
+    color: #1a1a1a;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .servicio-link::after { content: '→'; }
+
+  /* ═══════════════════════════════════════════════
+     TRABAJOS
+  ═══════════════════════════════════════════════ */
+  .trabajos {
+    background: #f5f5f5;
+    padding: 88px 0;
+  }
+  .trabajos .container {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .trabajos-left h2 { margin-bottom: 16px; }
+  .trabajos-left p { color: #666; font-size: 15px; line-height: 1.65; margin-bottom: 28px; }
+  .trabajos-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .trabajo-item {
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .trabajo-item-left { display: flex; flex-direction: column; gap: 4px; }
+  .trabajo-item h4 { font-size: 15px; }
+  .trabajo-item span { color: #888; font-size: 13px; }
+  .trabajo-arrow {
+    color: #bbb;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════════════
+     CONFIANZA
+  ═══════════════════════════════════════════════ */
+  .confianza {
+    background: #eee;
+    padding: 52px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .confianza-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .confianza-header p {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #999;
+  }
+  .logos-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .logo-placeholder {
+    width: 120px;
+    height: 38px;
+    background: #d8d8d8;
+    border-radius: 3px;
+    opacity: .7;
+  }
+
+  /* ═══════════════════════════════════════════════
+     ABONO MODULE (activable)
+  ═══════════════════════════════════════════════ */
+  .abono {
+    background: #1e2533;
+    padding: 80px 0;
+    position: relative;
+  }
+  .abono-activable-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.5);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.15);
+  }
+  .abono .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .abono h2 { color: #fff; margin-bottom: 16px; }
+  .abono-sub { color: rgba(255,255,255,.55); font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
+  .abono-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .abono-points li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,.75);
+    font-size: 14px;
+  }
+  .abono-points li::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,.12);
+    border-radius: 50%;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .abono-visual {
+    height: 260px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .abono-stat {
+    text-align: center;
+  }
+  .abono-stat .num {
+    font-size: 72px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+  .abono-stat .unit {
+    font-size: 15px;
+    color: rgba(255,255,255,.45);
+    margin-top: 8px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     POR QUÉ HIDRAL
+  ═══════════════════════════════════════════════ */
+  .porque {
+    background: #fff;
+    padding: 88px 0;
+  }
+  .porque-header { margin-bottom: 52px; }
+  .porque-header h2 { margin-bottom: 12px; }
+  .porque-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .porque-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 2px solid #e0e0e0;
+  }
+  .porque-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: #bbb;
+  }
+  .porque-col h3 { font-size: 19px; }
+  .porque-col p { color: #666; font-size: 14px; line-height: 1.7; }
+
+  /* ═══════════════════════════════════════════════
+     BLOG
+  ═══════════════════════════════════════════════ */
+  .blog {
+    background: #f5f5f5;
+    padding: 88px 0;
+  }
+  .blog-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  .blog-header h2 { margin-bottom: 8px; }
+  .blog-header p { color: #888; font-size: 14px; }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .blog-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .blog-card-img {
+    height: 160px;
+    background: #e0e0e0;
+    position: relative;
+  }
+  .blog-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(0,0,0,.04) 8px,
+      rgba(0,0,0,.04) 9px
+    );
+  }
+  .blog-card-body { padding: 22px 22px 26px; }
+  .blog-tag {
+    display: inline-block;
+    background: #ebebeb;
+    color: #666;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .blog-card h4 { font-size: 15px; line-height: 1.45; margin-bottom: 10px; }
+  .blog-card-link {
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .blog-card-link::after { content: ' →'; }
+
+  /* ═══════════════════════════════════════════════
+     CONTACTO
+  ═══════════════════════════════════════════════ */
+  .contacto {
+    background: #111827;
+    padding: 96px 0;
+  }
+  .contacto .container { text-align: center; }
+  .contacto h2 { color: #fff; margin-bottom: 16px; font-size: 42px; }
+  .contacto-sub {
+    color: rgba(255,255,255,.55);
+    font-size: 17px;
+    max-width: 480px;
+    margin: 0 auto 52px;
+    line-height: 1.65;
+  }
+  .contacto-options {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .contacto-option {
+    flex: 1;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .contacto-option:hover { background: rgba(255,255,255,.11); }
+  .contacto-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(255,255,255,.12);
+    border-radius: 8px;
+  }
+  .contacto-option h4 { color: #fff; font-size: 15px; }
+  .contacto-option span { color: rgba(255,255,255,.4); font-size: 12px; }
+
+  /* ═══════════════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════════════ */
+  .footer {
+    background: #0a0f1a;
+    padding: 40px 0;
+    border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    width: 90px;
+    height: 28px;
+    background: rgba(255,255,255,.15);
+    border-radius: 3px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .footer-links li a {
+    color: rgba(255,255,255,.35);
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .footer-copy {
+    color: rgba(255,255,255,.25);
+    font-size: 12px;
+  }
+
+  /* ── Section annotation bar ─────────────────── */
+  .section-bar {
+    background: #fff8dc;
+    border-top: 2px dashed #f0c040;
+    border-bottom: 2px dashed #f0c040;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #a07800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .section-bar.optional {
+    background: #f0f8ff;
+    border-color: #90c0e8;
+    color: #2060a0;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar section">
+  <div class="container">
+    <div class="navbar-logo"></div>
+    <ul class="navbar-links">
+      <li><a href="#">Servicios</a></li>
+      <li><a href="#">Trabajos</a></li>
+      <li><a href="#">Empresa</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+    <a href="#" class="navbar-cta">Contactar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero section">
+  <div class="container">
+    <div>
+      <div class="wf-label dark">Sección 1 — Hero</div>
+      <div class="hero-tag">Mantenimiento de edificios en Montevideo y todo el interior</div>
+      <h1>Tu edificio en manos<br>que lo conocen.</h1>
+      <p class="hero-sub">Visitas mensuales, equipo propio y respuesta rápida para bombas, sanitaria, tanques y contraincendio. Más de dos décadas manteniendo edificios residenciales y de oficinas.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-primary">Ver servicios</a>
+        <a href="#" class="btn btn-outline">Trabajos puntuales</a>
+      </div>
+    </div>
+    <div class="hero-image placeholder-img"></div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios section">
+  <div class="container">
+    <div class="servicios-header">
+      <div class="wf-label">Sección 2 — Servicios</div>
+      <div class="eyebrow">Lo que hacemos</div>
+      <h2>Cuatro servicios,<br>un solo equipo</h2>
+      <p>Abonos mensuales para edificios residenciales y comerciales. Cada servicio se adapta a las instalaciones de tu edificio.</p>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Bombas de agua</h3>
+        <p>Visita mensual con rotación de equipos, revisión de automatismos y distintos niveles de cobertura.</p>
+        <a href="#" class="servicio-link">Ver planes</a>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Sanitaria</h3>
+        <p>Mantenimiento mensual de graseras, cámaras, resumideros e hidrolavado según las instalaciones del edificio.</p>
+        <a href="#" class="servicio-link">Ver servicio</a>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Limpieza de tanques</h3>
+        <p>Limpieza anual con análisis de potabilidad incluido. Obligación legal desde 1988.</p>
+        <a href="#" class="servicio-link">Ver servicio</a>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon"></div>
+        <h3>Contraincendio</h3>
+        <p>Control mensual de presión, caudal y prueba anual por nicho. Equipos en regla.</p>
+        <a href="#" class="servicio-link">Ver servicio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRABAJOS -->
+<section class="trabajos section">
+  <div class="container">
+    <div class="trabajos-left">
+      <div class="wf-label">Sección 3 — Trabajos</div>
+      <div class="eyebrow">Intervenciones únicas</div>
+      <h2>¿Necesitás un trabajo específico?</h2>
+      <p>Sin necesidad de abono. Cotizamos e intervenimos para sustitución de tanques, graseras, cañerías y más.</p>
+      <a href="#" class="btn btn-ghost btn-sm">Ver todos los trabajos</a>
+    </div>
+    <div class="trabajos-items">
+      <div class="trabajo-item">
+        <div class="trabajo-item-left">
+          <h4>Sustitución de tanques</h4>
+          <span>Trabajo puntual · /trabajos/sustitucion-de-tanques/</span>
+        </div>
+        <span class="trabajo-arrow">→</span>
+      </div>
+      <div class="trabajo-item">
+        <div class="trabajo-item-left">
+          <h4>Sustitución de graseras</h4>
+          <span>Trabajo puntual · /trabajos/sustitucion-de-graseras/</span>
+        </div>
+        <span class="trabajo-arrow">→</span>
+      </div>
+      <div class="trabajo-item">
+        <div class="trabajo-item-left">
+          <h4>Cambio de cañerías</h4>
+          <span>Trabajo puntual · /trabajos/cambio-de-cañerias/</span>
+        </div>
+        <span class="trabajo-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIANZA -->
+<section class="confianza section">
+  <div class="container">
+    <div class="confianza-header">
+      <div class="wf-label">Sección 4 — Confianza</div>
+      <p>Edificios y administradores que confían en Hidral</p>
+    </div>
+    <div class="logos-row">
+      <div class="logo-placeholder"></div>
+      <div class="logo-placeholder"></div>
+      <div class="logo-placeholder"></div>
+      <div class="logo-placeholder"></div>
+      <div class="logo-placeholder"></div>
+      <div class="logo-placeholder"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABONO MODULE -->
+<div class="section-bar optional">⚙ Módulo activable — puede activarse o desactivarse</div>
+<section class="abono section">
+  <span class="abono-activable-badge">Módulo activable</span>
+  <div class="container">
+    <div>
+      <div class="wf-label dark">Sección 5 — Abono</div>
+      <div class="eyebrow light">Abonados Hidral</div>
+      <h2>365 días disponibles<br>para vos</h2>
+      <p class="abono-sub">Los abonados tienen condiciones preferenciales y prioridad de atención. Ante cualquier problema, tenés un técnico.</p>
+      <ul class="abono-points">
+        <li>Atención preferencial los 365 días del año</li>
+        <li>Respuesta rápida ante urgencias</li>
+        <li>Un solo interlocutor para todos los servicios</li>
+      </ul>
+      <a href="#" class="btn btn-outline">Consultar abono</a>
+    </div>
+    <div class="abono-visual">
+      <div class="abono-stat">
+        <div class="num">365</div>
+        <div class="unit">días disponibles</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-bar optional">⚙ Fin del módulo activable</div>
+
+<!-- POR QUÉ HIDRAL -->
+<section class="porque section">
+  <div class="container">
+    <div class="porque-header">
+      <div class="wf-label">Sección 6 — Por qué Hidral</div>
+      <div class="eyebrow">Por qué elegirnos</div>
+      <h2>Equipo propio, respuesta real</h2>
+    </div>
+    <div class="porque-grid">
+      <div class="porque-col">
+        <span class="porque-num">01</span>
+        <h3>Más de 20 años en el rubro</h3>
+        <p>Conocemos los edificios de Montevideo y del interior. Cada técnico es parte del equipo, no un tercero.</p>
+      </div>
+      <div class="porque-col">
+        <span class="porque-num">02</span>
+        <h3>Sin tercerización</h3>
+        <p>Los técnicos que atienden tu edificio son empleados de Hidral. Eso garantiza criterio, continuidad y calidad.</p>
+      </div>
+      <div class="porque-col">
+        <span class="porque-num">03</span>
+        <h3>Llegamos al interior</h3>
+        <p>Somos la única empresa que presta servicios de mantenimiento en todo el Uruguay. Si estás en el interior, llamanos y consultanos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog section">
+  <div class="container">
+    <div class="blog-header">
+      <div>
+        <div class="wf-label">Sección 7 — Blog</div>
+        <div class="eyebrow">Recursos</div>
+        <h2>Información útil para<br>administradores</h2>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm">Ver todos los artículos</a>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-card-img placeholder-img"></div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Bombas</span>
+          <h4>¿Cada cuánto hay que rotar las bombas de agua?</h4>
+          <a href="#" class="blog-card-link">Leer artículo</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-card-img placeholder-img"></div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Tanques</span>
+          <h4>Limpieza de tanques: qué dice la normativa y qué implica para tu edificio</h4>
+          <a href="#" class="blog-card-link">Leer artículo</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-card-img placeholder-img"></div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Sanitaria</span>
+          <h4>Graseras colectivas vs. individuales: diferencias y mantenimiento</h4>
+          <a href="#" class="blog-card-link">Leer artículo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto section">
+  <div class="container">
+    <div class="wf-label dark">Sección 8 — Contacto</div>
+    <h2>¿Hablamos?</h2>
+    <p class="contacto-sub">Contanos qué necesita tu edificio. Te respondemos por WhatsApp, teléfono o formulario.</p>
+    <div class="contacto-options">
+      <div class="contacto-option">
+        <div class="contacto-icon"></div>
+        <h4>WhatsApp</h4>
+        <span>Respuesta inmediata</span>
+      </div>
+      <div class="contacto-option">
+        <div class="contacto-icon"></div>
+        <h4>Teléfono</h4>
+        <span>Lun–Vie 8–18hs</span>
+      </div>
+      <div class="contacto-option">
+        <div class="contacto-icon"></div>
+        <h4>Formulario</h4>
+        <span>Te respondemos en 24hs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer section">
+  <div class="container">
+    <div class="footer-logo"></div>
+    <ul class="footer-links">
+      <li><a href="#">Servicios</a></li>
+      <li><a href="#">Trabajos</a></li>
+      <li><a href="#">Empresa</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Contacto</a></li>
+      <li><a href="#">Privacidad</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Hidral. Montevideo, Uruguay.</span>
+  </div>
+</footer>
+
+</body>
+</html>

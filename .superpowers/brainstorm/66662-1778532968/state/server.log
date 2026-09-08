@@ -1,0 +1,6 @@
+{"type":"server-started","port":61711,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:61711","screen_dir":"/Users/andres/Documents/Personal/dev/personal/hidral/wp-content/themes/hidral-wp-2026/.superpowers/brainstorm/66662-1778532968/content","state_dir":"/Users/andres/Documents/Personal/dev/personal/hidral/wp-content/themes/hidral-wp-2026/.superpowers/brainstorm/66662-1778532968/state"}
+{"type":"screen-added","file":"/Users/andres/Documents/Personal/dev/personal/hidral/wp-content/themes/hidral-wp-2026/.superpowers/brainstorm/66662-1778532968/content/homepage-order.html"}
+{"type":"screen-added","file":"/Users/andres/Documents/Personal/dev/personal/hidral/wp-content/themes/hidral-wp-2026/.superpowers/brainstorm/66662-1778532968/content/homepage-structure-confirm.html"}
+{"type":"screen-added","file":"/Users/andres/Documents/Personal/dev/personal/hidral/wp-content/themes/hidral-wp-2026/.superpowers/brainstorm/66662-1778532968/content/wireframe-homepage.html"}
+{"type":"screen-updated","file":"/Users/andres/Documents/Personal/dev/personal/hidral/wp-content/themes/hidral-wp-2026/.superpowers/brainstorm/66662-1778532968/content/wireframe-homepage.html"}
+{"type":"server-stopped","reason":"owner process exited"}
