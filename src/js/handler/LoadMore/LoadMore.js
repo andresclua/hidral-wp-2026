@@ -2,7 +2,7 @@ import gsap from 'gsap';
 
 class LoadMore {
     constructor(payload = {}) {
-        const { element, action, perPage, container, template, nonce, postType, taxonomy, term } = payload;
+        const { element, action, perPage, container, template, nonce, postType, taxonomy, term, Manager } = payload;
 
         if (!element) {
             console.error('LoadMore: element is required');
@@ -25,6 +25,9 @@ class LoadMore {
             taxonomy,
             term,
         }
+
+        // Manager (for lazy loading revalidation)
+        this.Manager = Manager || null;
 
         // State
         this.page = 1;
@@ -84,6 +87,13 @@ class LoadMore {
 
                 this.onSuccess({ cards: newCards, page: this.page, hasMore: has_more, total });
 
+                if (this.Manager) {
+                    const lazyInstances = this.Manager.getInstances('Lazy');
+                    if (lazyInstances && lazyInstances.length > 0) {
+                        lazyInstances[0].instance.revalidate();
+                    }
+                }
+            
                 if (!has_more) {
                     this.DOM.trigger.style.display = 'none';
                 }

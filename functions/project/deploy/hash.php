@@ -9,7 +9,6 @@
  *
  * Usage: This constant is utilized in functions/project/enqueues.php
  */
-define('hash', 'yof');
-define('SPLING_API_KEY', '2f30596290a6962ccaa91e9d015cfdd7cd217d36ecc5452fb51d6efd2254b7e4');
+define('hash', 'y87');
 
 ?>

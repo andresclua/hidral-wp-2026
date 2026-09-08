@@ -2,7 +2,6 @@ import { getQueryParam } from "@js/utilities/getQueryParam";
 import Manager from "@js/managers/Manager";
 import mitt from "mitt";
 import AssetManager from "./managers/AssetManager";
-console.log('va?')
 class Project {
     constructor() {
         this.DOM = {
@@ -78,6 +77,7 @@ class Project {
             console.error(err);
         } finally {
             let tl = this.gsap?.timeline({
+                paused: true,
                 defaults: {
                     duration: 0.1,
                     ease: "power1.inOut",
@@ -88,24 +88,23 @@ class Project {
                         this.boostify.onload({
                             worker: true,
                             maxTime: 1200,
-                            callback: async () => {
-                                if (!window.dataLayer) window.dataLayer = [];
-                                window.dataLayer.push({
-                                    event: "VirtualPageview",
-                                    virtualPageURL: window.location.href, // full URL
-                                    virtualPageTitle: document.title, // Page title
-                                    virtualPagePath: window.location.pathname, // Path w/o hostname
-                                });
-                            },
+                            // callback: async () => {
+                            //     if (!window.dataLayer) window.dataLayer = [];
+                            //     window.dataLayer.push({
+                            //         event: "VirtualPageview",
+                            //         virtualPageURL: window.location.href, // full URL
+                            //         virtualPageTitle: document.title, // Page title
+                            //         virtualPagePath: window.location.pathname, // Path w/o hostname
+                            //     });
+                            // },
                         });
                     }
                 },
             });
             tl.to(this.DOM.preloader, { duration: 0.5, opacity: 0 });
-            tl = await this.assetManager.importAutoAnimations({ tl, eventSystem: this.eventSystem });
+            tl.addLabel("preloaderFinished");
+            await this.assetManager.importAutoAnimations({ tl, eventSystem: this.eventSystem });
 
-            console.log(tl)
-            
             if (this.DOM.revealStack) {
                 const RevealStack = await this.assetManager.getAnimation("RevealStack");
                 this.DOM.revealStack.forEach((element) => {
@@ -136,7 +135,8 @@ class Project {
                     }
                 });
             }
-            
+
+            tl.play();
         }
     }
 }

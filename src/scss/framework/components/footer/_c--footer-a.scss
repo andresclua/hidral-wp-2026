@@ -1,32 +1,11 @@
 @use "sass:map";
 @use "@scss/framework/_var/_vars.scss" as *;
-@use "@scss/framework/utilities/utilities.scss" as *;
-@use "@scss/framework/foundation/foundation.scss" as *;
 
-
-.c--footer-a{
-  padding:$measure*8 0;
-  color:map.get($color-options, a);
-  hr{
-      border: .5px solid rgba(map.get($color-options, c),.3);
-      margin: $measure*2 0;
-  }
-  a{
-      @extend .f--color-a;
-      text-decoration: none;
-      &:hover{
-          text-decoration: underline;
-      }
-  }
-
-  &__bd{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      &__item{
-          display: flex;
-          gap: $measure * 2;
-      }
-  }
+.c--footer-a {
+    background: map.get($color-options, a);
+    padding: $measure * 3 0;
+    color: map.get($color-options, b);
+    a {
+        color: map.get($color-options, b);
+    }
 }

@@ -20,26 +20,26 @@ export const getAnimations = () => {
 
 export const getAutoAnimations = () => {
   return [
-    // {
-    //   name: "heroA",
-    //   resource: async () => {
-    //     const { default: HeroA } = await import("@js/motion/hero/HeroA.js");
-    //     return HeroA;
-    //   },
-    //   options : {
-    //     selector: document.querySelector(".c--hero-a"),
-    //   }
-    // },
-    // {
-    //   name: "heroB",
-    //   resource: async () => {
-    //     const { default: HeroB } = await import("@js/motion/hero/HeroB.js");
-    //     return HeroB;
-    //   },
-    //   options : {
-    //     selector: document.querySelector(".c--hero-b"),
-    //   }
-    // },
+    {
+      name: "heroA",
+      resource: async () => {
+        const { default: HeroA } = await import("@js/motion/hero/HeroA.js");
+        return HeroA;
+      },
+      options : {
+        selector: document.querySelector(".c--hero-a"),
+      }
+    },
+    {
+      name: "heroB",
+      resource: async () => {
+        const { default: HeroB } = await import("@js/motion/hero/HeroB.js");
+        return HeroB;
+      },
+      options : {
+        selector: document.querySelector(".c--hero-b"),
+      }
+    },
   ];
 };
 
@@ -51,6 +51,9 @@ export const getModules = () => {
             const { default: Lotties } = await import("@js/handler/lotties/Lotties.js");
             return Lotties;
         },
+        options: {
+            modifyHeight: true,
+        },
     },
     {
         name: "LoadMore",
@@ -60,39 +63,49 @@ export const getModules = () => {
         },
     },
     {
-        name: "InfiniteMarquee",
+        name: "HeaderSearch",
         resource: async () => {
-            const { default: InfiniteMarquee } = await import("@js/handler/marquee/InfiniteMarquee");
-            return InfiniteMarquee;
+            const { default: HeaderSearch } = await import("@js/handler/HeaderSearch/HeaderSearch.js");
+            return HeaderSearch;
         },
     },
     {
-        name: "ParallaxBackground",
+        name: "Video",
         resource: async () => {
-            const { default: ParallaxBackground } = await import("@js/handler/parallax-background/ParallaxBackground");
-            return ParallaxBackground;
+            const { default: Video } = await import("@js/handler/video/Video.js");
+            return Video;
         },
     },
     {
-        name: "Collapsify",
+        name: "Modal",
         resource: async () => {
-            const { default: Collapsify } = await import("@terrahq/collapsify");
-            return Collapsify;
+            const { default: Modal } = await import("@js/handler/modal/Modal.js");
+            return Modal;
         },
     },
     {
-        name: "ElasticGrid",
+        name: "AnchorTo",
         resource: async () => {
-            const { default: ElasticGrid } = await import("@js/handler/elastic-grid/ElasticGrid");
-            return ElasticGrid;
+            const { default: AnchorTo } = await import("@js/handler/anchorTo/AnchorTo.js");
+            return AnchorTo;
         },
     },
     {
-        name: "GoogleMap",
+        name: "ScrollWatcher",
         resource: async () => {
-            const { default: GoogleMap } = await import("@js/handler/google-map/GoogleMap");
-            return GoogleMap;
+            const { default: ScrollWatcher } = await import("@js/handler/scrollWatcher/ScrollWatcher.js");
+            return ScrollWatcher;
         },
+    },
+    {
+      name: "InfiniteMarquee",
+      domElement: document.querySelectorAll(".js--marquee"),
+      resource: async () => {
+        const { default: InfiniteMarquee } = await import(
+          "@js/handler/marquee/InfiniteMarquee"
+        );
+        return InfiniteMarquee;
+      },
     },
   ];
 };

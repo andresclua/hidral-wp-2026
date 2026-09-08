@@ -30,7 +30,11 @@ class Default_Blocks {
         $this->template_dir = $config['template_dir'];
         $this->textdomain   = 'textdomain';
 
-        add_action('acf/init', [$this, 'register_all']);
+        if (did_action('acf/init')) {
+            $this->register_all();
+        } else {
+            add_action('acf/init', [$this, 'register_all']);
+        }
     }
 
   public function register_all(): void {
@@ -60,6 +64,7 @@ class Default_Blocks {
       'icon'            => $block['icon'] ?? 'editor-italic',
       'keywords'        => $keywords,
       'template_path'   => $template_path,
+      'mode'            => $block['mode'] ?? 'preview',
       'supports'        => $block['supports'] ?? [
         'align' => true,
         'mode'  => true,
@@ -108,19 +113,31 @@ class Default_Blocks {
     $name = $block['template_path'] ?? ''; // typically "acf/footnote"
     $slug = str_replace('acf/', '', $name);
 
+    // Build block classes
+    $classes = ['acf-block', 'acf-block--' . esc_attr($slug)];
+    if (!empty($block['className'])) {
+      $classes[] = $block['className'];
+    }
+    if (!empty($block['align'])) {
+      $classes[] = 'align' . $block['align'];
+    }
+
     // Prefer template per block: /templates/blocks/{slug}.php
     $template = $this->template_dir . '/' . $slug . '.php';
     // Gather all fields (preview & frontend compatible)
     $data = $this->get_block_data($block, $is_preview);
 
+    echo '<div class="' . esc_attr(implode(' ', $classes)) . '">';
+
     if (file_exists($template)) {
       // Make $block, $data available in template
       include $template;
-      return;
+    } else {
+      // Fallback generic renderer if no template exists
+      $this->render_fallback($slug, $data);
     }
 
-    // Fallback generic renderer if no template exists
-    $this->render_fallback($slug, $data);
+    echo '</div>';
   }
 
   protected function get_block_data(array $block, bool $is_preview): array {
@@ -211,6 +228,19 @@ class Default_Blocks {
 
           // Layout helpers
           'layout',
+
+          // Repeater
+          'sub_fields',
+          'button_label',
+          'min',
+          'max',
+
+          // Relationship / Post Object
+          'post_type',
+          'post_status',
+          'taxonomy',
+          'filters',
+          'elements',
         ];
 
         foreach ($passthrough as $key) {

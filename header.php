@@ -8,20 +8,22 @@
     <title>
         <?php wp_title('•', true, 'right'); ?>
     </title>
-    <link rel="shortcut icon" type="image/png" href="<?= get_template_directory_uri(); ?>/public/favicon.png">
-    <link rel="icon" href="<?= get_template_directory_uri(); ?>/public/favicon.png">
-    <link rel="apple-touch-icon" href="<?= get_template_directory_uri(); ?>/public/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="<?= get_template_directory_uri(); ?>/public/favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= get_template_directory_uri(); ?>/public/favicon.png">
+    <?php $favicon = get_field('favicon', 'option') ?>
+    <link rel="shortcut icon" type="image/png" href="<?= $favicon; ?>">
+    <link rel="icon" href="<?= $favicon; ?>">
+    <link rel="apple-touch-icon" href="<?= $favicon; ?>">
+    <link rel="apple-touch-icon-precomposed" href="<?= $favicon; ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $favicon; ?>">
     <meta name="google-site-verification" content="ahIwZnq43QbJ9z88m4P9qInKYCSMsFAVufLKtwtUq0g" />
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
 
-    <meta name="theme-color" content="#FFFFFF">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+
+    <meta name="theme-color" content="#FFFFFF">
 
     <?php wp_head(); ?>
 
@@ -40,7 +42,9 @@
     <!-- Preloader -->
     <?php include(locate_template('components/preloader/preloader-a.php', false, false)); ?>
 
-   
+    <div class="c--progress-a">
+        <span id="progress-counter"></span>
+    </div>
 
     <!-- transitions -->
     <div class="c--transition-a js--transition">

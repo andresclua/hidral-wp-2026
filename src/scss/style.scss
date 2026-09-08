@@ -1,48 +1,31 @@
 //* Reset, GC
 @use "@scssFoundation/_foundation.scss";
 @use "@scssUtilities/_utilities.scss";
-@use "@scss/framework/_var/_vars.scss" as *;
+
+//* Lazy
+@use "@scssGlobals/lazy/_g--lazy-01.scss";
 
 //* Preloader
 @use "@scssComponents/preloader/_c--preloader-a.scss";
 
-@use "@scssComponents/header/_c--header-a.scss";
-@use "@scssComponents/footer/_c--footer-a.scss";
-
 //* Transition
 @use "@scssComponents/transition/_c--transition-a.scss";
+@use "@scssComponents/progress/_c--progress-a.scss";
 
+//* Header
+@use "@scssComponents/header/_c--header-a.scss";
 
+//* Footer
+@use "@scssComponents/footer/_c--footer-a.scss";
+
+//* Content
 @use "@scssComponents/content/_c--content-a.scss";
 
-@use "@scssComponents/marquee/_c--global-marquee-a.scss";
-@use "@scssComponents/marquee/_c--global-marquee-b.scss";
+//* Media / Video
+@use "@scssComponents/video/_c--video-a.scss";
 
+//* Modal
+@use "@scssComponents/modal/_c--modal-a.scss";
 
-@use "@scssComponents/hero/_c--hero-a.scss";
-@use "@scssComponents/hero/_c--hero-b.scss";
-
-@use "@scssComponents/btn/_c--btn-a.scss";
-@use "@scssComponents/cta/_c--cta-a.scss";
-@use "@scssComponents/cta/_c--cta-b.scss";
-
-
-
-@use "@scssComponents/icon/_c--icon-a.scss";
-@use "@scssComponents/card/_c--card-a.scss";
-@use "@scssComponents/card/_c--card-b.scss";
-
-@use "@scssComponents/accordion/_c--accordion-a.scss";
-
-@use "@scssComponents/media/_c--media-a.scss";
-@use "@scssComponents/media/_c--media-b.scss";
-
-@use "@scssComponents/gallery/_c--gallery-grid-a.scss";
-@use "@scssComponents/map/_c--map-a.scss";
-
-@use "@scssComponents/pill/_c--pill-a.scss";
-
-
-@use "@scssComponents/form/_c--form-a.scss";
-
-
+//* Sidenav (scrollspy)
+@use "@scssComponents/sidenav/_c--sidenav-a.scss";

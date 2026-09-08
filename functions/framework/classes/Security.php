@@ -27,7 +27,9 @@ class Security {
     add_action('init', [$this, 'terra_setup']);
     add_filter('login_errors', [$this, 'show_less_login_info']);
     add_filter('the_generator', [$this, 'no_generator']);
-    
+    add_action('template_redirect', [$this, 'redirect_uppercase_urls']);
+    add_filter('the_content', [$this, 'nofollow_external_links']);
+
     $this->remove_wp_head_actions();
   }
 
@@ -60,6 +62,49 @@ class Security {
    */
   public function no_generator() {
     return '';
+  }
+
+  /**
+   * Redirect uppercase URLs to lowercase with 301.
+   * Ensures /About-Us/ redirects to /about-us/ for SEO consistency.
+   */
+  public function redirect_uppercase_urls() {
+    if (is_admin() || is_feed() || defined('DOING_AJAX')) return;
+
+    $path = $_SERVER['REQUEST_URI'] ?? '';
+    $path_only = strtok($path, '?');
+    $lowercase = strtolower($path_only);
+
+    if ($path_only !== $lowercase) {
+      $query = $_SERVER['QUERY_STRING'] ?? '';
+      $redirect = $lowercase . ($query ? '?' . $query : '');
+      wp_redirect(home_url($redirect), 301);
+      exit;
+    }
+  }
+
+  /**
+   * Add rel="nofollow noopener noreferrer" to external links in post content.
+   * Only applies to links pointing to a different host than the current site.
+   */
+  public function nofollow_external_links($content) {
+    if (empty($content)) return $content;
+
+    $site_host = parse_url(home_url(), PHP_URL_HOST);
+
+    return preg_replace_callback('/<a\s([^>]*href=["\']https?:\/\/[^"\']+["\'][^>]*)>/i', function ($matches) use ($site_host) {
+      $tag = $matches[1];
+
+      // Extract href to check if external
+      if (!preg_match('/href=["\']https?:\/\/([^"\'\/]+)/i', $tag, $href_match)) return $matches[0];
+
+      $link_host = $href_match[1];
+      if (strcasecmp($link_host, $site_host) === 0) return $matches[0];
+
+      // Remove existing rel if present, then add ours
+      $tag = preg_replace('/\s*rel=["\'][^"\']*["\']/i', '', $tag);
+      return '<a ' . $tag . ' rel="nofollow noopener noreferrer" target="_blank">';
+    }, $content);
   }
 
   protected function remove_wp_head_actions() {

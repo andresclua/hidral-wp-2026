@@ -1,0 +1,37 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+$flex-wrap-values:(
+  // wrap: wrap,
+);
+
+$flex-wrap-breakpoints: (
+  all: $all,
+  // tablets: $tablets,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
+);
+
+@mixin flex-wrap-utility($align-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $align-prop {
+        .u--flex-wrap-#{$name}{
+            flex-wrap:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $align-prop {
+            .u--flex-wrap-#{$breakpoint-name}-#{$name}{
+                flex-wrap:$property;
+            }
+        }
+      }
+    }
+  }
+}
+
+@include flex-wrap-utility($flex-wrap-values,$flex-wrap-breakpoints)

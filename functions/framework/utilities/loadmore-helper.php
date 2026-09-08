@@ -38,16 +38,18 @@
 function terra_loadmore_button(array $args = []): void
 {
     $defaults = [
-        'action'    => 'loadmore_posts',
-        'container' => 'load-more',
-        'template'  => 'card-a',
-        'post_type' => 'post',
-        'taxonomy'  => '',
-        'term'      => '',
-        'per_page'  => 6,
-        'label'     => 'Load More',
-        'class'     => 'c--btn-a js--loadmore',
-        'id'        => '',
+        'action'       => 'loadmore_posts',
+        'container'    => 'load-more',
+        'template'     => 'card-a',
+        'post_type'    => 'post',
+        'taxonomy'     => '',
+        'term'         => '',
+        'per_page'     => 6,
+        'initial_page' => 1,
+        'mode'         => 'ajax', // 'ajax' or 'reveal'
+        'label'        => 'Load More',
+        'class'        => 'c--btn-a js--loadmore',
+        'id'           => '',
     ];
 
     $args = wp_parse_args($args, $defaults);
@@ -62,6 +64,8 @@ function terra_loadmore_button(array $args = []): void
         'data-load-more-template'  => esc_attr($args['template']),
         'data-load-more-post-type' => esc_attr($args['post_type']),
         'data-load-more-per-page'  => esc_attr($args['per_page']),
+        'data-load-more-page'      => esc_attr($args['initial_page']),
+        'data-load-more-mode'      => esc_attr($args['mode']),
         'data-load-more-nonce'     => esc_attr($nonce),
     ];
 

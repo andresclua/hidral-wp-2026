@@ -1,38 +1,38 @@
 @use "@scss/framework/_var/_vars.scss" as *;
 
 $space-values : (
-  0,
-  2,
-  3,
-  4,
-  5,
-  7,
-  8,
-  10,
-  15,
+  // 0,
+  // 2,
+  // 3,
+  // 4,
+  // 5,
+  // 7,
+  // 8,
+  // 10,
+  // 15,
   ) !default;
 
   $space-prefixes : (
-    p  : padding,
-    pt : padding-top,
-    pr : padding-right,
-    pb : padding-bottom,
-    pl : padding-left,
-    m  : margin,
-    mt : margin-top,
-    mr : margin-right,
-    mb : margin-bottom,
-    ml : margin-left,
+    // p  : padding,
+    // pt : padding-top,
+    // pr : padding-right,
+    // pb : padding-bottom,
+    // pl : padding-left,
+    // m  : margin,
+    // mt : margin-top,
+    // mr : margin-right,
+    // mb : margin-bottom,
+    // ml : margin-left,
   ) !default;
 
   $space-breakpoints: (
-    all: $all,
-    tablets: $tablets,
-    tabletm: $tabletm,
-    tabletl: $tabletl,
-    laptop: $laptop,
-    desktop: $desktop,
-    wide: $wide,
+  all: $all,
+  // tablets: $tablets,
+  // tabletm: $tabletm,
+  // tabletl: $tabletl,
+  // laptop: $laptop,
+  // desktop: $desktop,
+  // wide: $wide,
   );
 
   @mixin make-spaces($values, $prefixes, $breakpoints) {
@@ -62,5 +62,5 @@ $space-values : (
       }
     }
   }
-
+  
   @include make-spaces($space-values, $space-prefixes,$space-breakpoints);

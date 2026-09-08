@@ -6,10 +6,11 @@ class Handler extends CoreHandler {
         this.init();
         this.events();
         this.config = ({element}) => ({
+            element: element,
+            Manager: this.Manager,
             speed: parseFloat(element.getAttribute("data-speed")),
             controlsOnHover: element.getAttribute("data-controls-on-hover") === "true",
             reversed: element.getAttribute("data-reversed"),
-            Manager:this.Manager
         });
     }
 
@@ -28,7 +29,7 @@ class Handler extends CoreHandler {
             this.DOM = this.updateTheDOM; // Re-query elements each time this is called
 
             // Marquee import
-            super.assignInstances({
+            await super.assignInstances({
                 elementGroups: [
                     {
                         elements: this.DOM.marqueeElements,

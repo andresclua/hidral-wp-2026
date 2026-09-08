@@ -19,9 +19,6 @@ if ($modules) {
     foreach ($modules as $keyIndexModule => $module):
        include(locate_template('flexible/module/index.php', false, false)); 
     endforeach;
-} 
-
-?>
-
+} ?>
 
 <?php get_footer() ?>

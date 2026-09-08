@@ -20,6 +20,11 @@
  * @param string $config->plural_name The plural label for the taxonomy.
  * @param array|object $config->args Additional arguments for registering the taxonomy.
  *
+ * TERRA EXTENSIONS:
+ * - terra_hide_seo_columns: Hide SEO columns in taxonomy list (bool)
+ * - terra_manage_columns: Custom columns in taxonomy list (array)
+ *   Each column entry: 'column_slug' => ['label' => 'Column Title', 'field' => 'acf_field_name']
+ *
  * @example
  * new Custom_Taxonomy((object) array(
  *     'taxonomy' => 'media-and-press-category',
@@ -27,7 +32,11 @@
  *     'singular_name' => 'Category',
  *     'plural_name' => 'Media and Press Categories',
  *     'args' => (object) array(
- *         'rewrite' => array('slug' => 'media-and-press-category', 'with_front' => false)
+ *         'rewrite' => array('slug' => 'media-and-press-category', 'with_front' => false),
+ *         'terra_hide_seo_columns' => true,
+ *         'terra_manage_columns' => [
+ *             'related_post_type' => ['label' => 'Related Post Type', 'field' => 'related_post_type'],
+ *         ],
  *     )
  * ));
  */
@@ -87,6 +96,63 @@ class Custom_Taxonomy {
         $args = array_merge($default_args, (array) $this->args);
 
         register_taxonomy($this->taxonomy, $this->object_type, $args);
+
+        $this->terra_custom_functions();
+    }
+
+    /**
+     * Execute custom Terra functions after registration.
+     */
+    private function terra_custom_functions() {
+        if (!empty($this->args['terra_hide_seo_columns'])) {
+            $this->terra_hide_seo_columns_action();
+        }
+
+        if (!empty($this->args['terra_manage_columns'])) {
+            $this->terra_manage_columns_action();
+        }
+    }
+
+    /**
+     * Hides SEO columns (Yoast, RankMath, etc.) in the taxonomy list.
+     */
+    private function terra_hide_seo_columns_action() {
+        add_filter('manage_edit-' . $this->taxonomy . '_columns', function ($columns) {
+            $seo_columns = [
+                'wpseo-score', 'wpseo-title', 'wpseo-metadesc', 'wpseo-focuskw',
+                'wpseo-score-readability', 'wpseo-links', 'wpseo-linked',
+                'rank_math_seo_details', 'rank_math_title', 'rank_math_description', 'seo_score',
+            ];
+            foreach ($seo_columns as $column) {
+                unset($columns[$column]);
+            }
+            return $columns;
+        }, 10);
+    }
+
+    /**
+     * Adds custom columns to the taxonomy list.
+     * Each column reads an ACF field from the term.
+     */
+    private function terra_manage_columns_action() {
+        $taxonomy = $this->taxonomy;
+        $custom_columns = $this->args['terra_manage_columns'];
+
+        add_filter('manage_edit-' . $taxonomy . '_columns', function ($columns) use ($custom_columns) {
+            foreach ($custom_columns as $slug => $config) {
+                $columns[$slug] = $config['label'] ?? $slug;
+            }
+            return $columns;
+        });
+
+        add_filter('manage_' . $taxonomy . '_custom_column', function ($content, $column_name, $term_id) use ($taxonomy, $custom_columns) {
+            if (isset($custom_columns[$column_name])) {
+                $field = $custom_columns[$column_name]['field'] ?? $column_name;
+                $value = get_field($field, $taxonomy . '_' . $term_id);
+                return $value ? ucfirst(esc_html($value)) : '—';
+            }
+            return $content;
+        }, 10, 3);
     }
 }
 

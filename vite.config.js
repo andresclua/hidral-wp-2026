@@ -2,10 +2,8 @@ import { defineConfig } from "vite";
 import liveReload from "vite-plugin-live-reload";
 const { resolve } = require("path");
 import path from "path";
-import { promises as fs } from "fs";
-// import vue from "@vitejs/plugin-vue";
 import { config } from "dotenv";
-import { generateRandomHash, removeFilesPlugin } from "./config/viteHelper";
+import { generateAndUpdateHash, removeFilesPlugin } from "./config/viteHelper";
 import stylelint from 'vite-plugin-stylelint';
 
 config({ path: resolve(__dirname, `.env.${process.env.NODE_ENV}`) });
@@ -15,18 +13,14 @@ console.log(
 );
 console.log("Wordpress Path:", process.env.VITE_WP_PATH);
 
-// if we build files lets add a hash to them
-if (process.env.NODE_ENV === "production") {
-    var hash = generateRandomHash(3); // Generar un hash de 3 caracteres
-}
+let hash = "";
 
-if (process.env.NODE_ENV === "local") {
-    var hash = generateRandomHash(3); // Generar un hash de 3 caracteres
+if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "local") {
+    hash = generateAndUpdateHash(3); 
 }
 
 export default defineConfig({
     plugins: [
-        // vue(),
         liveReload(__dirname + "/**/*.php"),
         process.env.NODE_ENV === "virtual" ? removeFilesPlugin() : null,
         stylelint({
@@ -107,7 +101,6 @@ export default defineConfig({
 
     resolve: {
         alias: {
-            // vue: "vue/dist/vue.esm-bundler.js",
             "@scss": path.resolve(__dirname, "./src/scss"),
             "@scssFoundation": path.resolve(
                 __dirname,
@@ -120,6 +113,10 @@ export default defineConfig({
             "@scssComponents": path.resolve(
                 __dirname,
                 "./src/scss/framework/components"
+            ),
+            "@scssGlobals": path.resolve(
+                __dirname,
+                "./src/scss/global-components"
             ),
             "@js": path.resolve(__dirname, "./src/js"),
             "@jsModules": path.resolve(__dirname, "./src/js/modules"),

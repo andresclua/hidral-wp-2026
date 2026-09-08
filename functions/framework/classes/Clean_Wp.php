@@ -35,7 +35,8 @@ class Clean_Wp {
     add_filter('wpseo_metabox_prio', [$this, 'lower_wpseo_priority']);
     add_filter('tiny_mce_before_init', [$this, 'remove_headings_from_editor']);
     add_action('init', [$this, 'flush_rewritte']);
-    // add_action('init', [$this, 'create_general_opts_panel']);
+    // General Options page now registered via Options_Page class in project config
+    // add_action('admin_menu', [$this, 'create_general_opts_panel'], 6);
     
     if (!is_admin()) {
       add_filter('script_loader_src', [$this, '_remove_query_strings_1'], 15, 1);
@@ -43,6 +44,12 @@ class Clean_Wp {
       add_filter('script_loader_src', [$this, '_remove_query_strings_2'], 15, 1);
       add_filter('style_loader_src', [$this, '_remove_query_strings_2'], 15, 1);
     }
+
+    add_action('admin_menu', [$this, 'remove_posts_menu']);
+    add_action('admin_menu', [$this, 'remove_comments_menu']);
+    add_action('init', [$this, 'disable_comments_support']);
+    add_action('after_setup_theme', [$this, 'delete_hello_world_post']);
+    add_action('wp_dashboard_setup', [$this, 'customize_dashboard']);
   }
 
   /**
@@ -164,6 +171,84 @@ class Clean_Wp {
    /**
    * Remove Query Strings From Static Resources
    */
+  /**
+   * Hide the default "Posts" menu from wp-admin.
+   */
+  public function remove_posts_menu() {
+    remove_menu_page('edit.php');
+  }
+
+  /**
+   * Hide the "Comments" menu from wp-admin.
+   */
+  public function remove_comments_menu() {
+    remove_menu_page('edit-comments.php');
+  }
+
+  /**
+   * Disable comments support on all post types and close existing comments.
+   */
+  public function disable_comments_support() {
+    foreach (get_post_types() as $post_type) {
+      if (post_type_supports($post_type, 'comments')) {
+        remove_post_type_support($post_type, 'comments');
+        remove_post_type_support($post_type, 'trackbacks');
+      }
+    }
+  }
+
+  /**
+   * Delete the default "Hello World" post on theme activation.
+   * Runs once and stores a flag in wp_options to avoid repeat queries.
+   */
+  public function delete_hello_world_post() {
+    if (get_option('terra_hello_world_deleted')) {
+      return;
+    }
+
+    $hello = get_page_by_path('hello-world', OBJECT, 'post');
+    if ($hello) {
+      wp_delete_post($hello->ID, true);
+    }
+
+    update_option('terra_hello_world_deleted', true);
+  }
+
+  /**
+   * Remove default dashboard widgets and register custom ones from project config.
+   */
+  public function customize_dashboard() {
+    remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
+    remove_meta_box('dashboard_activity', 'dashboard', 'normal');
+    remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+    remove_meta_box('dashboard_primary', 'dashboard', 'side');
+    remove_meta_box('dashboard_site_health', 'dashboard', 'normal');
+    remove_action('welcome_panel', 'wp_welcome_panel');
+
+    $config_path = get_template_directory() . '/functions/project/config/dashboard_config.php';
+    if (!file_exists($config_path)) return;
+
+    $config = include $config_path;
+    $cards  = isset($config['cards']) ? $config['cards'] : array();
+
+    foreach ($cards as $i => $card) {
+      $context = isset($card['column']) ? $card['column'] : ($i === 0 ? 'normal' : 'side');
+      wp_add_dashboard_widget(
+        'terra_dashboard_' . $i,
+        $card['title'],
+        function () use ($card) {
+          $template = get_template_directory() . '/functions/project/admin-pages/dashboard.php';
+          if (file_exists($template)) {
+            include $template;
+          }
+        },
+        null,
+        null,
+        $context
+      );
+    }
+  }
+
   public function create_general_opts_panel($src) {
     // Register admin page options
     
@@ -174,6 +259,7 @@ class Clean_Wp {
             'menu_title'    => 'General Options',
             'menu_slug'     => 'general-options',
             'capability'    => 'edit_posts',
+            'parent_slug'   => 'terra_dashboard',
             'redirect'        => false
         ));
     }

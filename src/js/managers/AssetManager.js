@@ -168,39 +168,44 @@ class AssetManager {
 
     async importAutoAnimations({ tl, eventSystem }) {
         const animations = getAutoAnimations();
-        animations?.map(async (animation) => {
-            let importedAnimation;
-            if (animation.options.condition && typeof animation.options.condition == "function") {
-                const shouldLoad = animation.options.condition();
-                if (!shouldLoad) return;
-            }
-            if (animation.options?.selector) {
-                importedAnimation = this.Manager.libraries[animation.name];
-                importedAnimation &&
-                    this.debug.import(`✅ Animation ${animation.name} was already in Manager`, { color: "green" });
-                if (!importedAnimation) {
-                    importedAnimation = await animation.resource();
-                    this.Manager.addLibrary({ name: animation.name, lib: importedAnimation });
-                    this.debug.import(`🚧 Importing animation ${animation.name}`, { color: "pink" });
+        await Promise.all(
+            (animations ?? []).map(async (animation) => {
+                let importedAnimation;
+                if (animation.options.condition && typeof animation.options.condition == "function") {
+                    const shouldLoad = animation.options.condition();
+                    if (!shouldLoad) return;
                 }
-                if (importedAnimation) {
-                    const animationInstance = new importedAnimation({
-                        element: animation.options?.selector,
-                        Manager: this.Manager,
-                        eventSystem
-                    });
-                    this.Manager.addInstance({
-                        name: animation.name,
-                        instance: animationInstance,
-                        element: animation.options?.selector,
-                        method: "AssetManager",
-                    });
-                    importedAnimation && tl.add(animationInstance.init());
+                if (animation.options?.selector) {
+                    importedAnimation = this.Manager.libraries[animation.name];
+                    importedAnimation &&
+                        this.debug.import(`✅ Animation ${animation.name} was already in Manager`, { color: "green" });
+                    if (!importedAnimation) {
+                        importedAnimation = await animation.resource();
+                        this.Manager.addLibrary({ name: animation.name, lib: importedAnimation });
+                        this.debug.import(`🚧 Importing animation ${animation.name}`, { color: "pink" });
+                    }
+                    if (importedAnimation) {
+                        const animationInstance = new importedAnimation({
+                            element: animation.options?.selector,
+                            Manager: this.Manager,
+                            eventSystem
+                        });
+                        this.Manager.addInstance({
+                            name: animation.name,
+                            instance: animationInstance,
+                            element: animation.options?.selector,
+                            method: "AssetManager",
+                        });
+                        const isInViewport = this.Manager.libraries.isElementInViewport({
+                            el: animation.options?.selector,
+                        });
+                        if (isInViewport) {
+                            importedAnimation && tl.add(animationInstance.init());
+                        }
+                    }
                 }
-            }
-        });
-        
-        return tl;
+            })
+        );
     }
 
     async destroyAutoAnimations() {

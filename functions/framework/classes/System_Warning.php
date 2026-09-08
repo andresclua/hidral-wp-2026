@@ -3,12 +3,11 @@
  * Class System_Warning
  *
  * Central admin dashboard for Terra monitoring and diagnostic tools.
- * Provides a unified interface for performance monitoring, URL health checks,
+ * Provides a unified interface for URL health checks,
  * Google Search Console integration, and email notifications.
  *
  * Features:
  * - Admin menu page "System Warning" for all monitoring tools
- * - Terra Lighthouse integration (PageSpeed performance reports)
  * - URL Health Check (monitors site URLs for errors)
  * - Google Search Console integration
  * - Email notifications via Mail_To
@@ -20,8 +19,6 @@
  *
  * @param array $config Configuration options
  * @param array  $config['recipients']                   Email recipients for notifications
- * @param bool   $config['lighthouse_enabled']           Enable Lighthouse reports
- * @param string $config['lighthouse_url']               URL to analyze
  * @param bool   $config['google_search_console_enabled'] Enable GSC integration
  * @param bool   $config['mail_to_enabled']              Enable email notifications
  * @param array  $config['mail_to_config']               Email config ['email', 'subject', 'message']
@@ -30,8 +27,6 @@
  * @example
  * new System_Warning([
  *     'recipients' => ['admin@example.com'],
- *     'lighthouse_enabled' => true,
- *     'lighthouse_url' => 'https://example.com',
  *     'google_search_console_enabled' => true,
  *     'mail_to_enabled' => true,
  *     'mail_to_config' => [
@@ -48,9 +43,6 @@ class System_Warning {
 
     /** @var array */
     protected $config = [];
-
-    /** @var bool */
-    protected $lighthouse_enabled = false;
 
     /** @var bool */
     protected $mailto_enabled = false;
@@ -70,71 +62,41 @@ class System_Warning {
     /** @var int|null */
     protected $interval = null;
 
-    /** @var array */
-    protected $grammar_config = [];
-
     public function __construct(array $config = []) {
         $this->config = $config;
 
         $this->google_search_console_enabled = !empty($config['google_search_console_enabled']);
-        $this->lighthouse_enabled            = !empty($config['lighthouse_enabled']);
-        $this->url_health_checked_enabled            = !empty($config['url_health_checked_enabled']);
+        $this->url_health_checked_enabled    = !empty($config['url_health_checked_enabled']);
         $this->mailto_enabled                = !empty($config['mail_to_enabled']);
         $this->mail_to_config                = $config['mail_to_config'] ?? [];
         $this->recipients                    = $config['recipients'] ?? [];
-        $this->grammar_config                = $config['grammar_config'] ?? [];
+        $this->interval                      = get_option('terra_sw_interval', null)
+                                              ?: (function_exists('get_field') ? get_field('terra_system_warning_interval', 'option') : null);
 
         add_action('admin_menu', [$this, 'register_admin_pages']);
-        add_action('wp_ajax_terra_grammar_check_all', [$this, 'ajax_grammar_check_all']);
+        add_action('wp_ajax_terra_save_modules', [$this, 'ajax_save_modules']);
+        add_action('wp_ajax_terra_save_sw_settings', [$this, 'ajax_save_sw_settings']);
 
-        if ($this->lighthouse_enabled && is_production_url()) {
-            $this->set_up_terra_lighthouse();
-        }
-
-        if ($this->mailto_enabled && !empty($config['mail_to_config']) && is_production_url()) {
+        if ($this->mailto_enabled && !empty($config['mail_to_config']) && is_production_url() && Module_Manager::is_active('mail_to')) {
             $mail = new Mail_To((object) array(
-                'email' => $this->mail_to_config ['email'],  // Email address to be used in the class
-                'subject' => $this->mail_to_config['subject'],                // Interval (in seconds) for some functionality in the class
-                'message' => $this->mail_to_config['message'] ,           // URL to be used in the class
+                'email' => $this->mail_to_config ['email'],
+                'subject' => $this->mail_to_config['subject'],
+                'message' => $this->mail_to_config['message'],
             ));
         }
 
-        if ($this->google_search_console_enabled && is_production_url()) {
+        if ($this->google_search_console_enabled && is_production_url() && Module_Manager::is_active('google_search_console')) {
             new Google_Search_Console([]);
         }
 
-         if ($this->url_health_checked_enabled && is_production_url()) {
+        if ($this->url_health_checked_enabled && is_production_url() && Module_Manager::is_active('url_health_check')) {
             $this->set_up_terra_url_health_chequer();
         }
     }
 
-    protected function get_interval(): int {
-        if ($this->interval === null) {
-            $this->interval = get_field('terra_system_warning_interval', 'option');
-        }
-        return $this->interval ?? 300000;
-    }
-
-    public function register_admin_pages(): void {
-
-        add_menu_page(
-            'Dashboard',
-            'System Warning',
-            'manage_options',
-            'system_warning',
-            'show_system_warning_viewers',
-            'dashicons-warning',
-            101
-        );
-       
-    }
-
-    public function set_up_terra_lighthouse(): void {
-        // new Terra_Lighthouse((object) [
-        //     'email' => $this->recipients,
-        //     'interval' => $this->get_interval(),
-        //     'url' => get_site_url(),
-        // ]);
+    public function register_admin_pages() {
+        // No-op: page is now registered by acf_add_options_page in system_warning/index.php
+        // This keeps the method for backwards compatibility
     }
 
     public function set_up_terra_url_health_chequer(): void {
@@ -145,17 +107,34 @@ class System_Warning {
         ]);
     }
 
-    public function ajax_grammar_check_all(): void {
-        check_ajax_referer('terra_grammar_check_all', 'nonce');
+    public function ajax_save_modules() {
+        check_ajax_referer('terra_save_modules', 'nonce');
 
         if (!current_user_can('manage_options')) {
             wp_send_json_error(['message' => 'Unauthorized'], 403);
         }
 
-        $grammar = new Grammar($this->grammar_config);
-        $results = $grammar->check_all_pages();
+        $modules = isset($_POST['modules']) ? (array) $_POST['modules'] : [];
+        Module_Manager::save_modules($modules);
 
-        wp_send_json_success($results);
+        wp_send_json_success(['message' => 'Modules updated. Changes take effect on next page load.']);
+    }
+
+    public function ajax_save_sw_settings() {
+        check_ajax_referer('terra_save_sw_settings', 'nonce');
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => 'Unauthorized'], 403);
+        }
+
+        $interval = sanitize_text_field($_POST['interval'] ?? '604800');
+        $raw_emails = isset($_POST['emails']) ? (array) $_POST['emails'] : [];
+        $emails = array_values(array_filter(array_map('sanitize_email', $raw_emails)));
+
+        update_option('terra_sw_interval', $interval);
+        update_option('terra_sw_emails', $emails);
+
+        wp_send_json_success(['message' => 'Settings saved.']);
     }
 
 }

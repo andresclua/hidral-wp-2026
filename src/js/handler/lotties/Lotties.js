@@ -5,6 +5,7 @@ class Lotties {
     const { element } = payload;
     this.DOM = { element };
     this.animationName = element?.getAttribute("data-name") || "myLottie"; // nombre asociado
+
     this.init();
   }
 

@@ -24,15 +24,17 @@ class Handler extends CoreHandler {
     events() {
         this.emitter.on("MitterContentReplaced", async () => {
             this.DOM = this.updateTheDOM; // Re-query elements each time this is called
+            if (!this.DOM.lottieElement.length) return;
 
-            super.assignInstances({
-                elementGroups: [
-                    {
-                        elements: this.DOM.lottieElement,
-                        config: this.config,
-                        boostify: { distance: 30 },
+            await super.assignInstances({
+                elementGroups: Array.from(this.DOM.lottieElement).map((element) => ({
+                    elements: [element],
+                    config: this.config,
+                    boostify: {
+                        method: element.dataset.trigger || "scroll",
+                        distance: parseInt(element.dataset.distance, 10) || 30,
                     },
-                ],
+                })),
             });
         });
 
@@ -40,7 +42,27 @@ class Handler extends CoreHandler {
             if(this.DOM.lottieElement.length) {
                 super.destroyInstances()
             }
+        });
 
+        this.emitter.on("Lottie:load", async () => {
+            this.DOM = this.updateTheDOM;
+            super.assignInstances({
+                elementGroups: Array.from(this.DOM.lottieElement).map((element) => ({
+                    elements: [element],
+                    config: this.config,
+                    boostify: {
+                        method: element.dataset.trigger ?? "scroll",
+                        distance: parseInt(element.dataset.distance, 10) || 30,
+                    },
+                })),
+            })
+        });
+
+        this.emitter.on("Lottie:destroy", (payload) => {
+            const elements = payload?.elements?.length ? Array.from(payload.elements) : [];
+            elements.forEach((element) => {
+                this.Manager.getInstance({ libraryName: "Lottie", element })?.destroy?.();
+            });
         });
     }
 }

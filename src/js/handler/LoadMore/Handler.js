@@ -15,6 +15,7 @@ class Handler extends CoreHandler {
             postType: element.getAttribute('data-load-more-post-type') || 'post',
             taxonomy: element.getAttribute('data-load-more-taxonomy') || '',
             term: element.getAttribute('data-load-more-term') || '',
+            Manager: this.Manager
         });
 
     }
@@ -34,7 +35,7 @@ class Handler extends CoreHandler {
             this.DOM = this.updateTheDOM; // Re-query elements each time this is called
 
             // loadMore import
-            super.assignInstances({
+            await super.assignInstances({
                 elementGroups: [
                     {
                         elements: this.DOM.loadMore,

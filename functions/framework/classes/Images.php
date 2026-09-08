@@ -204,6 +204,7 @@ class Images {
   public function render_wp_image($payload = []) {
     $defaults = [
         'image'           => null,
+        'alt'             => null,         // override del alt; si null se deriva de la URL (get_alt_image)
         'sizes'           => '',           // string media query; solo requerido si habrá srcset
         'class'           => '',
         'lazyClass'       => 'g--lazy-01',
@@ -225,8 +226,8 @@ class Images {
 
     $main_featured_image = $main_featured_image_full = null;
     if (!$is_acf_array && !$is_url_string && $p['image']) {
-        $main_featured_image      = wp_get_attachment_image_src($p['image']);
-        $main_featured_image_full = wp_get_attachment_image_src($p['image'], 'full');
+        $main_featured_image      = wp_get_attachment_image_src($p['image'], 'full');
+        $main_featured_image_full = $main_featured_image;
     }
 
     // URL principal
@@ -253,6 +254,9 @@ class Images {
         ? ($p['image']['url'] ?? '')
         : ($is_url_string ? $url : ($main_featured_image_full[0] ?? $url));
 
+    // alt: override explícito ('alt' en payload) o, si no, el derivado de la URL.
+    $alt_text = ($p['alt'] !== null && $p['alt'] !== '') ? $p['alt'] : $this->get_alt_image($alt_url);
+
     $caption = $is_acf_array
         ? ($p['image']['caption'] ?? '')
         : ($is_url_string ? '' : wp_get_attachment_caption($p['image']));
@@ -263,7 +267,7 @@ class Images {
             ? '<figure class="' . esc_attr($p['figureClass']) . '">'
             : '';
 
-        $html .= '<img src="' . esc_url($url) . '" alt="' . esc_attr($this->get_alt_image($alt_url)) . '"';
+        $html .= '<img src="' . esc_url($url) . '" alt="' . esc_attr($alt_text) . '"';
 
         $w = $norm_dim($p['width']);
         $h = $norm_dim($p['height']);
@@ -436,7 +440,7 @@ class Images {
     $src_attr = $p['isLazy'] ? get_placeholder_image() : $url;
 
     // IMG
-    $html .= '<img src="' . esc_url($src_attr) . '" alt="' . esc_attr($this->get_alt_image($alt_url)) . '"';
+    $html .= '<img src="' . esc_url($src_attr) . '" alt="' . esc_attr($alt_text) . '"';
 
     if ($width)  $html .= ' width="' . esc_attr($width)  . '"';
     if ($height) $html .= ' height="' . esc_attr($height) . '"';

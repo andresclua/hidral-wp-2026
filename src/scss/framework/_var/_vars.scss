@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 
 /*
     Foundations
@@ -20,7 +21,7 @@ $colorbg-options: (
     a: $color-a,
     b: $color-b,
     c: $color-c,
-    d: $color-d 
+    d: $color-d
 );
 
 $gradient-a: linear-gradient(90deg, map.get($color-options, a) 0%, map.get($color-options, d) 100%);
@@ -28,6 +29,14 @@ $gradient-a: linear-gradient(90deg, map.get($color-options, a) 0%, map.get($colo
 
 // * TYPOGRAPHY
 $type-a:"DM Sans", sans-serif;
+
+// * Backend admin styles
+$wp-admin-bg-a: $color-a;                                   // admin menu + toolbar background
+$wp-admin-bg-b: color.adjust($color-a, $lightness: -5%);    // submenu / secondary dark (hover bg, ACF panels)
+$wp-admin-highlight-a: $color-c;                            // current/hover, buttons, accents
+$wp-admin-highlight-b: $color-b;                            // text & icons shown on the highlight (white or near white)
+$wp-admin-text: $color-b;                                   // menu / chrome text & icons (white or near white)
+$wp-admin-font: $type-a;                                    // admin font
 
 
 // * LAYOUT

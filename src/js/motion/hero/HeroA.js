@@ -12,8 +12,6 @@ class HeroA {
             console.warn("HeroHome: No element found for the hero home.");
             return;
         }
-        console.log("HERO A");
-        
     }
 
     init() {

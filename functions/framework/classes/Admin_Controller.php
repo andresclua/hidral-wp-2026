@@ -96,14 +96,11 @@ class Admin_Controller {
     private function init() {
         // Hide metaboxes
         if (!empty($this->hide_elements)) {
-            add_action('admin_init', [$this, 'hide_metaboxes']);
             add_action('add_meta_boxes', [$this, 'hide_metaboxes'], 99);
 
-            if (in_array('editor', $this->hide_elements) && $this->match_type === 'post_type') {
-                $pt = $this->identifier;
-                add_filter('use_block_editor_for_post_type', function($use, $type) use ($pt) {
-                    return $type === $pt ? false : $use;
-                }, 10, 2);
+            // Editor support must be removed very early so Gutenberg respects it
+            if (in_array('editor', $this->hide_elements)) {
+                add_action('admin_init', [$this, 'maybe_remove_editor']);
             }
         }
 
@@ -114,6 +111,32 @@ class Admin_Controller {
 
         // Apply custom styles to hide elements via CSS (backup method)
         add_action('admin_head', [$this, 'inject_admin_styles']);
+    }
+
+    /**
+     * Remove editor support early enough for Gutenberg to respect it.
+     * Cannot rely on global $post here — extract post ID from URL instead.
+     */
+    public function maybe_remove_editor() {
+        global $pagenow;
+
+        if (!in_array($pagenow, ['post.php', 'post-new.php'])) {
+            return;
+        }
+
+        $post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
+        if (!$post_id) {
+            return;
+        }
+
+        if (!$this->should_apply($post_id)) {
+            return;
+        }
+
+        $post_type = get_post_type($post_id);
+        if ($post_type) {
+            remove_post_type_support($post_type, 'editor');
+        }
     }
 
     /**
@@ -153,6 +176,11 @@ class Admin_Controller {
                     $applies = call_user_func($this->condition, $current_post->ID, $current_post);
                 }
                 break;
+        }
+
+        // If a condition callback is set alongside another match_type, also evaluate it
+        if ($applies && $this->match_type !== 'condition' && is_callable($this->condition)) {
+            $applies = call_user_func($this->condition, $current_post->ID, $current_post);
         }
 
         return $applies;

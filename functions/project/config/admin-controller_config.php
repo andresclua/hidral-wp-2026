@@ -30,21 +30,35 @@
 
 return [
 
+    // ============================================================================
+    // Pages: Ocultar excerpt en todas las paginas
+    // ============================================================================
     [
         'identifier' => 'page',
         'match_type' => 'post_type',
-        'hide_elements' => ['editor'],
+        'hide_elements' => ['excerpt'],
     ],
+
+    // ============================================================================
+    // page-moduls.php: Ocultar editor (solo usa ACF Flexible Content)
+    // ============================================================================
     [
-        'identifier' => 'servicios',
-        'match_type' => 'post_type',
+        'identifier' => 'page-modules.php',
+        'match_type' => 'template',
         'hide_elements' => ['editor'],
     ],
+
+    // ============================================================================
+    // TEST 1: Ocultar excerpt y thumbnail en TODOS los posts
+    // ============================================================================
+    // Descomenta para probar - Ve a cualquier post y verás que falta excerpt/thumbnail
+    /*
     [
-        'identifier' => 'trabajos',
+        'identifier' => 'post',
         'match_type' => 'post_type',
-        'hide_elements' => ['editor'],
+        'hide_elements' => ['excerpt', 'thumbnail'],
     ],
+    */
 
     // ============================================================================
     // TEST 2: Redirect después de guardar un post de 'trabajo'

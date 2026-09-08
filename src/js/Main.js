@@ -1,21 +1,23 @@
 import Core from "./Core";
 
 import EventSystem from "@js/utilities/EventSystem";
-import MarqueeHandler from "@js/handler/marquee/Handler.js";
-import ParallaxBackgroundHandler from "@js/handler/parallax-background/Handler.js";
+import MarqueeHandler from "./handler/marquee/Handler.js";
 import Lottie from "@js/handler/lotties/Handler";
 import LoadMore from "@js/handler/LoadMore/Handler.js";
-import CollapsifyHandler from "@js/handler/collapsify/Handler.js";
-import ElasticGridHandler from "@js/handler/elastic-grid/Handler.js";
-import GoogleMapHandler from "@js/handler/google-map/Handler.js";
+import HeaderSearch from "@js/handler/HeaderSearch/Handler.js";
+import VideoHandler from "@js/handler/video/Handler.js";
+import ModalHandler from "@js/handler/modal/Handler.js";
+import AnchorToHandler from "@js/handler/anchorTo/Handler.js";
+import ScrollWatcherHandler from "@js/handler/scrollWatcher/Handler.js";
 
 
 class Main extends Core {
     constructor(payload) {
         const { terraDebug, Manager, emitter, assetManager, debug, boostify, eventSystem } = payload;
 
+        // Call the parent class (Core) constructor with specific configurations
         super({
-            blazy: {
+            lazy: {
                 enable: true, // Enable lazy loading for images or elements
                 selector: "g--lazy-01", // Selector for lazy loading elements
             },
@@ -47,25 +49,18 @@ class Main extends Core {
         this.events();
     }
 
-    async init() {
+    init() {
         // Loads Core init function
-        super.init();
-
+        super.init();   
+      
         new MarqueeHandler({ ...this.handler, name: "MarqueeHandler" });
-        new ParallaxBackgroundHandler({ ...this.handler, name: "ParallaxBackgroundHandler" });
-        new CollapsifyHandler({ ...this.handler, name: "Collapsify" });
-        new ElasticGridHandler({ ...this.handler, name: "ElasticGridHandler" });
-        new GoogleMapHandler({ ...this.handler, name: "GoogleMapHandler" });
-        
-
-        const { default: Navbar } = await import("@js/modules/Navbar.js");
-        new Navbar({
-            header: document.querySelector(".js--header"),
-            wrapper: document.querySelector(".js--header-wrapper"),
-            burger: document.querySelector(".js--burger"),
-            nav: document.querySelector(".js--navbar"),
-        });
-
+        new Lottie({ ...this.handler, name: "Lottie" });
+        new LoadMore({...this.handler, name:"LoadMore"})
+        new HeaderSearch({ ...this.handler, name: "HeaderSearch" });
+        new VideoHandler({ ...this.handler, name: "Video" });
+        new ModalHandler({ ...this.handler, name: "Modal" });
+        new AnchorToHandler({ ...this.handler, name: "AnchorTo" });
+        new ScrollWatcherHandler({ ...this.handler, name: "ScrollWatcher" });
     }
     events() {
         super.events();

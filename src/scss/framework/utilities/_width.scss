@@ -1,0 +1,39 @@
+@use "../../framework/_var/_vars.scss" as *;
+
+$width-values: (
+    // 100: 100%,
+    // auto: auto,
+    // fit-content: fit-content,
+);
+
+$width-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin width-utility($width-prop, $breakpoints) {
+    @each $breakpoint-name, $breakpoint-value in $breakpoints {
+        @if ($breakpoint-value == 0) {
+            @each $name, $property in $width-prop {
+                .u--width-#{$name} {
+                    width: $property;
+                }
+            }
+        } @else {
+            @media screen and ($viewport-type: $breakpoint-value) {
+                @each $name, $property in $width-prop {
+                    .u--width-#{$breakpoint-name}-#{$name} {
+                        width: $property;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include width-utility($width-values, $width-breakpoints);

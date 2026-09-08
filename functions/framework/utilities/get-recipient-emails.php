@@ -1,16 +1,25 @@
-<?php 
+<?php
     function get_recipient_emails() {
-        $emailList = [];
-        if ( function_exists('get_field') ) {
-            $emails = get_field('terra_system_warning_emails', 'option');
-            if ($emails) {
-                foreach ($emails as $key => $value) {
-                    if(!empty($value['email'])) {
+        // Primary: native wp_options
+        $emails = get_option('terra_sw_emails', []);
+        if (!empty($emails)) {
+            return array_filter($emails);
+        }
+
+        // Fallback: ACF options (legacy)
+        if (function_exists('get_field')) {
+            $acf_emails = get_field('terra_system_warning_emails', 'option');
+            if ($acf_emails) {
+                $emailList = [];
+                foreach ($acf_emails as $value) {
+                    if (!empty($value['email'])) {
                         $emailList[] = $value['email'];
                     }
                 }
+                return $emailList;
             }
         }
-        return !empty($emailList) ? $emailList : ['andres@terrahq.com'];
+
+        return [];
     }
 ?>

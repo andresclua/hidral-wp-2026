@@ -8,7 +8,7 @@
  * Uso:
  * new RedirectStageUrls([
  *   'pages'      => [6123, 'mi-pagina'],
- *   'single'     => ['giving-vehicles', 'post'],
+ *   'single'     => ['giving-vehicles', 'post', 1234], // strings = post types, números = IDs concretos
  *   'taxonomies' => ['category', 'product_cat'],
  * ]);
  */
@@ -29,20 +29,25 @@ class Redirect_Stage_Urls {
   }
 
   protected function init(): void {
-    add_action('template_redirect', [$this, 'maybe_redirect'], 0);
+    add_action('template_redirect', [$this, 'maybe_redirect'], 10);
   }
 
   public function maybe_redirect(): void {
     // Si la petición actual está permitida, no redirigir
-    if ($this->is_allowed_request()) {
+    if (!$this->is_allowed_request()) {
        // Redirigir todo lo demás al home
-      wp_redirect(esc_url(home_url('/')), 301);
+      wp_redirect(esc_url(home_url('/')), 302);
       exit;
     }
     return;
   }
 
   protected function is_allowed_request(): bool {
+    // 0) Permitir siempre la home
+    if (is_front_page()) {
+      return true;
+    }
+
     // 1) Permitir páginas específicas (IDs o slugs)
     if (!empty($this->config['pages']) ) {
       foreach ($this->config['pages'] as $key => $value) {
@@ -52,10 +57,13 @@ class Redirect_Stage_Urls {
       }
     }
 
-    // 2) Permitir single de ciertos post types (ej: 'giving-vehicles')
-    if (!empty($this->config['single_pages'])) {
-      foreach ($this->config['single_pages'] as $post_type) {
-        if (is_singular($post_type)) {
+    // 2) Permitir single de ciertos post types (ej: 'giving-vehicles') o IDs concretos
+    if (!empty($this->config['single'])) {
+      foreach ($this->config['single'] as $value) {
+        if (is_numeric($value) && is_singular() && get_the_ID() === (int) $value) {
+          return true;
+        }
+        if (is_string($value) && !is_numeric($value) && is_singular($value)) {
           return true;
         }
       }

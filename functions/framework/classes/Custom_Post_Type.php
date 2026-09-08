@@ -158,6 +158,9 @@ class Custom_Post_Type {
         if (!empty($this->args['terra_manage_columns'])) {
             $this->terra_manage_columns_action();
         }
+
+        // Auto-detect taxonomy placeholder in rewrite slug (e.g. %resources_types%)
+        $this->terra_taxonomy_permalink_action();
     }
 
     
@@ -310,6 +313,121 @@ class Custom_Post_Type {
             'post_type' => $this->post_type,
             'columns' => $this->args['terra_manage_columns']
         ));
+    }
+
+    /**
+     * Detects taxonomy placeholders in the rewrite slug (e.g. %resources_types%)
+     * and registers:
+     * - Rewrite tags so WordPress can parse incoming URLs
+     * - A post_type_link filter to replace placeholders with actual term slugs
+     * - A request filter to resolve conflicts with child pages that share the same
+     *   URL structure (e.g. resources/case-studies/ as a page vs CPT pattern)
+     */
+    public function terra_taxonomy_permalink_action()
+    {
+        $rewrite = $this->args['rewrite'] ?? null;
+        if (!$rewrite || empty($rewrite['slug'])) {
+            return;
+        }
+
+        // Find all %taxonomy% placeholders in the slug
+        if (!preg_match_all('/%([^%]+)%/', $rewrite['slug'], $matches)) {
+            return;
+        }
+
+        $post_type = $this->post_type;
+        $taxonomies = $matches[1]; // e.g. ['resources_types']
+
+        // Register rewrite tags so WordPress can parse incoming URLs
+        foreach ($taxonomies as $taxonomy) {
+            add_rewrite_tag('%' . $taxonomy . '%', '([^/]+)');
+        }
+
+        // Replace taxonomy placeholders with actual term slugs in post URLs
+        add_filter('post_type_link', function ($post_link, $post) use ($post_type, $taxonomies) {
+            if ($post->post_type !== $post_type) {
+                return $post_link;
+            }
+
+            foreach ($taxonomies as $taxonomy) {
+                if (strpos($post_link, '%' . $taxonomy . '%') === false) {
+                    continue;
+                }
+
+                $terms = get_the_terms($post->ID, $taxonomy);
+
+                if ($terms && !is_wp_error($terms)) {
+                    $post_link = str_replace('%' . $taxonomy . '%', $terms[0]->slug, $post_link);
+                } else {
+                    $post_link = str_replace('%' . $taxonomy . '%', 'uncategorized', $post_link);
+                }
+            }
+
+            return $post_link;
+        }, 10, 2);
+
+        // Resolve conflicts between CPT URL structure and child pages.
+        // When a CPT uses a slug like "resources/%taxonomy%", URLs like
+        // "resources/case-studies/" may be intercepted by CPT/taxonomy rewrite
+        // rules instead of resolving to child pages. Additionally, WordPress
+        // may auto-rename the parent page slug (e.g. "resources" → "resources-2")
+        // making get_page_by_path() fail.
+        $base_slug = preg_replace('/%[^%]+%.*$/', '', $rewrite['slug']);
+        $base_slug = rtrim($base_slug, '/');
+
+        add_filter('request', function ($query_vars) use ($post_type, $base_slug) {
+            if (is_admin()) {
+                return $query_vars;
+            }
+
+            // Parse the URL path
+            $url_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+            $home_path = trim(parse_url(home_url(), PHP_URL_PATH) ?: '', '/');
+            if ($home_path) {
+                $url_path = trim(substr($url_path, strlen($home_path)), '/');
+            }
+
+            // Only intercept URLs that match: {base_slug}/{child_slug}
+            // URLs with 3+ segments (e.g. resources/videos/post-name) are CPT singles
+            $segments = explode('/', $url_path);
+            if (count($segments) !== 2 || $segments[0] !== $base_slug) {
+                return $query_vars;
+            }
+
+            $child_slug = $segments[1];
+
+            // First try direct page path lookup
+            $page = get_page_by_path($url_path);
+
+            // If not found, the parent page slug may have been auto-renamed
+            // by WordPress (e.g. "resources" → "resources-2") due to CPT conflict.
+            // Search for child page by slug under any parent whose slug starts with base.
+            if (!$page) {
+                $candidates = get_posts([
+                    'post_type'   => 'page',
+                    'name'        => $child_slug,
+                    'post_status' => 'publish',
+                    'numberposts' => 5,
+                ]);
+
+                foreach ($candidates as $candidate) {
+                    if (!$candidate->post_parent) {
+                        continue;
+                    }
+                    $parent = get_post($candidate->post_parent);
+                    if ($parent && $parent->post_type === 'page' && strpos($parent->post_name, $base_slug) === 0) {
+                        $page = $candidate;
+                        break;
+                    }
+                }
+            }
+
+            if ($page) {
+                return ['page_id' => $page->ID];
+            }
+
+            return $query_vars;
+        }, 1);
     }
 
 }

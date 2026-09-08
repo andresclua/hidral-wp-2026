@@ -8,7 +8,7 @@
 // * container fluid
 // .f--container-fluid {
 //   @include make-container-fluid();
-//   @media all and ($viewport-type: $wide) {
+//   @media all and ($viewport-type: 2000px) {
 //     @include make-container();
 //     & > [class*="f--row"] {
 //       margin-right: $gutter-compensation;

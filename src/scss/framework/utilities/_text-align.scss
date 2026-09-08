@@ -1,7 +1,10 @@
 @use "@scss/framework/_var/_vars.scss" as *;
 
 $text-align-values: (
-  center: center,
+  // left: left,
+  // center: center,
+  // right:right,
+  // justify:justify,
 );
 
 $text-align-breakpoints: (

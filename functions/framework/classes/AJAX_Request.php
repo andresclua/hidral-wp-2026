@@ -221,8 +221,8 @@ class AJAX_Request
 
         $rule = $this->sanitize[$key];
 
-        // Callable custom sanitizer
-        if (is_callable($rule)) {
+        // Callable custom sanitizer (only for closures/arrays, not plain strings that match built-in sanitizer names)
+        if (!is_string($rule) && is_callable($rule)) {
             return call_user_func($rule, $value);
         }
 

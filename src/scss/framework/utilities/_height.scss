@@ -1,0 +1,39 @@
+@use "../../framework/_var/_vars.scss" as *;
+
+$height-values: (
+    // 100: 100%,
+    // auto: auto,
+    // fit-content: fit-content,
+);
+
+$height-breakpoints: (
+  all: $all,
+  // desktop: $desktop,
+  // laptop: $laptop,
+  // tabletl: $tabletl,
+  // tabletm: $tabletm,
+  // tablets: $tablets,
+  // mobile: $mobile,
+);
+
+@mixin height-utility($height-prop, $breakpoints) {
+    @each $breakpoint-name, $breakpoint-value in $breakpoints {
+        @if ($breakpoint-value == 0) {
+            @each $name, $property in $height-prop {
+                .u--height-#{$name} {
+                    height: $property;
+                }
+            }
+        } @else {
+            @media screen and ($viewport-type: $breakpoint-value) {
+                @each $name, $property in $height-prop {
+                    .u--height-#{$breakpoint-name}-#{$name} {
+                        height: $property;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include height-utility($height-values, $height-breakpoints);

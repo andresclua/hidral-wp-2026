@@ -25,7 +25,7 @@ class Google_Search_Console {
      * @param array $config Configuration options.
      */
     public function __construct($config) {
-        add_action('admin_menu', [$this, 'register_menu'], 99);
+        // Submenu removed — GSC link is available in the System page tabs.
     }
 
     /**
@@ -35,7 +35,7 @@ class Google_Search_Console {
      */
     public function register_menu() {
         add_submenu_page(
-            'system_warning',
+            'terra_dashboard',
             'GSC',
             'GSC',
             'manage_options',

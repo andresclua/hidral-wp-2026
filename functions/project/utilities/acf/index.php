@@ -1,15 +1,11 @@
 <?php
-
 /**
- * Main Custom ACF fields Index
+ * Custom ACF field types are now loaded via the 'custom_acf' config
+ * in functions/project/config/index.php.
  *
- * This file serves as the primary index for including various custom ACF fields within the theme. 
- * It acts as a central point of entry, ensuring that all necessary functionality is properly loaded.
- * To add more functionality to the theme, you would typically include additional files here. 
- * This ensures that any new features or customizations are correctly loaded and integrated with the 
- * existing theme structure.
+ * Each entry defines:
+ *   'file'    => path to the field type init.php
+ *   'options' => configurable data for that field type
+ *
+ * The framework loops through and registers them automatically.
  */
-
- require get_template_directory() . '/functions/project/utilities/acf/acf-spacing/init.php';
- 
-?>

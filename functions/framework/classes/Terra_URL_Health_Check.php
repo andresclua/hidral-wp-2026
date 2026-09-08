@@ -57,7 +57,6 @@ class Terra_URL_Health_Check {
     public function add_url_health_chequer_menu() {
         $this->start_cronjob();
         if(is_user_logged_in() && is_admin()){
-            $this->create_admin_menu_page();
         }
     }
 
@@ -83,9 +82,9 @@ class Terra_URL_Health_Check {
     public function create_admin_menu_page(){
         // Use WordPress's add_menu_page to create a custom admin page
         add_submenu_page(
-            'system_warning',
-            'Run check',
-            'Run check',
+            'terra_dashboard',
+            'URL Health Check',
+            'URL Health Check',
             'manage_options',
             'run_check',
             'show_url_health_chequer_table'

@@ -81,7 +81,7 @@ class Terra_Lighthouse {
     public function create_admin_menu_page(){
         // Use WordPress's add_menu_page to create a custom admin page
         add_submenu_page(
-            'system_warning',
+            'terra_dashboard',
             'Page Speed',
             'Page Speed',
             'manage_options',

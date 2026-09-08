@@ -20,16 +20,13 @@
 *:focus-visible {
     outline: 1px solid map.get($color-options, a);
 }
-a{
-    @extend .f--color-c;
-}
+
 html,
 body {
     overscroll-behavior: none;
 }
 html {
-    @extend .f--font-e;
-    @extend .f--color-a;
+    font-size: 16px;
 }
 body {
     @extend .f--background-b;
@@ -47,7 +44,9 @@ ul,
 ol {
     list-style: none;
 }
-img{width:100%; height:auto;}
+img {
+    max-width: 100%;
+}
 fieldset {
     border: none;
 }

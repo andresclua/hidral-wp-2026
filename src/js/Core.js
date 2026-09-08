@@ -4,21 +4,23 @@ import SwupDebugPlugin from "@swup/debug-plugin";
 import SwupScriptsPlugin from "@swup/scripts-plugin";
 import SwupBodyClassPlugin from "@swup/body-class-plugin";
 import SwupJsPlugin from "@swup/js-plugin";
+import SwupA11yPlugin from "@swup/a11y-plugin";
 
-import Blazy from "blazy";
+import Lazy from "@terrahq/lazy";
 import { createTransitionOptions } from "@js/motion/transition/index.js";
 import TransitionTimings from "@js/utilities/TransitionTimings.js";
 class Core {
     constructor(payload) {
-        const { blazy, terraDebug, Manager, assetManager, debug, swup, form7, eventSystem } = payload;
+        const { lazy, terraDebug, Manager, assetManager, debug, swup, form7, eventSystem } = payload;
 
-        this.blazy = blazy;
+        this.lazy = lazy;
         this.terraDebug = terraDebug;
         this.Manager = Manager;
         this.debug = debug;
         this.form7 = form7.enable;
         this.swupEnabled = swup.enable;
         this.eventSystem = eventSystem;
+        this.firstLoad = true; // start true so the CF7 re-init is skipped on the initial load (CF7 inits it itself); set false after first contentReplaced
         if (this.swupEnabled) {
             
             this.swup = new Swup({
@@ -28,6 +30,7 @@ class Core {
                     new SwupHeadPlugin({ persistAssets: true }),
                     new SwupBodyClassPlugin(),
                     new SwupScriptsPlugin({ optin: true }),
+                    new SwupA11yPlugin(),
 
                     ...(terraDebug ? [new SwupDebugPlugin({ globalInstance: true })] : []),
                     new SwupJsPlugin(
@@ -40,23 +43,6 @@ class Core {
                     ),
                 ],
             });
-
-            if (this.form7 && this.swupEnabled) {
-                if (
-                    this.form7 &&
-                    document.querySelector("div.wpcf7") &&
-                    import.meta.env.VITE_TERRA_VIRTUAL == "false" &&
-                    !this.firstLoad
-                ) {
-                    document.querySelectorAll("div.wpcf7 > form").forEach((element) => {
-                        wpcf7.init(element);
-                    });
-                }
-                // ! If needed, install the plugin and uncomment this
-                // this.swup.plugins.push(
-                //     new SwupFormsPlugin({ formSelector: "div.wpcf7 > form" })
-                // );
-            }
         }
     }
     async init() {
@@ -66,6 +52,16 @@ class Core {
                     const { terraDebugger } = await import("@terrahq/helpers/terraDebugger");
                     terraDebugger({
                         submitQA: "https://app.clickup.com/2197638/v/l/6-901701608554-1",
+                        mobileFirst: true,
+                        customBreakpoints: [
+                            { 'mobile': 0 },
+                            { 'tablets': 581 },
+                            { 'tabletm': 811 },
+                            { 'tabletl': 1025 },
+                            { 'laptop': 1301 },
+                            { 'desktop': 1571 },
+                            { 'wide': 1701 }
+                        ],
                     });
                 } catch (error) {
                     console.error("Error loading the debugger module:", error);
@@ -115,11 +111,11 @@ class Core {
         });
     }
     contentReplaced() {
-        if (this.blazy?.enable) {
-            const lazySelector = this.blazy?.selector ? this.blazy?.selector : "g--lazy-01";
+        if (this.lazy?.enable) {
+            const lazySelector = this.lazy?.selector ? this.lazy?.selector : "g--lazy-01";
             this.Manager.addInstance({
-                name: "Blazy",
-                instance: new Blazy({
+                name: "Lazy",
+                instance: new Lazy({
                     selector: "." + lazySelector,
                     successClass: `${lazySelector}--is-loaded`,
                     errorClass: `${lazySelector}--is-error`,
@@ -129,19 +125,35 @@ class Core {
             });
         }
 
+        // Re-init CF7 forms after a Swup navigation (skipped on the first load,
+        // where CF7 initializes them itself). Keeps CF7's own AJAX submit, so it
+        // never navigates to the form action (#wpcf7-f...-o...).
+        if (
+            this.form7 &&
+            document.querySelector("div.wpcf7") &&
+            typeof wpcf7 !== "undefined" &&
+            !this.firstLoad
+        ) {
+            document.querySelectorAll("div.wpcf7 > form").forEach((element) => {
+                wpcf7.init(element);
+            });
+        }
+
         this.firstLoad = false;
     }
 
     willReplaceContent() {
-        if (this.blazy.enable) {
-            this.debug.instance(`❌ Destroy: Blazy`, { color: "red" });
+        if (this.lazy.enable) {
+            if (this.debug && typeof this.debug.instance === "function") {
+                this.debug.instance(`❌ Destroy: Lazy`, { color: "red" });
+            }
 
-            if (this.Manager.instances["Blazy"]) {
-                this.Manager.instances["Blazy"].forEach((instance) => {
+            if (this.Manager.instances["Lazy"]) {
+                this.Manager.instances["Lazy"].forEach((instance) => {
                     instance.instance.destroy();
                 });
             }
-            this.Manager.cleanInstances("Blazy");
+            this.Manager.cleanInstances("Lazy");
         }
     }
 }

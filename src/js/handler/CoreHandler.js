@@ -22,6 +22,7 @@ class CoreHandler {
         this.boostifyConfig = {
             distance: 30,
         };
+        this._pendingViewportChecks = [];
 
         this.startDebug();
     }
@@ -79,59 +80,119 @@ class CoreHandler {
                     debug: this.terraDebug,
                 });
 
-                if (boostify && boostify.method == 'click') {
-                    this.boostify.click({
-                        distance: boostify ? boostify.distance : this.boostifyConfig.distance,
-                        name: boostifyEventName,
-                        element,
-                        callback: async () => {
-                            // Double-check instance doesn't exist when callback fires
-                            if (this.Manager.hasInstanceForElement(this.libraryName, element)) return;
-                            
-                            try {
-                                await this.importLibrary(this.asset, "boostify");
-                                await this.createInstance({
+                if(boostify) {
+                    switch (boostify.method) {
+                        case 'click':
+                            this.tagBoostifyEvent(
+                                this.boostify.click({
+                                    distance: boostify ? boostify.distance : this.boostifyConfig.distance,
+                                    name: boostifyEventName,
                                     element,
-                                    config,
-                                    modifiesHeight,
-                                    method: "Boostify click",
+                                    callback: async () => {
+                                        // Double-check instance doesn't exist when callback fires
+                                        if (this.Manager.hasInstanceForElement(this.libraryName, element)) return;
+
+                                        try {
+                                            await this.importLibrary(this.asset, "boostify");
+                                            await this.createInstance({
+                                                element,
+                                                config,
+                                                modifiesHeight,
+                                                method: "Boostify click",
+                                            });
+                                        } catch (error) {
+                                            console.error(error);
+                                            this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+                                        }
+                                    },
+                                }),
+                                boostifyEventName,
+                            );
+                            break;
+                        case 'observer':
+                            this.tagBoostifyEvent(
+                                this.boostify.observer({
+                                    element: element,
+                                    options: { threshold: 0.5 },
+                                    callback: async () => {
+                                        if (this.hasPlayed) return;
+                                        this.instance = this.Manager.getInstance({ libraryName: this.libraryName, element });
+                                        if (!this.instance) {
+                                            try {
+                                                await this.importLibrary(this.asset, "boostify");
+                                                await this.createInstance({ element, config, modifiesHeight, method: "Boostify observer" });
+                                            } catch (error) {
+                                                console.error(error);
+                                                this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+                                            }
+                                        } else {
+                                            if (typeof this.instance.play !== "function") return;
+                                            this.instance.play();
+                                            this.hasPlayed = true;
+                                        }
+                                    },
+                                }),
+                                boostifyEventName,
+                            );
+                            break;
+                        case 'scroll':
+                        default:
+                            if (inViewport && !shouldLoadInstantly) {
+                                try {
+                                    await this.importLibrary(this.asset);
+                                    await this.createInstance({ element, config, modifiesHeight, method: "Viewport" });
+                                } catch (error) {
+                                    console.error(error);
+                                    this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+                                }
+                            } else if (!inViewport && !shouldLoadInstantly) {
+                                this.boostify.scroll({
+                                    distance: boostify ? boostify.distance : this.boostifyConfig.distance,
+                                    name: boostifyEventName,
+                                    callback: async () => {
+                                        if (this.Manager.hasInstanceForElement(this.libraryName, element)) return;
+                                        
+                                        try {
+                                            await this.importLibrary(this.asset, "boostify");
+                                            await this.createInstance({
+                                                element,
+                                                config,
+                                                modifiesHeight,
+                                                method: "Boostify scroll",
+                                            });
+                                        } catch (error) {
+                                            console.error(error);
+                                            this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+                                        }
+                                    },
                                 });
-                            } catch (error) {
-                                console.error(error);
-                                this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+
+                                                    // Re-check viewport when a height-modifying library loads
+                                const currentAsset = this.asset;
+                                const heightCheckHandler = async () => {
+                                    if (this.Manager.hasInstanceForElement(this.libraryName, element)) return;
+                                    const nowInViewport = this.Manager.libraries.isElementInViewport({
+                                        el: element,
+                                        debug: this.terraDebug,
+                                    });
+                                    if (nowInViewport) {
+                                        this.destroyBoostifyEvent(boostifyEventName);
+                                        this.emitter.off("CoreHandler:heightModified", heightCheckHandler);
+                                        this._pendingViewportChecks = this._pendingViewportChecks.filter(h => h !== heightCheckHandler);
+                                        try {
+                                            await this.importLibrary(currentAsset);
+                                            await this.createInstance({ element, config, modifiesHeight, method: "Viewport (re-check)" });
+                                        } catch (error) {
+                                            console.error(error);
+                                            this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+                                        }
+                                    }
+                                };
+                                this._pendingViewportChecks.push(heightCheckHandler);
+                                this.emitter.on("CoreHandler:heightModified", heightCheckHandler);
                             }
-                        },
-                    });
-                } else if (inViewport && !shouldLoadInstantly) {
-                    try {
-                        await this.importLibrary(this.asset);
-                        await this.createInstance({ element, config, modifiesHeight, method: "Viewport" });
-                    } catch (error) {
-                        console.error(error);
-                        this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
+                            break;
                     }
-                } else if (!inViewport && !shouldLoadInstantly) {
-                    this.boostify.scroll({
-                        distance: boostify ? boostify.distance : this.boostifyConfig.distance,
-                        name: boostifyEventName,
-                        callback: async () => {
-                            // Double-check instance doesn't exist when callback fires
-                            if (this.Manager.hasInstanceForElement(this.libraryName, element)) return;
-                            
-                            try {
-                                await this.importLibrary(this.asset, "boostify");
-                                await this.createInstance({
-                                    element,
-                                    config,
-                                    modifiesHeight,
-                                    method: "Boostify scroll",
-                                });
-                            } catch (error) {
-                                console.error(error);
-                                this.debug.error(`⚠️ Error loading ${this.libraryName}`, "import");
-                            }
-                        },
-                    });
                 }
             }
         }
@@ -149,6 +210,24 @@ class CoreHandler {
     }
 
     /**
+     * Tags a boostify event wrapper with a name so it can be looked up by name
+     * regardless of its type. Boostify only stores a name for scroll events;
+     * click/observer events are registered without one, so we tag them here to
+     * keep `name`-based lookup (hasBoostifyEvent, destroyInstances) working.
+     * @param {Object} instance The event instance returned by boostify.click/observer
+     * @param {string} name The boostify event name to tag it with
+     *
+     * TODO: Temporary workaround — remove once the boostify lib is updated to
+     * persist `name` for click/observer events (like it already does for scroll).
+     * Once boostify stores the name on registration, pass it through directly and
+     * delete this method.
+     */
+    tagBoostifyEvent(instance, name) {
+        const event = this.boostify.events?.find((e) => e.instance === instance);
+        if (event && !event.name) event.name = name;
+    }
+
+    /**
      * Checks if a boostify event exists for the given name
      * @param {string} eventName The boostify event name
      * @returns {boolean} True if event exists
@@ -161,9 +240,21 @@ class CoreHandler {
      * Destroys a boostify event if it exists
      * @param {string} eventName The boostify event name
      */
-    destroyBoostifyEventIfExists(eventName) {
-        if (this.hasBoostifyEvent(eventName)) {
-            this.boostify.destroyscroll({ name: eventName });
+    destroyBoostifyEvent(eventName) {
+        const event = this.boostify.events?.find((e) => e.name === eventName);
+        if (event) {
+            switch (event.type) {
+                case "click":
+                    this.boostify.destroyclick({ element: event.instance?.element });
+                    break;
+                case "observer":
+                    event.elements?.forEach((element) => this.boostify.destroyobserver({ element }));
+                    break;
+                case "scroll":
+                default:
+                    this.boostify.destroyscroll({ name: event.name });
+                    break;
+            }
         }
     }
 
@@ -176,7 +267,7 @@ class CoreHandler {
 
             // Check for boostify events to destroy them and instance the library instead
             const boostifyEventName = `${this.libraryName}-${index}-${intIndex}`;
-            this.destroyBoostifyEventIfExists(boostifyEventName);
+            this.destroyBoostifyEvent(boostifyEventName);
 
             // Create new instance
             await this.createInstance({ element, config, modifiesHeight, method: "Event / Anchor" });
@@ -211,6 +302,14 @@ class CoreHandler {
     async createInstance({ element, config, modifiesHeight, method }) {
         const Library = this.library;
         try {
+            // Final synchronous guard against a race: two assignInstances passes
+            // (e.g. MitterContentReplaced + AnchorTo's Lottie:load re-scan) can both
+            // clear their pre-check while awaiting importLibrary, then both land here
+            // for the same element — double-instantiating it and making preloadLotties
+            // throw on the duplicate data-name. This check + addInstance run with no
+            // await between them, so whichever pass arrives first wins and the other bails.
+            if (this.Manager.hasInstanceForElement(this.libraryName, element)) return;
+
             // The configuration can be a callback if we need to access a concrete element
                 const conf = config({ element });
 
@@ -227,6 +326,17 @@ class CoreHandler {
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
                                 updateScrollTriggers({ Manager: this.Manager });
+                                const hasListeners = this.emitter.all.get("CoreHandler:heightModified")?.length > 0;
+                                if (hasListeners) {
+                                    this.emitter.emit("CoreHandler:heightModified");
+                                    // Re-emit periodically to catch elements after CSS animations settle
+                                    let checks = 0;
+                                    const interval = setInterval(() => {
+                                        checks++;
+                                        this.emitter.emit("CoreHandler:heightModified");
+                                        if (checks >= 4) clearInterval(interval);
+                                    }, 250);
+                                }
                                 resolve();
                             });
                         });
@@ -248,12 +358,27 @@ class CoreHandler {
      */
     destroyInstances(payload) {
         this.debug.instance(`❌ Destroy: ${this.libraryName}`, { color: "red" });
+        // Clean up pending viewport re-check listeners
+        if (this._pendingViewportChecks.length) {
+            this._pendingViewportChecks.forEach(handler => {
+                this.emitter.off("CoreHandler:heightModified", handler);
+            });
+            this._pendingViewportChecks = [];
+        }
         const libraryEvents = this.boostify.events.filter((e) => e.name && e.name.includes(this.libraryName));
         if (libraryEvents) {
             libraryEvents.forEach((event) => {
-                this.boostify.destroyscroll({ name: event.name });
+                this.destroyBoostifyEvent(event.name);
             });
         }
+        this.destroyLiveInstances(payload);
+    }
+
+    /**
+     * Destroys only the live library instances, leaving the boostify events and
+     * viewport re-checks intact (e.g. on modal close, so the trigger can reopen it).
+     */
+    destroyLiveInstances(payload) {
         const instances = this.Manager.instances[this.libraryName];
         if (instances && instances.length > 0) {
             instances.forEach((instance, index) => {

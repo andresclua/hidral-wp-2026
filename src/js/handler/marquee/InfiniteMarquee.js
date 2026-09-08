@@ -1,17 +1,16 @@
 import {horizontalLoop} from '@andresclua/infinite-marquee-gsap';
+import gsap from 'gsap';
 import { u_stringToBoolean } from '@andresclua/jsutil';
 
 class InfiniteMarquee {
     constructor(payload){
-        var { el, Manager, reversed, speed, controlsOnHover } = payload;
         this.DOM = {
-            element: el,
+            element: payload.el,
         }
-        this.gsap = Manager.getLibrary("GSAP").gsap;
-        var reversedBool = u_stringToBoolean(reversed);
-        this.reversed = reversed === undefined || reversed === null ? false : reversedBool;
-        this.speed = speed === undefined ? 1 : speed;
-        this.controlsOnHover = controlsOnHover === undefined ? false : controlsOnHover;
+        var reversed = u_stringToBoolean(payload.reversed);
+        this.reversed = payload.reversed === undefined || payload.reversed === null ? false : reversed;
+        this.speed = payload.speed === undefined ? 1 : payload.speed;
+        this.controlsOnHover = payload.controlsOnHover === undefined ? false : payload.controlsOnHover;
         this.paused = false;
         this.init();
         this.events();
@@ -40,12 +39,12 @@ class InfiniteMarquee {
     
     pause(){
         this.paused = true;
-        this.gsap.to(this.loop, {timeScale: 0, overwrite: true});
+        gsap.to(this.loop, {timeScale: 0, overwrite: true});
     }
 
     play(){
         if (this.paused) {
-            this.gsap.to(this.loop, {timeScale: this.reversed ? -1 : 1, overwrite: true});
+            gsap.to(this.loop, {timeScale: this.reversed ? -1 : 1, overwrite: true});
             this.paused = false; 
         }
     }

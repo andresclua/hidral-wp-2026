@@ -7,13 +7,19 @@ class Slider{
             controls: payload.config.controlsContainer,
         }
         this.autoplay = this.autoplay || false;
-        this.config = payload.config
+        this.config = payload.config;
+        this.onSlideTransitionEnd = payload.onSlideTransitionEnd || null;
         this.init();
         this.pause();
 
     }
     init(){
         this.slider = tns(this.config);
+        if (this.onSlideTransitionEnd && typeof this.onSlideTransitionEnd === 'function') {
+            this.slider.events.on('transitionEnd', () => {
+                this.onSlideTransitionEnd();
+            });
+        }
     }
 
     play() {

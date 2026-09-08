@@ -12,5 +12,6 @@
 
     define('IS_VITE_DEVELOPMENT', true);
     define('DEV_IDENTIFIER', 'engine');
+    define('OPENAI_API_KEY', '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');
 
 ?>

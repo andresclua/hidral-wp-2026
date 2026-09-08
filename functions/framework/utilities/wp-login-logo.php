@@ -1,18 +1,28 @@
-<?php 
+<?php
 /**
  * Customizes the WordPress login page logo.
  *
- * This function replaces the default WordPress login logo with a custom image
- * located in the theme's "img/logo/logo.webp". It sets the logo's size and appearance.
- *
- * @author Eli
+ * Uses the 'login_logo' field from General Options (ACF).
+ * Falls back to a Terra placeholder if not defined.
  */
-function wp_login_logo()
-{ ?>
+function wp_login_logo() {
+    $logo_url = '';
+
+    if (function_exists('get_field')) {
+        $login_logo = get_field('login_logo', 'option');
+        if (!empty($login_logo['url'])) {
+            $logo_url = $login_logo['url'];
+        }
+    }
+
+    if (empty($logo_url)) {
+        $logo_url = 'http://placeholder.terrahq.com/logo-rectangular.webp';
+    }
+    ?>
     <style type="text/css">
         #login h1 a,
         .login h1 a {
-            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/img/logo/logo.webp);
+            background-image: url(<?php echo esc_url($logo_url); ?>);
             height: 80px;
             width: 235px;
             background-repeat: no-repeat;
@@ -24,4 +34,3 @@ function wp_login_logo()
     </style>
 <?php }
 add_action('login_enqueue_scripts', 'wp_login_logo');
-?>

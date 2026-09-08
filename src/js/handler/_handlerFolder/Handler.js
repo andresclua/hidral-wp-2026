@@ -31,7 +31,7 @@ class Handler extends CoreHandler {
         this.emitter.on("MitterContentReplaced", async () => {
             this.DOM = this.updateTheDOM; // Re-query elements each time this is called
 
-            super.assignInstances({
+            await super.assignInstances({
                 elementGroups: [
                     {
                         elements: this.DOM._libraryElements,

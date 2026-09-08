@@ -1,211 +1,289 @@
-
+@use "sass:color";
 @use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/font/_font.scss"; // emits @font-face for the project font
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    font-size: 13px;
-    line-height: 1.4em;
+// =============================================================================
+// Admin palette
+// -----------------------------------------------------------------------------
+// Compiled into dist/Appbackend.<hash>.css and loaded on every admin screen via
+// admin_enqueue_scripts (functions/project/deploy/enqueues.php).
+//
+// HOW IT WORKS
+//   • The font block below is UNSCOPED — the project font applies across the
+//     whole admin under any colour scheme (branding).
+//   • Everything else is scoped to `body.theme-palette`. That class is added by
+//     functions/project/utilities/admin-color-palette.php only when the user's
+//     active admin colour scheme is the "<Site> palette", so picking WordPress'
+//     "Default" scheme reverts the admin to stock styling.
+//
+// COLOURS ARE RUNTIME-CONFIGURABLE (no build needed to re-skin)
+//   • Colours are consumed through `--pal-*` CSS custom properties, declared once
+//     at the top of `body.theme-palette`. The `$wp-admin-*` variables from
+//     _vars.scss are their BUILD-TIME DEFAULTS (fallbacks) — the exact look you
+//     get when nothing overrides them.
+//   • functions/project/utilities/admin-palette-settings.php lets design pick
+//     colours from a wp-admin page and injects `body.theme-palette { --pal-*: … }`
+//     via wp_add_inline_style() on the same stylesheet handle, so the runtime
+//     values win over these defaults WITHOUT recompiling SCSS.
+//   • Derived shades (hover/active/tints) use CSS color-mix() so they track the
+//     runtime --pal-highlight-a automatically instead of being baked at build.
+//
+// WHY SO MANY SELECTORS
+//   WordPress and ACF hardcode their accent colour in many places, and also
+//   expose it as a CSS custom property (--wp-admin-theme-color). We retarget that
+//   property AND override the hardcoded spots, mirroring core/ACF selectors so
+//   ours win on specificity. ACF gets !important because its admin markup/CSS
+//   shifts between versions.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Admin font — whole admin, every scheme
+// -----------------------------------------------------------------------------
+body,
+#wpwrap,
+#adminmenu,
+#wpadminbar,
+.wp-core-ui {
+    font-family: $wp-admin-font;
 }
 
-.css-kfhu3b{
-    display: none!important;
-}
+body.theme-palette {
 
-//* End Backend messages
+    // -------------------------------------------------------------------------
+    // Palette custom properties — the single source of runtime colour
+    // -------------------------------------------------------------------------
+    // SCSS values below are BUILD-TIME DEFAULTS. admin-palette-settings.php may
+    // override any of these at runtime (see file header). Everything further
+    // down consumes only var(--pal-*), never $wp-admin-* directly.
+    --pal-bg-a: #{$wp-admin-bg-a};
+    --pal-bg-b: #{$wp-admin-bg-b};
+    --pal-highlight-a: #{$wp-admin-highlight-a};
+    --pal-highlight-b: #{$wp-admin-highlight-b};
+    --pal-text: #{$wp-admin-text};
 
-//* Backend sections
-.acf-fc-layout-handle {
-    background-color: #eeeeee;
-    color: #3c434a;
-}
-//* End Backend sections
+    // Derived highlight for hover / active states — tracks --pal-highlight-a.
+    --pal-highlight-a-hover: color-mix(in srgb, var(--pal-highlight-a) 80%, #000);
 
-//* Backend sections modal
-.acf-fc-popup {
-    display: flex;
-    align-items: center;
-    & > ul {
-        width: 100% !important;
-        grid-template-columns: repeat(6, 1fr) !important;
-        grid-gap: 32px !important;
-        height: auto !important;
-        max-height: 100%;
-        background-color: #ffffff !important;
-        @media all and ($viewport-type: $tabletl) {
-            grid-template-columns: repeat(4, 1fr) !important;
-        }
-        @media all and ($viewport-type: $tablets) {
-            grid-template-columns: repeat(3, 1fr) !important;
-        }
-        @media all and ($viewport-type: $tablets) {
-            grid-template-columns: repeat(2, 1fr) !important;
-        }
-        & > li {
-            white-space: initial;
-            display: flex;
-            & > a {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                box-shadow: none !important;
-                & > div.acf-fc-popup-label {
-                    height: 100%;
-                    background-color: #eeeeee;
-                    text-shadow: none;
-                    color: #0a132a;
-                    border-color: #eaf0f6;
-                    box-shadow: none;
-                }
-                & > div.acf-fc-popup-image {
-                    background-repeat: no-repeat !important;
-                    background-size: contain !important;
-                    transition: transform $time-b $ease-standard-a;
-                }
-                &:hover,
-                &:focus,
-                &:active {
-                    background: transparent;
-                    box-shadow: none;
-                    & > div.acf-fc-popup-label {
-                        background-color: #eeeeee;
-                    }
-                    & > div.acf-fc-popup-image {
-                        transform: scale(1.2);
-                    }
-                }
-            }
-        }
+    // -------------------------------------------------------------------------
+    // WordPress theme colour (CSS custom property)
+    // -------------------------------------------------------------------------
+    // Drives primary buttons, checked checkboxes/radios and focus rings. We point
+    // core's accent at our runtime highlight and derive its hover/active shades
+    // with color-mix so they follow along. --rgb (comma-separated channels, used
+    // by core for low-opacity tints) can't be derived from a var in pure CSS, so
+    // admin-palette-settings.php recomputes it from the saved highlight-b; the
+    // build-time default below keeps the unconfigured look correct.
+    --wp-admin-theme-color: var(--pal-highlight-a);
+    --wp-admin-theme-color--rgb: #{color.channel($wp-admin-highlight-b, "red")}, #{color.channel($wp-admin-highlight-b, "green")}, #{color.channel($wp-admin-highlight-b, "blue")};
+    --wp-admin-theme-color-darker-10: color-mix(in srgb, var(--pal-highlight-a) 90%, #000);
+    --wp-admin-theme-color-darker-20: color-mix(in srgb, var(--pal-highlight-a) 80%, #000);
+
+    // -------------------------------------------------------------------------
+    // Admin menu (left)
+    // -------------------------------------------------------------------------
+    // Backgrounds: menu + toolbar share the base; submenu flyout is the 2nd dark.
+    #adminmenu,
+    #adminmenuwrap,
+    #adminmenuback,
+    #wpadminbar {
+        background: var(--pal-bg-a);
     }
-}
-.acf-flexible-content .layout.fc-modal {
-    max-width: 1500px !important;
-    .acf-fc-modal-content {
-        .acf-fields {
-            .acf-field-spacing {
-                .acf-input {
-                    ul {
-                        gap: 16px;
-                        li {
-                            width: calc(25% - ((16px * 3) / 4));
-                            max-width: 120px;
-                            min-width: 0;
-                            button {
-                                width: 100%;
-                                img {
-                                    object-fit: contain;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    #adminmenu .wp-submenu {
+        background: var(--pal-bg-b);
     }
-}
-//* End Backend sections modal
 
-//* Backend edit section modal
-.layout.fc-modal {
-    .acf-fc-modal-title {
-        background-color: #eeeeee;
+    // Text + dashicon (font) icons.
+    #adminmenu a,
+    #adminmenu .wp-submenu a,
+    #adminmenu .wp-menu-image:before {
+        color: var(--pal-text);
     }
-    .acf-fc-modal-content {
-        .acf-fields {
-            .acf-field {
-                .acf-input {
-                    .js--padding {
-                        li {
-                            max-width: 25%;
-                            button {
-                                max-width: 100%;
-                                padding: 0;
-                                img {
-                                    height: auto;
-                                    max-width: 100%;
-                                    max-height: 100px;
-                                }
-                            }
-                        }
-                        & ~ h2 {
-                            font-weight: 600;
-                            font-size: 13px;
-                            padding-left: 0 !important;
-                        }
-                        & ~ ul {
-                            margin-left: 0 !important;
-                        }
-                        & ~ * button {
-                            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-                            font-size: 10px;
-                            line-height: 1.4em;
-                            background-color: #eeeeee;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-//* End Backend edit section modal
 
-//* Backend images background
-.acf-image-uploader .image-wrap img {
-    // background-color: #fff !important;
-}
-//* End Backend images background
-
-//* Backend separate sections
-.acf-fields {
-    .acf-field {
-        .acf-input {
-            .acf-repeater {
-                .acf-table {
-                    tbody {
-                        .acf-row {
-                            td {
-                                .acf-table {
-                                    tbody {
-                                        .acf-row {
-                                            &:not(:first-child) {
-                                                td {
-                                                    border-top: 1px solid #eeeeee;
-                                                }
-                                            }
-                                            td {
-                                                border-top: 1px solid #eeeeee;
-                                            }
-                                        }
-                                    }
-                                }
-                                
-                            }
-                            td.acf-field-image{
-                                background: #f1f1f1;
-                            }
-                            &:not(:first-child) {
-                                td {
-                                    border-top: 2px solid #8c8f94;
-                                    .acf-table {
-                                        tbody {
-                                            .acf-row {
-                                                &:not(:first-child) {
-                                                    td {
-                                                        border-top: 1px solid #eeeeee;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    // Dashicon (font) icons on hover / current — override WP's default highlight.
+    #adminmenu li:hover div.wp-menu-image:before,
+    #adminmenu li.opensub div.wp-menu-image:before,
+    #adminmenu li.current div.wp-menu-image:before,
+    #adminmenu li.wp-has-current-submenu div.wp-menu-image:before,
+    #adminmenu li a:focus div.wp-menu-image:before {
+        color: var(--pal-highlight-b);
     }
-}
-//* End Backend separate sections
-*{
-    box-sizing: border-box
+
+    // SVG plugin icons (e.g. Yoast) are background-images with a baked-in fill, so
+    // `color` can't touch them — a filter renders them white to match dashicons.
+    #adminmenu .wp-menu-image.svg {
+        filter: brightness(0) invert(1);
+    }
+
+    // Current / hovered / focused menu item → highlight background + white text.
+    #adminmenu li.menu-top:hover,
+    #adminmenu li.opensub > a.menu-top,
+    #adminmenu li > a.menu-top:focus,
+    #adminmenu li.current a.menu-top,
+    #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+        background: var(--pal-highlight-a);
+        color: var(--pal-highlight-b);
+    }
+
+    // Collapse-menu button.
+    #collapse-button:hover,
+    #collapse-button:focus {
+        color: var(--pal-highlight-a);
+    }
+
+    // -------------------------------------------------------------------------
+    // Admin bar (top)
+    // -------------------------------------------------------------------------
+    // Text + icons.
+    #wpadminbar .ab-item,
+    #wpadminbar a.ab-item,
+    #wpadminbar > #wp-toolbar span.ab-label,
+    #wpadminbar .ab-icon:before,
+    #wpadminbar .ab-item:before {
+        color: var(--pal-highlight-b);
+    }
+
+    // Hover / focus states. Core hardcodes its blue across many toolbar selectors;
+    // these mirror them so our white wins on specificity.
+    #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item,
+    #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus,
+    #wpadminbar .ab-top-menu > li.hover > .ab-item,
+    #wpadminbar:not(.mobile) > #wp-toolbar li:hover span.ab-label,
+    #wpadminbar:not(.mobile) > #wp-toolbar a:focus span.ab-label,
+    #wpadminbar .quicklinks .menupop ul li a:hover,
+    #wpadminbar .quicklinks .menupop ul li a:focus,
+    #wpadminbar .quicklinks .menupop ul li a:hover strong,
+    #wpadminbar .quicklinks .menupop ul li a:focus strong,
+    #wpadminbar .quicklinks .menupop.hover ul li a:hover,
+    #wpadminbar .quicklinks .menupop.hover ul li a:focus,
+    #wpadminbar li:hover .ab-icon:before,
+    #wpadminbar li:hover .ab-item:before,
+    #wpadminbar li a:focus .ab-icon:before,
+    #wpadminbar li.hover .ab-icon:before,
+    #wpadminbar li.hover .ab-item:before,
+    #wpadminbar .quicklinks .menupop .ab-sub-secondary > li > a:hover {
+        color: var(--pal-highlight-b);
+    }
+
+    // Top-level item hover/focus background (core hardcodes a grey here).
+    #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item,
+    #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus,
+    #wpadminbar .ab-top-menu > li.hover > .ab-item {
+        background: var(--pal-bg-b);
+    }
+
+    // -------------------------------------------------------------------------
+    // Notification bubbles (update / comment counts)
+    // -------------------------------------------------------------------------
+    // Resting: highlight bubble + white number. Inverts on parent hover/current
+    // so it stays legible once the menu item itself turns into the highlight.
+    #adminmenu .awaiting-mod,
+    #adminmenu .update-plugins,
+    .update-count {
+        background: var(--pal-highlight-a);
+        color: var(--pal-text);
+        transition: background-color $time-a $ease-standard-a, color $time-a $ease-standard-a;
+    }
+    #adminmenu li.menu-top:hover .awaiting-mod,
+    #adminmenu li.menu-top:hover .update-plugins,
+    #adminmenu li.menu-top:hover .update-count,
+    #adminmenu li.current .awaiting-mod,
+    #adminmenu li.current .update-plugins,
+    #adminmenu li.wp-has-current-submenu .awaiting-mod,
+    #adminmenu li.wp-has-current-submenu .update-plugins {
+        background: var(--pal-highlight-b);
+        color: var(--pal-highlight-a);
+    }
+
+    // -------------------------------------------------------------------------
+    // Links & buttons
+    // -------------------------------------------------------------------------
+    a {
+        color: var(--pal-bg-a);
+    }
+    a:hover,
+    a:focus {
+        color: var(--pal-highlight-a-hover);
+    }
+
+    .wp-core-ui .button-primary {
+        background: var(--pal-highlight-a);
+        border-color: var(--pal-highlight-a);
+        color: var(--pal-text);
+    }
+    .wp-core-ui .button-primary:hover,
+    .wp-core-ui .button-primary:focus {
+        background: var(--pal-highlight-a-hover);
+        border-color: var(--pal-highlight-a-hover);
+    }
+
+    // "Add New" / page-title-action — an outline button core hardcodes blue.
+    .wrap .page-title-action,
+    .wrap .page-title-action:active {
+        border-color: var(--pal-highlight-a);
+        color: var(--pal-highlight-a);
+    }
+    .wrap .page-title-action:hover,
+    .wrap .page-title-action:focus {
+        border-color: var(--pal-highlight-a-hover);
+        color: var(--pal-highlight-a-hover);
+    }
+    .wrap .page-title-action:focus {
+        box-shadow: 0 0 0 1px var(--pal-highlight-a);
+    }
+
+    // -------------------------------------------------------------------------
+    // ACF overrides
+    // -------------------------------------------------------------------------
+    // ACF hardcodes its own blue and shifts markup between versions, so these
+    // target ACF's stable classes with !important. (Newer ACF reads
+    // --wp-admin-theme-color and follows the palette without these.)
+
+    // True/false toggle (switch): on, hover and focus states (ACF uses a .-focus
+    // class, not :focus). White "Yes" label stays via ACF's own rule.
+    .acf-switch.-on {
+        background: var(--pal-highlight-a) !important;
+        border-color: var(--pal-highlight-a) !important;
+    }
+    .acf-switch.-on .acf-switch-slider {
+        border-color: var(--pal-highlight-a) !important;
+    }
+    .acf-switch .acf-switch-on {
+        text-shadow: 0 1px 0 var(--pal-highlight-a) !important;
+    }
+    .acf-switch:hover,
+    .acf-switch.-focus,
+    .acf-switch:focus-within {
+        border-color: var(--pal-highlight-a) !important;
+        color: var(--pal-highlight-a) !important;
+    }
+    .acf-switch:hover .acf-switch-slider,
+    .acf-switch.-focus .acf-switch-slider,
+    .acf-switch:focus-within .acf-switch-slider {
+        border-color: var(--pal-highlight-a) !important;
+    }
+
+    // Flexible-content: active layout header bar → 2nd dark; fields/table tint.
+    .acf-flexible-content .layout.active-layout > .acf-fc-layout-actions-wrap {
+        background: var(--pal-bg-b) !important;
+    }
+    .acf-flexible-content .layout.active-layout > .acf-fields,
+    .acf-flexible-content .layout.active-layout > .acf-table {
+        background: color-mix(in srgb, var(--pal-bg-b) 4%, transparent) !important;
+        border: 1px solid color-mix(in srgb, var(--pal-bg-a) 20%, transparent) !important;
+    }
+
+    // "Clear" / text buttons (flexible-content Expand All / Collapse All, etc.).
+    .acf-btn.acf-btn-clear:hover,
+    .acf-flexible-content > .acf-actions.acf-fc-top-actions .acf-btn-clear,
+    .acf-flexible-content > .acf-actions.acf-fc-top-actions .acf-btn-clear:hover {
+        color: var(--pal-highlight-a) !important;
+    }
+
+    // Action icons (add / remove / cancel) — hover border + colour.
+    a.acf-icon:hover,
+    a.acf-icon.-minus:hover,
+    a.acf-icon.-cancel:hover {
+        border-color: var(--pal-highlight-a) !important;
+        color: var(--pal-highlight-a) !important;
+    }
 }

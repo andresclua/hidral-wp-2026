@@ -1,0 +1,49 @@
+.terra-bg-color-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.terra-bg-color-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.terra-bg-color-swatch.active {
+    border-color: #2271b1;
+    opacity: 1;
+}
+
+.terra-bg-color-swatch.no-active {
+    opacity: 0.4;
+}
+
+.terra-bg-color-swatch:hover {
+    opacity: 1;
+}
+
+.terra-bg-color-swatch__color {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.terra-bg-color-swatch__label {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #50575e;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 60px;
+    word-wrap: break-word;
+}

@@ -7,11 +7,11 @@ const devSFTPConfig = {
   };
   
   const stageSFTPConfig = {
-    host: "hidralstg.sftp.wpengine.com",
-    user: "hidralstg-andres",
+    host: "example.sftp.wpengine.com",
+    user: "example-terra",
     port: "2222",
-    pass: "6:@QKGl)",
-    remotePath: "/wp-content/themes/hidral-wp-2026"
+    pass: "y$3@@&Wd",
+    remotePath: "/wp-content/themes/your-theme"
   };
   
   const prodSFTPConfig = {
@@ -23,8 +23,7 @@ const devSFTPConfig = {
   };
 
   const filesToExclude = [
-    "!functions/project/hash.php",
-    "!functions/project/local-variable.php",
+    "!functions/project/deploy/local-variable.php",
     "!public/**/*", // Exclude public folder and everything inside
     "!config/**/*", // Exclude config folder and everything inside
     "!node_modules/**/*", // Exclude node_modules folder and everything inside
@@ -40,10 +39,19 @@ const devSFTPConfig = {
     "!*.zip", // Exclude all zip files
     "!*.tgz", // Exclude all tgz files
   ];
+
+  const hashFileExclude = [
+    "!functions/project/deploy/hash.php",
+  ];
+
+  const hashFilesToExclude = [
+  ];
   
   module.exports = {
     devSFTPConfig,
     stageSFTPConfig,
     prodSFTPConfig,
-    filesToExclude
+    filesToExclude,
+    hashFileExclude,
+    hashFilesToExclude
   };

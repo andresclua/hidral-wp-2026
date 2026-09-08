@@ -14,7 +14,7 @@ export function generateRandomHash(length) {
 export function updateHash(hash) {
     console.log(`Updating hash in hash.php file with new hash: ${hash}`);
 
-    const hashFileRoute = resolve(process.cwd(), "functions/project/hash.php");
+    const hashFileRoute = resolve(process.cwd(), "functions/project/deploy/hash.php");
 
     if (fsSync.existsSync(hashFileRoute)) {
         const content = fsSync.readFileSync(hashFileRoute, "utf-8");

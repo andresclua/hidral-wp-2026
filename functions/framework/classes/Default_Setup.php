@@ -12,6 +12,8 @@
  * - Images: Image handling and responsive images
  * - WP_Functionality: Additional WP features
  * - Custom_Search_Modules: Search admin panel (optional)
+ * - Custom_Search_Gutenberg: Gutenberg blocks usage panel (optional)
+ * - Custom_Search_Forms: Contact Form 7 usage panel (optional, requires CF7)
  * - WP_Vulnerability_Checker: Advanced security rules (optional)
  *
  * @package TerraFramework
@@ -21,6 +23,8 @@
  * @param array $config['image_sizes']           Custom image sizes to register
  * @param array $config['image_type']            Enabled image functions
  * @param bool  $config['enable_search_modules'] Enable search modules admin (default: true)
+ * @param bool  $config['enable_search_gutenberg'] Enable Gutenberg usage admin (default: true)
+ * @param bool  $config['enable_search_forms']   Enable Contact Form 7 usage admin (default: true)
  * @param bool  $config['enable_vulnerability']  Enable vulnerability checker (default: true)
  *
  * @example
@@ -39,6 +43,8 @@ class Default_Setup {
     'image_sizes' => [],
     'image_type' => [],
     'enable_search_modules' => true,
+    'enable_search_gutenberg' => true,
+    'enable_search_forms' => true,
     'enable_vulnerability' => true
   ];
 
@@ -49,23 +55,42 @@ class Default_Setup {
 
   protected function init() {
 
-    new Security();
+    if (Module_Manager::is_active('security')) {
+      new Security();
+    }
 
-    new Clean_Wp();
+    if (Module_Manager::is_active('clean_wp')) {
+      new Clean_Wp();
+    }
 
-    new Images($this->config['image_sizes'], $this->config['image_type']);
+    if (Module_Manager::is_active('images')) {
+      new Images($this->config['image_sizes'], $this->config['image_type']);
+    }
 
-    new WP_Functionality();
+    if (Module_Manager::is_active('wp_functionality')) {
+      new WP_Functionality();
+    }
 
-    if($this->config['enable_search_modules']){
+    if ($this->config['enable_search_modules'] && Module_Manager::is_active('search_modules')) {
       new Custom_Search_Modules((object) array());
     }
-    if($this->config['enable_vulnerability']){
+
+    if ($this->config['enable_search_gutenberg'] && Module_Manager::is_active('search_gutenberg')) {
+      new Custom_Search_Gutenberg((object) array());
+    }
+
+    // Contact Form 7 usage report. The class itself bails out when CF7 is not
+    // installed, so projects without the plugin simply never see the page.
+    if ($this->config['enable_search_forms'] && Module_Manager::is_active('search_forms')) {
+      new Custom_Search_Forms((object) array());
+    }
+
+    if ($this->config['enable_vulnerability'] && Module_Manager::is_active('vulnerability_checker')) {
       $is_local = in_array($_SERVER['HTTP_HOST'] ?? '', ['localhost', '127.0.0.1', 'localhost:8888'])
         || strpos($_SERVER['HTTP_HOST'] ?? '', '.local') !== false
         || strpos($_SERVER['HTTP_HOST'] ?? '', '.test') !== false;
 
-    if (class_exists('WP_Vulnerability_Checker') && !$is_local) {
+      if (class_exists('WP_Vulnerability_Checker') && !$is_local) {
         new WP_Vulnerability_Checker([
           'restrict_users_endpoint'     => true,
           'enforce_strong_passwords'    => false,

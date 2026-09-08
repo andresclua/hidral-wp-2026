@@ -17,8 +17,6 @@ class Handler extends CoreHandler {
             slideBy: 1,
             rewind: false,
             swipeAngle: 60,
-            lazyload: true,
-            lazyloadSelector: '.tns-lazy-img',
             mouseDrag: true,
             autoplayButtonOutput: false,
             speed: 1000,
@@ -41,6 +39,7 @@ class Handler extends CoreHandler {
 
         this.configSliderA = ({element}) => {
             return {
+            slider: element,
             config: {
                 ...this.commonConfig,
                 loop: true,
@@ -51,6 +50,13 @@ class Handler extends CoreHandler {
                 container: element.querySelector(".js--slider-container"),
                 // navContainer: slider.querySelector(".js--slider-nav"),
                 navAsThumbnails: false
+            },
+            Manager: this.Manager,
+            onSlideTransitionEnd: () => {
+                const lazyInstances = this.Manager.getInstances('Lazy');
+                if (lazyInstances && lazyInstances.length > 0) {
+                    lazyInstances[0].instance.revalidate();
+                }
             },
             onComplete: () => {
                 // Callback optional
@@ -74,7 +80,7 @@ class Handler extends CoreHandler {
         this.emitter.on("MitterContentReplaced", async () => {
             this.DOM = this.updateTheDOM; // Re-query elements each time this is called
 
-            super.assignInstances({
+            await super.assignInstances({
                 elementGroups: this.getConfigtype(),
             });
         });

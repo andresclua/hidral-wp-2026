@@ -1,0 +1,49 @@
+.c--tabs__nav {
+    display: flex;
+    border-bottom: 1px solid #dcdcde;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    gap: 0;
+}
+
+.c--tabs__nav-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -1px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #50575e;
+    background: transparent;
+    transition: color 0.15s, background-color 0.15s;
+    border-radius: 8px 8px 0 0;
+}
+
+.c--tabs__nav-item:hover {
+    color: #1d2327;
+}
+
+.c--tabs__nav-item.is-active {
+    color: #1d2327;
+    background: #fff;
+    border-color: #dcdcde;
+    border-bottom-color: #fff;
+}
+
+.c--tabs__content {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 24px;
+}
+
+.c--tabs__panel {
+    display: none;
+}
+
+.c--tabs__panel.is-active {
+    display: block;
+}

@@ -1,90 +1,95 @@
 @use "@scss/framework/_var/_vars.scss" as *;
 
 @use "@terrahq/gc/variables" with (
-//* GLOBAL VARIABLES
-$g-viewport-type: $viewport-type,
-$g-measure: $measure,
-$g-container-class: f--container,
-$g-row-class: f--row,
-$g-row-remove-gutter-class: f--row--remove-gutter,
-$g-transition-duration: 0.3s,
-$g-transition-timing-function: $ease-standard-a,
+  //* GLOBAL VARIABLES
+  $g-viewport-type: $viewport-type,
+  $g-measure: $measure,
+  $g-container-class: f--container,
+  $g-row-class: f--row,
+  $g-cols-gutter: $gutter-width,
+  $g-row-remove-gutter-class: f--row--remove-gutter,
+  $g-transition-duration: $time-b,
+  $g-transition-timing-function: $ease-standard-a,
 
-//* btn
-$btn-padding: $measure $measure * 3,
-$btn-icon-gap: $measure,
-$btn-full-width-breakpoint: $mobile,
+  //* btn
+  // $btn-padding: $g-measure $g-measure * 3,
+  // $btn-icon-gap: $g-measure,
+  // $btn-full-width-breakpoint: $tablets,
 
-//* pill
-$pill-padding: $measure $measure * 2,
+  //* pill
+  // $pill-padding: $g-measure $g-measure * 2,
 
-//* icon
-$icon-padding: $measure * 1.5,
+  //* icon
+  // $icon-padding: $g-measure * 1.5,
 
-//* social
-$social-gap: $measure * 2,
+  //* social
+  // $social-gap: $g-measure * 2,
 
-//* form fields
-$form-margin-bottom: $measure * 3,
-$input-padding: $measure * 0.5 $measure,
-$file-btn-padding: $measure * 0.5 $measure * 3,
+  //* form fields
+  // $form-margin-bottom: $g-measure * 3,
+  // $input-padding: $g-measure * 0.5 $g-measure,
+  // $file-btn-padding: $g-measure * 0.5 $g-measure * 3,
 
-//* card
-$card-spaces-breakpoint: $tablets,
-$card-item-list-gap: $measure,
-$card-media-text-space: $measure * 2,
-$card-media-text-space-responsive: $measure,
+  //* card
+  // $card-spaces-breakpoint: 810px,
+  // $card-item-list-gap: $g-measure,
+  // $card-media-text-space: $g-measure,
+  // $card-media-text-space-responsive: $g-measure * 2,
 
-//* CTA
-$cta-item-list-gap: $measure $measure * 2,
-$cta-outside-container-col-class: (f--col-9 f--col-desktop-8),
-$cta-spaces-breakpoint: $tablets,
-$cta-inside-container-padding: $measure * 10 $measure * 10,
-$cta-inside-container-padding-responsive: $measure * 10 $measure * 7,
-$cta-outside-container-padding-y: $measure * 15,
-$cta-outside-container-padding-y-responsive: $measure * 10,
+  //* CTA
+  // $cta-item-list-gap: $g-measure $g-measure * 2,
+  // $cta-outside-container-col-class: (f--col-12 f--col-desktop-8),
+  // $cta-spaces-breakpoint: 810px,
+  // $cta-inside-container-padding: $g-measure * 10 $g-measure * 10,
+  // $cta-inside-container-padding-responsive: $g-measure * 10 $g-measure * 7,
+  // $cta-outside-container-padding-y: $g-measure * 15,
+  // $cta-outside-container-padding-y-responsive: $g-measure * 10,
 
-//* layout
-$layout-one-col-width-class: (f--col-6 f--col-tabletm-10 f--col-mobile-12),
-$layout-two-col-media-width-class: (f--col-5 f--col-tablets-12),
-$layout-two-col-content-width-class: (
-  f--col-5 f--offset-1 f--col-tabletm-6 f--col-tablets-12 f--offset-tablets-0
-),
-$layout-two-col-only-content-first-width-class: (
-  f--col-5 f--col-tabletm-6 f--col-tablets-12
-),
-$layout-two-col-only-content-last-width-class: (
-  f--col-6 f--offset-0 f--col-tablets-12 f--offset-tabletm-0
-),
-$layout-spaces-breakpoint: $tablets,
-$layout-item-list-gap: $measure $measure * 2,
+  //* layout
+  // $layout-one-col-width-class: (f--col-12 f--col-mobile-10 f--col-tabletm-8),
+  // $layout-two-col-columns-gap: $g-measure * 5,
+  // $layout-two-col-media-width-class: (f--col-12 f--col-tablets-5),
+  // $layout-two-col-content-width-class: (
+  //   f--col-12 f--col-tablets-6 f--col-tabletm-5 f--offset-tabletm-1
+  // ),
+  // $layout-two-col-full-width-content-width-class: (
+  //   f--col-12 f--col-tablets-6 f--col-tabletm-4 f--offset-tabletm-4),
+  // $layout-two-col-only-content-first-width-class: (
+  //   f--col-12 f--col-tablets-6 f--col-tabletm-5
+  // ),
+  // $layout-two-col-only-content-last-width-class: (
+  //   f--col-12 f--col-tablets-6 f--offset-tabletm-1
+  // ),
+  // $layout-spaces-breakpoint: 810px,
+  // $layout-item-list-gap: $g-measure $g-measure * 2,
 
-//* hero
-$hero-spaces-breakpoint: $tablets,
-$hero-item-list-gap: $measure $measure * 2,
-$hero-two-col-only-content-first-width-class: (
-  f--col-7 f--col-tabletm-6 f--col-tablets-12
-),
-$hero-two-col-only-content-last-width-class: (
-  f--col-4 f--offset-1 f--col-tabletm-6 f--col-tablets-12 f--offset-tabletm-0
-),
-$hero-content-form-width-class: (f--col-6 f--col-tablets-12),
+  //* hero
+  // $hero-spaces-breakpoint: 810px,
+  // $hero-item-list-gap: $g-measure $g-measure * 2,
+  // $hero-two-col-only-content-first-width-class: (
+  //   f--col-12 f--col-tabletm-7 f--col-tablets-6
+  // ),
+  // $hero-two-col-only-content-last-width-class: (
+  //   f--col-12 f--col-tablets-6 f--col-tabletm-4 f--offset-tabletm-1
+  // ),
+  // $hero-content-form-width-class: (f--col-12 f--col-tablets-6),
 
-//* message
-$message-spaces-breakpoint: $tablets,
+  //* message
+  // $message-spaces-breakpoint: 810px,
 
-//* modal
-$modal-spaces-breakpoint: $tablets,
+  //* modal
+  // $modal-spaces-breakpoint: 810px,
 
-//* accordion
-$accordion-padding: $measure * 4 $measure * 2 $measure * 3,
+  //* accordion
+  // $accordion-padding: $g-measure * 4 $g-measure * 2 $g-measure * 3,
+  // $accordion-breakpoint: 810px,
 
-//* tabs
-$tabs-breakpoint: $tablets,
+  //* tabs
+  // $tabs-breakpoint: 810px,
 
-//* 404
-$error-404-spaces-breakpoint: $tablets,
-$error-404-item-list-gap: $measure $measure * 2,
+  //* 404
+  // $error-404-spaces-breakpoint: 810px,
+  // $error-404-item-list-gap: $g-measure $g-measure * 2,
 );
 
 @forward "@terrahq/gc/library";
