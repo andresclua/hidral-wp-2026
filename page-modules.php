@@ -1,6 +1,7 @@
 <?php
 /*
 Template Name: Modules
+Template Post Type: page, servicios
 */
 ?>
 <?php get_header() ?>

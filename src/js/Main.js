@@ -49,10 +49,10 @@ class Main extends Core {
         this.events();
     }
 
-    init() {
+    async init() {
         // Loads Core init function
-        super.init();   
-      
+        super.init();
+
         new MarqueeHandler({ ...this.handler, name: "MarqueeHandler" });
         new Lottie({ ...this.handler, name: "Lottie" });
         new LoadMore({...this.handler, name:"LoadMore"})
@@ -61,6 +61,14 @@ class Main extends Core {
         new ModalHandler({ ...this.handler, name: "Modal" });
         new AnchorToHandler({ ...this.handler, name: "AnchorTo" });
         new ScrollWatcherHandler({ ...this.handler, name: "ScrollWatcher" });
+
+        const { default: Navbar } = await import("@js/modules/Navbar/Navbar.js");
+        new Navbar({
+            header: document.querySelector(".js--header"),
+            wrapper: document.querySelector(".js--header-wrapper"),
+            burger: document.querySelector(".js--burger"),
+            nav: document.querySelector(".js--navbar"),
+        });
     }
     events() {
         super.events();

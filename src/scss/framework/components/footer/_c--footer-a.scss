@@ -5,7 +5,27 @@
     background: map.get($color-options, a);
     padding: $measure * 3 0;
     color: map.get($color-options, b);
+
     a {
         color: map.get($color-options, b);
     }
+
+    &__bd {
+        padding-bottom: $measure * 3;
+        border-bottom: 1px solid rgba(map.get($color-options, b), .15);
+    }
+
+    &__ft {
+        padding-top: $measure * 3;
+
+        .f--row {
+            align-items: center;
+        }
+    }
+}
+
+// Logo letters render blue by default (header, on a white background);
+// on the footer's dark background they need to be white instead.
+.c--footer-a .c--brand-a {
+    color: map.get($color-options, b);
 }

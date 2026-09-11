@@ -5,18 +5,18 @@ $space-values : (
   // 2,
   // 3,
   // 4,
-  // 5,
-  // 7,
+  5,
+  7,
   // 8,
-  // 10,
-  // 15,
+  10,
+  15,
   ) !default;
 
   $space-prefixes : (
     // p  : padding,
-    // pt : padding-top,
+    pt : padding-top,
     // pr : padding-right,
-    // pb : padding-bottom,
+    pb : padding-bottom,
     // pl : padding-left,
     // m  : margin,
     // mt : margin-top,
@@ -27,7 +27,7 @@ $space-values : (
 
   $space-breakpoints: (
   all: $all,
-  // tablets: $tablets,
+  tablets: $tablets,
   // tabletm: $tabletm,
   // tabletl: $tabletl,
   // laptop: $laptop,

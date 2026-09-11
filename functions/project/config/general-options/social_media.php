@@ -1,11 +1,29 @@
 <?php
 return array(
     'title'  => 'Social Media',
-    'fields' => array_merge(
-        ACF_Builder::url(array('name' => 'facebook_url', 'label' => 'Facebook URL', 'width' => '50')),
-        ACF_Builder::url(array('name' => 'instagram_url', 'label' => 'Instagram URL', 'width' => '50')),
-        ACF_Builder::url(array('name' => 'twitter_url', 'label' => 'Twitter / X URL', 'width' => '50')),
-        ACF_Builder::url(array('name' => 'linkedin_url', 'label' => 'LinkedIn URL', 'width' => '50')),
-        ACF_Builder::url(array('name' => 'youtube_url', 'label' => 'YouTube URL', 'width' => '50')),
-    ),
+    'fields' => ACF_Builder::repeater(array(
+        'name'         => 'social_links',
+        'label'        => 'Social Links',
+        'button_label' => 'Add Social Network',
+        'layout'       => 'table',
+        'fields'       => array_merge(
+            ACF_Builder::select(array(
+                'name'    => 'platform',
+                'label'   => 'Platform',
+                'choices' => array(
+                    'facebook'  => 'Facebook',
+                    'instagram' => 'Instagram',
+                    'x'         => 'X / Twitter',
+                    'linkedin'  => 'LinkedIn',
+                    'youtube'   => 'YouTube',
+                ),
+                'width' => '40',
+            )),
+            ACF_Builder::url(array(
+                'name'  => 'url',
+                'label' => 'URL',
+                'width' => '60',
+            ))
+        ),
+    )),
 );

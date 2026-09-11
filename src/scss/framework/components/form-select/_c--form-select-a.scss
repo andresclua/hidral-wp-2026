@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--form-select-a {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    column-gap: $measure * 2.5;
+    row-gap: $measure * 2.5;
+    justify-content: center;
+    border: 1px solid rgba(map.get($color-options, a), .2);
+    border-radius: $border-radius-a;
+
+    &--error {
+        border-color: #d9364f;
+        background-color: rgba(#d9364f, .08);
+    }
+
+    &--valid {
+        border-color: #2fa84f;
+        background-color: rgba(#2fa84f, .08);
+    }
+
+    &__item {
+        appearance: none;
+        background: transparent;
+        color: map.get($color-options, a);
+        width: 100%;
+        font-weight: 400;
+        padding: $measure * 1.25;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

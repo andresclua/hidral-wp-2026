@@ -9,7 +9,7 @@
  * @see Options_Page for registration
  */
 
-$tab_order = array('header', 'site_identity', 'footer', 'social_media', 'api_keys', 'scripts', '404_page');
+$tab_order = array('header', 'site_identity', 'footer', 'social_media', 'trusted_companies', 'contact', 'api_keys', 'scripts', '404_page');
 
 $groups = array();
 foreach ($tab_order as $tab) {

@@ -1,0 +1,28 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--trusted-companies-a {
+    &__title {
+        @extend .f--font-d;
+    }
+
+    &__list-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: $measure * 3;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &__item {
+            display: block;
+
+            &__media {
+                max-height: $measure * 6;
+                width: auto;
+            }
+        }
+    }
+}

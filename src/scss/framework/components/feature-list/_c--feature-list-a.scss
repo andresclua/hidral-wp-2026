@@ -1,0 +1,24 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--feature-list-a {
+    &__title {
+        @extend .f--font-b;
+        text-align: center;
+        margin-bottom: $measure * 2;
+    }
+
+    &__subtitle {
+        @extend .f--font-d;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto ($measure * 3);
+    }
+
+    &__list-group {
+        display: flex;
+        justify-content: center;
+        gap: $measure * 1.5;
+        margin-top: $measure * 4;
+    }
+}

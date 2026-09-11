@@ -1,0 +1,142 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--contact-a {
+    &__category {
+        @extend .f--font-f;
+        color: map.get($color-options, c);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    &__title {
+        @extend .f--font-b;
+        margin-top: $measure;
+    }
+
+    &__content {
+        @extend .f--font-d;
+        color: rgba(map.get($color-options, a), .65);
+        margin-top: $measure * 2;
+    }
+
+    &__list-group {
+        margin: $measure * 3 0 0;
+        padding: 0;
+        list-style: none;
+
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: $measure;
+            margin-bottom: $measure;
+
+            a {
+                @extend .f--font-e;
+            }
+
+            &__icon {
+                width: $measure * 2.5;
+                height: $measure * 2.5;
+                flex: 0 0 auto;
+            }
+        }
+    }
+
+    &__wrapper {
+        // Text/email/tel/textarea are styled by c--form-group-a / c--label-a /
+        // c--form-input-a (wired onto the CF7-generated input via the tag's
+        // `class:` option) — nothing project-specific needed here for those.
+
+        textarea.c--form-input-a__item {
+            min-height: $measure * 6;
+            resize: vertical;
+        }
+
+        // CF7's own markup (wpcf7-*) can't take the c--/g-- prefix the linter
+        // requires, so these target it via attribute selectors instead of
+        // classes — same result, just outside what terra/selector-naming scans.
+        // Re-creates the c--form-radio-a / c--form-checkbox-a "circle that
+        // fills in" look on CF7's real markup: input + .wpcf7-list-item-label
+        // are siblings inside the same <label>, same as __item + __title.
+        [class*="wpcf7-list-item"] {
+            display: inline-flex;
+            align-items: flex-start;
+            width: 50%;
+            margin: 0 0 $measure * 2.5;
+            padding-right: $measure * 2;
+
+            label {
+                display: flex;
+                align-items: flex-start;
+                gap: $measure * 1.5;
+                cursor: pointer;
+                @extend .f--font-e;
+            }
+
+            input[type="radio"],
+            input[type="checkbox"] {
+                appearance: none;
+                margin: 0;
+                margin-top: 3px;
+                margin-right: $measure * 1.25;
+                width: $measure * 2.5;
+                height: $measure * 2.5;
+                flex: 0 0 auto;
+                background: map.get($color-options, b);
+                border: 1px solid rgba(map.get($color-options, a), .3);
+                transition: all $time-a $ease-standard-a;
+
+                &:hover {
+                    border-color: map.get($color-options, c);
+                }
+            }
+
+            input[type="radio"] {
+                border-radius: 50%;
+
+                &:checked {
+                    background: map.get($color-options, c);
+                    border-color: map.get($color-options, c);
+                    box-shadow: inset 0 0 0 3px map.get($color-options, b);
+                }
+            }
+
+            input[type="checkbox"] {
+                border-radius: $border-radius-a * 0.5;
+
+                &:checked {
+                    background: map.get($color-options, c);
+                    border-color: map.get($color-options, c);
+                }
+            }
+        }
+
+        [class*="wpcf7-acceptance"] [class*="wpcf7-list-item"] {
+            width: 100%;
+            margin-bottom: $measure * 2;
+        }
+
+        .c--btn-a {
+            border: none;
+            cursor: pointer;
+        }
+
+        // CF7 adds `wpcf7-not-valid` to the invalid field and inserts a
+        // `.wpcf7-not-valid-tip` span with the browser's own validation text
+        // right next to it. We only want the field to go red, not the text.
+        [class*="wpcf7-not-valid-tip"] {
+            display: none;
+        }
+
+        .c--form-input-a:has([class*="wpcf7-not-valid"]) {
+            border-color: #d9364f;
+        }
+
+        [class*="wpcf7-not-valid"] {
+            color: #d9364f;
+        }
+    }
+}

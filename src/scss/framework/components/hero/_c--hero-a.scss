@@ -1,0 +1,32 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--hero-a {
+    text-align: center;
+
+    &__title {
+        @extend .f--font-a;
+        margin-bottom: $measure * 2;
+    }
+
+    &__subtitle {
+        @extend .f--font-d;
+        margin: 0 auto ($measure * 3);
+    }
+
+    &__list-group {
+        display: flex;
+        justify-content: center;
+        gap: $measure * 1.5;
+        margin-bottom: $measure * 4;
+    }
+
+    &__media-wrapper {
+        &__media {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: $border-radius-b;
+        }
+    }
+}

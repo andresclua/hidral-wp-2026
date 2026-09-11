@@ -1,0 +1,8 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--label-a {
+    @extend .f--font-e;
+    display: block;
+    margin-bottom: $measure;
+}

@@ -7,6 +7,8 @@
  *
  * Features:
  * - Allows SVG, WebP, and JSON file uploads
+ * - Fixes the "server cannot process the image" error on SVG uploads by
+ *   supplying attachment metadata read from the SVG itself
  * - Removes admin bar bump CSS
  * - Adds custom post states (e.g., "Home" label for home page template)
  * - Excludes password-protected posts from queries by default
@@ -32,6 +34,7 @@ class WP_Functionality {
     add_action('after_setup_theme', [$this, 'theme_support']);
     add_filter('upload_mimes', [$this, 'cc_mime_types']);
     add_filter('wp_check_filetype_and_ext', [$this, 'cc_check_filetype'], 10, 4);
+    add_filter('wp_generate_attachment_metadata', [$this, 'cc_svg_attachment_metadata'], 10, 2);
     add_action('get_header', [$this, 'remove_admin_login_header']);
     add_filter('display_post_states', [$this, 'wpsites_custom_post_states']);
     add_action('pre_get_posts', [$this, 'custom_set_default_has_password']);
@@ -84,6 +87,61 @@ class WP_Functionality {
     }
 
     return $data;
+  }
+
+  /**
+   * WordPress runs every image upload through an image editor (Imagick/GD)
+   * to generate metadata + subsizes. SVGs aren't raster images, so that
+   * call fails and the media modal surfaces it as "The server cannot
+   * process the image...". Short-circuit with dimensions read straight
+   * from the SVG markup so a valid metadata array comes back instead.
+   */
+  public function cc_svg_attachment_metadata($metadata, $attachment_id) {
+    $file = get_attached_file($attachment_id);
+
+    if (!$file || strtolower(pathinfo($file, PATHINFO_EXTENSION)) !== 'svg') {
+      return $metadata;
+    }
+
+    $dimensions = $this->get_svg_dimensions($file);
+
+    return array(
+      'width'  => $dimensions['width'],
+      'height' => $dimensions['height'],
+      'file'   => _wp_relative_upload_path($file),
+      'sizes'  => array(),
+    );
+  }
+
+  /**
+   * Reads width/height from an SVG's viewBox or width/height attributes.
+   * Falls back to 100x100 when neither is present or parsing fails.
+   */
+  protected function get_svg_dimensions($file) {
+    $width  = 0;
+    $height = 0;
+
+    $svg = @simplexml_load_file($file);
+    if ($svg !== false) {
+      $attributes = $svg->attributes();
+
+      if (isset($attributes->viewBox)) {
+        $viewBox = preg_split('/[\s,]+/', trim((string) $attributes->viewBox));
+        if (count($viewBox) === 4) {
+          $width  = (int) round((float) $viewBox[2]);
+          $height = (int) round((float) $viewBox[3]);
+        }
+      }
+
+      if (!$width && isset($attributes->width)) {
+        $width = (int) $attributes->width;
+      }
+      if (!$height && isset($attributes->height)) {
+        $height = (int) $attributes->height;
+      }
+    }
+
+    return array('width' => $width ?: 100, 'height' => $height ?: 100);
   }
 
   /**

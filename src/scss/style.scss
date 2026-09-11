@@ -14,9 +14,15 @@
 
 //* Header
 @use "@scssComponents/header/_c--header-a.scss";
+@use "@scssComponents/brand/_c--brand-a.scss";
+@use "@scssComponents/burger/_c--burger-a.scss";
+@use "@scssComponents/nav/_c--nav-a.scss";
+@use "@scssComponents/btn/_c--btn-a.scss";
 
 //* Footer
 @use "@scssComponents/footer/_c--footer-a.scss";
+@use "@scssComponents/icon/_c--icon-a.scss";
+@use "@scssComponents/social/_c--social-a.scss";
 
 //* Content
 @use "@scssComponents/content/_c--content-a.scss";
@@ -29,3 +35,36 @@
 
 //* Sidenav (scrollspy)
 @use "@scssComponents/sidenav/_c--sidenav-a.scss";
+
+//* Hero
+@use "@scssComponents/hero/_c--hero-a.scss";
+
+//* Trusted Companies
+@use "@scssComponents/trusted-companies/_c--trusted-companies-a.scss";
+
+//* Services List
+@use "@scssComponents/services-list/_c--services-list-a.scss";
+
+//* Card
+@use "@scssComponents/card/_c--card-a.scss";
+@use "@scssComponents/card/_c--card-b.scss";
+
+//* Feature List
+@use "@scssComponents/feature-list/_c--feature-list-a.scss";
+
+//* Link
+@use "@scssComponents/link/_c--link-a.scss";
+
+//* Contact
+@use "@scssComponents/contact/_c--contact-a.scss";
+
+//* Form fields
+@use "@scssComponents/form/_c--form-a.scss";
+@use "@scssComponents/form-group/_c--form-group-a.scss";
+@use "@scssComponents/label/_c--label-a.scss";
+@use "@scssComponents/form-input/_c--form-input-a.scss";
+@use "@scssComponents/form-select/_c--form-select-a.scss";
+@use "@scssComponents/form-checkbox/_c--form-checkbox-a.scss";
+@use "@scssComponents/form-radio/_c--form-radio-a.scss";
+@use "@scssComponents/form-file/_c--form-file-a.scss";
+@use "@scssComponents/form-error/_c--form-error-a.scss";

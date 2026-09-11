@@ -1,0 +1,7 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--brand-a {
+    display: flex;
+    color: map.get($color-options, c);
+}

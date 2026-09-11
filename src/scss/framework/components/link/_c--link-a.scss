@@ -1,0 +1,12 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--link-a {
+    color: map.get($color-options, c);
+    text-decoration: underline;
+    transition: color $time-a $ease-standard-a;
+
+    &:hover {
+        color: map.get($color-options, a);
+    }
+}

@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--btn-a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $measure * 1.5 $measure * 3;
+    border-radius: $border-radius-c;
+
+
+    background: map.get($color-options, c);
+     border: 1px solid map.get($color-options, c);
+    color: map.get($color-options, b);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all $time-a $ease-standard-a;
+
+    &:hover {
+        background: map.get($color-options, a);
+        color: map.get($color-options, b);
+        border: 1px solid map.get($color-options, a);
+    }
+
+    &--second {
+        background: map.get($color-options, b);
+        color: map.get($color-options, c);
+        border: 1px solid map.get($color-options, c);
+
+        &:hover {
+            background: map.get($color-options, d);
+            border: 1px solid map.get($color-options, d);
+            color: map.get($color-options, a);
+        }
+    }
+
+    &--third {
+        background: map.get($color-options, c);
+        border: 1px solid map.get($color-options, c);
+        color: map.get($color-options, b);
+
+        &:hover {
+            background: map.get($color-options, d);
+            border: 1px solid map.get($color-options, d);
+            color: map.get($color-options, a);
+        }
+    }
+}

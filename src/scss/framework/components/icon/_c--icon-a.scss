@@ -1,0 +1,9 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+
+.c--icon-a {
+    width: $measure * 2.5;
+    height: $measure * 2.5;
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: middle;
+}

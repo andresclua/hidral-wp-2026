@@ -93,6 +93,7 @@ return [
           'transparent' => ['label' => 'Transparent', 'color' => '#ffffff00'],
           'white'      => ['label' => 'White',      'color' => '#ffffff'],
           'light-blue'  => ['label' => 'Light blue',  'color' => '#F7FBFF'],
+          'dark-blue'   => ['label' => 'Dark blue',   'color' => '#01152A'],
         ],
         'reduced' => [
           'white'      => ['label' => 'White',      'color' => '#ffffff'],

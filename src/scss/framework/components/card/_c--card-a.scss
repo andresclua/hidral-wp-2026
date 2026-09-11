@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "sass:color";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--card-a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: color.mix(map.get($color-options, d), map.get($color-options, b), 12%);
+    border-radius: $border-radius-c;
+    overflow: hidden;
+
+    &__category {
+        @extend .f--font-f;
+        color: map.get($color-options, c);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: $measure * 3 $measure * 3 0;
+    }
+
+    &__title {
+        @extend .f--font-d;
+        color: map.get($color-options, a);
+        font-weight: 700;
+        padding: $measure $measure * 3 0;
+    }
+
+    &__content {
+        @extend .f--font-e;
+        color: rgba(map.get($color-options, a), .65);
+        padding: $measure $measure * 3 0;
+    }
+
+    &__link {
+        @extend .f--font-e;
+        display: inline-block;
+        color: map.get($color-options, c);
+        font-weight: 700;
+        padding: $measure * 2 $measure * 3 $measure * 3;
+    }
+
+    &__media {
+        margin-top: auto;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}

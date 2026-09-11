@@ -1,25 +1,40 @@
 @use "sass:map";
 @use "@scss/framework/_var/_vars.scss" as *;
 
-// Push the header down so the WordPress admin bar (32px desktop, 46px on
-// the mobile breakpoint that WP uses) stops overlapping it.
-/* stylelint-disable terra/selector-naming */
-.admin-bar .c--header-a {
-    margin-top: 32px;
-
-    @media (max-width: 782px) {
-        margin-top: 46px;
-    }
-}
-/* stylelint-enable terra/selector-naming */
-
 .c--header-a {
-    background: map.get($color-options, a);
-    padding: $measure * 3 0;
-    color: map.get($color-options, b);
-    position: relative;
-    z-index: 100;
-    a {
-        color: map.get($color-options, b);
+    position: fixed;
+    left: 0;
+    top: $measure * 2;
+    width: 100%;
+    z-index: 35;
+
+    &__wrapper {
+        position: relative;
+        background: map.get($color-options, b);
+        display: block;
+        border-radius: $border-radius-a;
+        padding: $measure $measure * 3;
+        border: 1px solid rgba(map.get($color-options, b), .2);
+        transition: all $time-b $ease-standard-a;
+
+        @media all and ($viewport-type: $tabletm) {
+            display: flex;
+            align-items: center;
+        }
+
+        &--second {
+            border: 1px solid rgba(map.get($color-options, a), .2);
+        }
+    }
+
+    &__item-right {
+        display: none;
+        align-items: center;
+        gap: $measure * 1.5;
+
+        @media all and ($viewport-type: $tabletm) {
+            display: flex;
+            margin-left: auto;
+        }
     }
 }

@@ -1,0 +1,30 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--card-b {
+    color: map.get($color-options, a);
+
+    &--second {
+        color: map.get($color-options, b);
+    }
+
+    &__media {
+        max-width: 60px;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        margin-bottom: $measure * 3;
+    }
+
+    &__title {
+        @extend .f--font-d;
+        font-weight: 700;
+    }
+
+    &__content {
+        @extend .f--font-e;
+        opacity: .65;
+        margin-top: $measure * 2;
+    }
+}

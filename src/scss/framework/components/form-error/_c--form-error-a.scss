@@ -1,0 +1,12 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--form-error-a {
+    @extend .f--font-f;
+    color: #d9364f;
+    display: none;
+
+    &:empty {
+        display: none;
+    }
+}

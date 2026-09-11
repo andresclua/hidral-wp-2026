@@ -1,0 +1,66 @@
+@use "sass:map";
+@use "sass:color";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--nav-a {
+    display: none;
+    flex-direction: column;
+    background: map.get($color-options, b);
+    padding: $measure 0;
+    border-radius: $border-radius-a;
+    margin: 0;
+    list-style: none;
+
+    @media all and ($viewport-type: $tabletm) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: $measure * 4;
+        background: transparent;
+        opacity: 1;
+        padding: 0;
+    }
+
+    &__list-item {
+        display: block;
+
+        @media all and ($viewport-type: $tabletm) {
+            margin-left: $measure * 2;
+        }
+
+        &__link {
+            text-decoration: none;
+            @extend .f--color-a;
+            display: block;
+            padding: $measure;
+
+            @media all and ($viewport-type: $tabletm) {
+                margin-left: $measure * 2;
+                padding: 0;
+            }
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            &--second {
+                border: 1px solid rgba(map.get($colorbg-options, c), .2);
+                color: map.get($color-options, a);
+                padding: $measure $measure * 2 $measure;
+                border-radius: $border-radius-b * 2;
+                transition: all ease-in-out $time-a;
+
+                &:hover {
+                    background: color.adjust(map.get($colorbg-options, a), $lightness: -5%);
+                    color: map.get($color-options, b);
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    &--is-active {
+        display: flex;
+    }
+}
