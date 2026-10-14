@@ -11,19 +11,20 @@
                         <span class="c--burger-a__item"></span>
                     </button>
                     <ul class="c--nav-a js--navbar">
-                        <li class="c--nav-a__list-item">
-                            <a class="c--nav-a__list-item__link" href="<?= get_site_url() ?>/servicios/">Servicios</a>
-                        </li>
-                        <li class="c--nav-a__list-item">
-                            <a  class="c--nav-a__list-item__link" href="<?= get_site_url() ?>/trabajos/">Trabajos</a>
-                        </li>
-                        <li class="c--nav-a__list-item">
-                            <a  class="c--nav-a__list-item__link" href="<?= get_site_url() ?>/empresa/">Empresa</a>
-                        </li>
-                        <li class="c--nav-a__list-item">
-                            <a  class="c--nav-a__list-item__link" href="<?= get_site_url() ?>/contacto/">Contacto</a>
-                        </li>
-                        
+                        <?php
+                        $headerNav = get_field('header_nav', 'option') ?: [];
+                        foreach ($headerNav as $navItem) :
+                            $navLabel = $navItem['label'] ?? '';
+                            $navPage  = $navItem['page'] ?? null;
+                            $navUrl   = $navPage ? get_permalink($navPage) : '';
+                            if (!$navLabel || !$navUrl) {
+                                continue;
+                            }
+                        ?>
+                            <li class="c--nav-a__list-item">
+                                <a class="c--nav-a__list-item__link" href="<?= esc_url($navUrl) ?>"><?= esc_html($navLabel) ?></a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
 
                     <div class="c--header-a__item-right">

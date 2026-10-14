@@ -1,8 +1,8 @@
 @use "@scss/framework/_var/_vars.scss" as *;
 
 $text-align-values: (
-  // left: left,
-  // center: center,
+  left: left,
+  center: center,
   // right:right,
   // justify:justify,
 );
@@ -21,14 +21,14 @@ $text-align-breakpoints: (
   @each $breakpoint-name, $breakpoint-value in $breakpoints {
     @if ($breakpoint-value == 0) {
       @each $name, $property in $text-prop {
-        .u--text-align-#{$name} {
+        .f--text-#{$name} {
           text-align: $property;
         }
       }
     } @else {
       @media screen and ($viewport-type: $breakpoint-value) {
         @each $name, $property in $text-prop {
-          .u--text-align-#{$breakpoint-name}-#{$name} {
+          .f--text-#{$breakpoint-name}-#{$name} {
             text-align: $property;
           }
         }

@@ -1,0 +1,24 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--card-d {
+    &__category {
+        @extend .f--font-f;
+        color: map.get($color-options, c);
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: $measure;
+    }
+
+    &__title {
+        @extend .f--font-b;
+        font-weight: 700;
+        margin-bottom: $measure * 2;
+    }
+
+    &__content {
+        @extend .f--font-e;
+        margin-bottom: $measure * 3;
+    }
+}

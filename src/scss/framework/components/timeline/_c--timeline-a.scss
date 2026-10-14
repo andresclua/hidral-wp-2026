@@ -1,0 +1,39 @@
+@use "sass:map";
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--timeline-a {
+    &__title {
+        @extend .f--font-b;
+        margin-bottom: $measure * 4;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $measure * 1.5;
+    }
+
+    &__list-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item {
+        position: relative;
+        padding-bottom: $measure * 6;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    &__dash {
+        position: absolute;
+        top: $measure * 3;
+        left: $measure;
+        bottom: 0;
+        width: $measure * 0.125;
+        background: rgba(map.get($color-options, c), .25);
+    }
+}

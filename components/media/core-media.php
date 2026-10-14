@@ -85,24 +85,22 @@ if ($mediaType === 'video' && !empty($media['url'])) :
             $_mediaAlt = $_attachId ? (get_post_meta($_attachId, '_wp_attachment_image_alt', true) ?: null) : null;
         }
     }
+    $_imgWrapperCls = trim('c--media-a ' . $_clsMediaWrapper);
+    $_imgAssetCls   = trim('c--media-a__media ' . $_clsMediaAsset);
 ?>
-    <?php if (!empty($_clsMediaWrapper)) : ?>
-    <div class="<?= esc_attr($_clsMediaWrapper) ?>">
-    <?php endif; ?>
+    <div class="<?= esc_attr($_imgWrapperCls) ?>">
         <?php
         render_wp_image([
             'image'  => $_imageForAlt,
             'alt'    => $_mediaAlt,
             'sizes'  => $media['sizes'] ?? 'large',
-            'class'  => $_clsMediaAsset,
+            'class'  => $_imgAssetCls,
             'isLazy' => $_isLazy,
             'showAspectRatio' => $_showAspectRatio,
             'fetchPriority'   => $_fetchPriority,
         ]);
         ?>
-    <?php if (!empty($_clsMediaWrapper)) : ?>
     </div>
-    <?php endif; ?>
 <?php endif; ?>
 
-<?php unset($mediaType, $videoUrl, $videoPoster, $videoAutoplay, $_clsMediaWrapper, $_clsMediaAsset, $_isLazy, $_showAspectRatio, $_fetchPriority, $_clsPosterImg, $lottiePath, $lottieName, $lottieRenderer, $lottieAutoplay, $lottieLoop, $lottieDistance, $lottieTrigger, $_imageForAlt, $_mediaAlt, $_attachId); ?>
+<?php unset($mediaType, $videoUrl, $videoPoster, $videoAutoplay, $_clsMediaWrapper, $_clsMediaAsset, $_isLazy, $_showAspectRatio, $_fetchPriority, $_clsPosterImg, $lottiePath, $lottieName, $lottieRenderer, $lottieAutoplay, $lottieLoop, $lottieDistance, $lottieTrigger, $_imageForAlt, $_mediaAlt, $_attachId, $_imgWrapperCls, $_imgAssetCls); ?>

@@ -7,11 +7,11 @@ const devSFTPConfig = {
   };
   
   const stageSFTPConfig = {
-    host: "example.sftp.wpengine.com",
-    user: "example-terra",
+    host: "hidralstg.sftp.wpengine.com",
+    user: "hidralstg-dres",
     port: "2222",
-    pass: "y$3@@&Wd",
-    remotePath: "/wp-content/themes/your-theme"
+    pass: ".AlP+5VS",
+    remotePath: "/wp-content/themes/hidral-wp-2026"
   };
   
   const prodSFTPConfig = {

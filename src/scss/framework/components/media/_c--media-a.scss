@@ -1,0 +1,11 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--media-a {
+    &__media {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: $border-radius-c;
+    }
+}

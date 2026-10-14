@@ -1,7 +1,7 @@
 @use "@scss/framework/_var/_vars.scss" as *;
 @use "@scss/framework/foundation/foundation.scss" as *;
 
-.c--feature-list-a {
+.c--list-of-a {
     &__title {
         @extend .f--font-b;
         text-align: center;
@@ -17,6 +17,20 @@
 
     &__list-group {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: $measure * 3;
+        margin-top: $measure * 4;
+    }
+
+    &__item {
+        flex: 1 1 300px;
+        max-width: 340px;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: $measure * 1.5;
         margin-top: $measure * 4;

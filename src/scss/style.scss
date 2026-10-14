@@ -28,6 +28,7 @@
 @use "@scssComponents/content/_c--content-a.scss";
 
 //* Media / Video
+@use "@scssComponents/media/_c--media-a.scss";
 @use "@scssComponents/video/_c--video-a.scss";
 
 //* Modal
@@ -42,15 +43,17 @@
 //* Trusted Companies
 @use "@scssComponents/trusted-companies/_c--trusted-companies-a.scss";
 
-//* Services List
-@use "@scssComponents/services-list/_c--services-list-a.scss";
-
 //* Card
 @use "@scssComponents/card/_c--card-a.scss";
 @use "@scssComponents/card/_c--card-b.scss";
+@use "@scssComponents/card/_c--card-c.scss";
+@use "@scssComponents/card/_c--card-d.scss";
 
-//* Feature List
-@use "@scssComponents/feature-list/_c--feature-list-a.scss";
+//* List Of
+@use "@scssComponents/list-of/_c--list-of-a.scss";
+
+//* Timeline
+@use "@scssComponents/timeline/_c--timeline-a.scss";
 
 //* Link
 @use "@scssComponents/link/_c--link-a.scss";

@@ -10,7 +10,11 @@ return array(
             'layout'       => 'table',
             'fields'       => array_merge(
                 ACF_Builder::text(array('name' => 'label', 'label' => 'Label')),
-                ACF_Builder::url(array('name' => 'url', 'label' => 'URL')),
+                ACF_Builder::post_object(array(
+                    'name'      => 'page',
+                    'label'     => 'Page',
+                    'post_type' => array('page'),
+                )),
             ),
         )),
     ),

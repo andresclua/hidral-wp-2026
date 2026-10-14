@@ -3,14 +3,23 @@
 @use "@scss/framework/foundation/foundation.scss" as *;
 
 .c--card-b {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     color: map.get($color-options, a);
 
     &--second {
         color: map.get($color-options, b);
     }
 
+    &--third {
+        border: ($measure * 0.125) solid color-mix(in srgb, currentColor 15%, transparent);
+        border-radius: $border-radius-a;
+        padding: $measure * 3;
+    }
+
     &__media {
-        max-width: 60px;
+        max-width: $measure * 7.5;
         width: 100%;
         aspect-ratio: 1 / 1;
         object-fit: contain;
@@ -24,7 +33,6 @@
 
     &__content {
         @extend .f--font-e;
-        opacity: .65;
         margin-top: $measure * 2;
     }
 }

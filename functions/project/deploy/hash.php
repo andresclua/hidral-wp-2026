@@ -9,6 +9,6 @@
  *
  * Usage: This constant is utilized in functions/project/enqueues.php
  */
-define('hash', 'y87');
+define('hash', 'k3s');
 
 ?>
