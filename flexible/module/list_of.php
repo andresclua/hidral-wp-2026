@@ -24,16 +24,20 @@ if (!$title && !$subtitle && !$listType) {
         <?php endif; ?>
     >
         <div class="f--container">
-            <div class="f--row">
-                <div class="f--col-12">
-                    <?php if ($title) : ?>
-                        <h2 class="c--list-of-a__title"><?= esc_html($title) ?></h2>
-                    <?php endif; ?>
-                    <?php if ($subtitle) : ?>
-                        <p class="c--list-of-a__subtitle"><?= esc_html($subtitle) ?></p>
-                    <?php endif; ?>
+            <?php if ($title || $subtitle) : ?>
+                <div class="f--row">
+                    <div class="f--col-12">
+                        <div class="c--list-of-a__hd">
+                            <?php if ($title) : ?>
+                                <h2 class="c--list-of-a__title"><?= esc_html($title) ?></h2>
+                            <?php endif; ?>
+                            <?php if ($subtitle) : ?>
+                                <p class="c--list-of-a__subtitle"><?= esc_html($subtitle) ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
             <?php if ($listType === 'services') :
                 $services = $module['services'] ?? [];
