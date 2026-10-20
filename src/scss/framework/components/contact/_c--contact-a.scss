@@ -71,7 +71,6 @@
             label {
                 display: flex;
                 align-items: flex-start;
-                gap: $measure * 1.5;
                 cursor: pointer;
                 @extend .f--font-e;
             }
