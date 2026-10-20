@@ -61,7 +61,7 @@
         // Re-creates the c--form-radio-a / c--form-checkbox-a "circle that
         // fills in" look on CF7's real markup: input + .wpcf7-list-item-label
         // are siblings inside the same <label>, same as __item + __title.
-        [class*="wpcf7-list-item"] {
+        [class~="wpcf7-list-item"] {
             display: inline-flex;
             align-items: flex-start;
             width: 50%;
@@ -114,7 +114,7 @@
             }
         }
 
-        [class*="wpcf7-acceptance"] [class*="wpcf7-list-item"] {
+        [class*="wpcf7-acceptance"] [class~="wpcf7-list-item"] {
             width: 100%;
             margin-bottom: $measure * 2;
         }
