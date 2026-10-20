@@ -138,7 +138,7 @@ return [
   // Redirects
   // Pages and taxonomies to redirect (used by Redirect_Stage_Urls class)
   // ---------------------------------------------------------------------------
-  'redirect_pages'        => ['34434', '45'],
+  'redirect_pages'        => ['34434', '45', 'services', 'servicios'],
   'redirect_single_pages' => ['1'],
   'redirect_tax_pages'    => ['insight-type', 'category'],
 
