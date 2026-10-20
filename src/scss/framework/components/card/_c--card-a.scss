@@ -10,6 +10,24 @@
     background: color.mix(map.get($color-options, d), map.get($color-options, b), 12%);
     border-radius: $border-radius-c;
     overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color .3s ease;
+
+    &:focus-visible {
+        outline: $measure * 0.25 solid map.get($color-options, c);
+        outline-offset: $measure * 0.25;
+    }
+
+    @media (hover: hover) {
+        &:is(a):hover {
+            background: color.mix(map.get($color-options, d), map.get($color-options, b), 20%);
+
+            .c--card-a__media {
+                transform: scale(1.02);
+            }
+        }
+    }
 
     &__category {
         @extend .f--font-f;
@@ -33,12 +51,11 @@
         padding: $measure $measure * 3 0;
     }
 
-    &__link {
-        @extend .f--font-e;
-        display: inline-block;
-        color: map.get($color-options, c);
-        font-weight: 700;
-        padding: $measure * 2 $measure * 3 $measure * 3;
+    &__title:has(+ .c--card-a__media),
+    &__content:has(+ .c--card-a__media),
+    &__title:last-child,
+    &__content:last-child {
+        padding-bottom: $measure * 3;
     }
 
     &__media {
@@ -46,5 +63,6 @@
         width: 100%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
+        transition: transform .5s ease;
     }
 }

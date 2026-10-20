@@ -5,6 +5,7 @@
             <div class="f--row">
                 <div class="f--col-12">
                     <?php include(locate_template('components/brand/brand-a.php', false, false)); ?>
+                    <p class="c--footer-a__content f--font-e">Hidral, el valor de estar cerca</p>
                 </div>
             </div>
         </div>

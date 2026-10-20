@@ -15,6 +15,11 @@
         border-bottom: 1px solid rgba(map.get($color-options, b), .15);
     }
 
+    &__content {
+        margin-top: $measure * 2;
+        font-weight: 700;
+    }
+
     &__ft {
         padding-top: $measure * 3;
 
