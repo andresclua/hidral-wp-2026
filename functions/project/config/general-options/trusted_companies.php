@@ -8,7 +8,7 @@ return array(
             'label'        => 'Companies',
             'button_label' => 'Add Company Logo',
             'layout'       => 'table',
-            'max'          => 6,
+            'max'          => 10,
             'fields'       => ACF_Builder::image(array('name' => 'image', 'label' => 'Logo')),
         )),
     ),
