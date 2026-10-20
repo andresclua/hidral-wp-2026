@@ -47,7 +47,7 @@ if (!$title && !$subtitle && empty($hero['image'])) {
         ?>
             <div class="f--container">
                 <div class="f--row">
-                    <div class="f--col-8 f--offset-2">
+                    <div class="f--col-10 f--offset-1">
                         <?php include(locate_template('components/media/core-media.php', false, false)); ?>
                     </div>
                 </div>
