@@ -4,7 +4,7 @@
  */
 class RevealStack {
     constructor(payload) {
-        const { play = "onscroll", start = "top 90%", from = "left" } = payload || {};
+        const { play = "onscroll", start = "clamp(top 90%)", from = "left" } = payload || {};
         this.DOM = {
             container: payload.container,
             childrenElements: payload.childrenElements,

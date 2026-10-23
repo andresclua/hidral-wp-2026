@@ -6,7 +6,7 @@
  */
 class RevealIt {
     constructor(payload) {
-        const { play = "onscroll", start = "top 90%", from = "left", container, index, terraDebug, Manager } = payload || {};
+        const { play = "onscroll", start = "clamp(top 90%)", from = "left", container, index, terraDebug, Manager } = payload || {};
 
         this.DOM = {
             container,
