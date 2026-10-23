@@ -5,7 +5,8 @@
 .c--card-b {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - #{$measure * 3});
+    margin-bottom: $measure * 3;
     color: map.get($color-options, a);
 
     &--second {

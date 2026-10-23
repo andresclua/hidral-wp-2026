@@ -6,7 +6,8 @@
 .c--card-a {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - #{$measure * 3});
+    margin-bottom: $measure * 3;
     background: color.mix(map.get($color-options, d), map.get($color-options, b), 12%);
     border-radius: $border-radius-c;
     overflow: hidden;

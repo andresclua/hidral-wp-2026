@@ -22,10 +22,6 @@
         margin-top: $measure * 2;
     }
 
-    &__list-group {
-        row-gap: $measure * 3;
-    }
-
     &__wrapper {
         display: flex;
         flex-wrap: wrap;

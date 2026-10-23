@@ -50,7 +50,7 @@ if (!$title && !$subtitle && !$listType) {
             <?php if ($listType === 'services') :
                 $services = $module['services'] ?? [];
                 if ($services) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row">
                         <?php foreach ($services as $service) :
                             $serviceId = is_object($service) ? $service->ID : $service;
                             $card = array(
@@ -70,7 +70,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_with_image') :
                 $itemsImage = $module['items_image'] ?? [];
                 if ($itemsImage) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row">
                         <?php foreach ($itemsImage as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -87,7 +87,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_with_icon') :
                 $itemsIcon = $module['items_icon'] ?? [];
                 if ($itemsIcon) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row">
                         <?php foreach ($itemsIcon as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -105,7 +105,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_simple') :
                 $itemsSimple = $module['items_simple'] ?? [];
                 if ($itemsSimple) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row">
                         <?php foreach ($itemsSimple as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
