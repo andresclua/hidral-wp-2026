@@ -16,7 +16,7 @@ if (!$title && !$formShortcode) {
     <div class="c--contact-a" anchor-id="module-<?= $keyIndexModule ?>">
         <div class="f--container">
             <div class="f--row">
-                <div class="f--col-6">
+                <div class="f--col-6 js--reveal-it" data-reveal-from="bottom">
                     <?php if ($title) : ?>
                         <h2 class="c--contact-a__title"><?= esc_html($title) ?></h2>
                     <?php endif; ?>
@@ -64,7 +64,7 @@ if (!$title && !$formShortcode) {
 
                 <div class="f--col-6">
                     <?php if ($formShortcode) : ?>
-                        <div class="c--contact-a__wrapper">
+                        <div class="c--contact-a__wrapper js--reveal-stack" data-reveal-from="bottom">
                             <?= do_shortcode($formShortcode) ?>
                         </div>
                     <?php endif; ?>

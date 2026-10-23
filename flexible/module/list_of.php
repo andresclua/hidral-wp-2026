@@ -29,7 +29,7 @@ if (!$title && !$subtitle && !$listType) {
             <?php if ($title || $subtitle) : ?>
                 <div class="f--row">
                     <div class="f--col-12">
-                        <div class="c--list-of-a__hd">
+                        <div class="c--list-of-a__hd js--reveal-it" data-reveal-from="bottom">
                             <?php if ($title) : ?>
                                 <h2 class="c--list-of-a__title"><?= esc_html($title) ?></h2>
                             <?php endif; ?>
@@ -44,7 +44,7 @@ if (!$title && !$subtitle && !$listType) {
             <?php if ($listType === 'services') :
                 $services = $module['services'] ?? [];
                 if ($services) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row c--list-of-a__list-group js--reveal-stack" data-reveal-from="bottom">
                         <?php foreach ($services as $service) :
                             $serviceId = is_object($service) ? $service->ID : $service;
                             $card = array(
@@ -64,7 +64,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_with_image') :
                 $itemsImage = $module['items_image'] ?? [];
                 if ($itemsImage) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row c--list-of-a__list-group js--reveal-stack" data-reveal-from="bottom">
                         <?php foreach ($itemsImage as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -81,7 +81,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_with_icon') :
                 $itemsIcon = $module['items_icon'] ?? [];
                 if ($itemsIcon) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row c--list-of-a__list-group js--reveal-stack" data-reveal-from="bottom">
                         <?php foreach ($itemsIcon as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -99,7 +99,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_simple') :
                 $itemsSimple = $module['items_simple'] ?? [];
                 if ($itemsSimple) : ?>
-                    <div class="f--row c--list-of-a__list-group">
+                    <div class="f--row c--list-of-a__list-group js--reveal-stack" data-reveal-from="bottom">
                         <?php foreach ($itemsSimple as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -119,7 +119,7 @@ if (!$title && !$subtitle && !$listType) {
             $buttons = $module['buttons'] ?? [];
             $btnModifier = $bgColor && !$bgColor['isLight'] ? 'c--btn-a--third' : '';
             if ($buttons) : ?>
-                <div class="c--list-of-a__wrapper">
+                <div class="c--list-of-a__wrapper js--reveal-it" data-reveal-from="bottom">
                     <?php foreach ($buttons as $i => $buttonRow) :
                         $modifier = $i === 0 ? $btnModifier : 'c--btn-a--second';
                         render_wp_button(array(

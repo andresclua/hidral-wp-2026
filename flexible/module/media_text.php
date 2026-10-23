@@ -23,7 +23,7 @@ $media = array(
         <div class="f--container">
             <div class="f--row">
                 <div class="f--col-12 f--col-tabletm-8 f--offset-tabletm-2">
-                    <div class="f--row">
+                    <div class="f--row js--reveal-it" data-reveal-from="bottom">
                         <div class="f--col-12 f--col-tabletm-6">
                             <?php
                             $card = array(

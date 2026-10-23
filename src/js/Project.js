@@ -7,6 +7,7 @@ class Project {
         this.DOM = {
             boostifyScripts: document.querySelectorAll('script[type="text/boostify"]'),
             revealStack: document.querySelectorAll(".js--reveal-stack"),
+            revealIt: document.querySelectorAll(".js--reveal-it"),
             preloader: document.querySelector(".js--preloader"),
         };
 
@@ -105,33 +106,28 @@ class Project {
             tl.addLabel("preloaderFinished");
             await this.assetManager.importAutoAnimations({ tl, eventSystem: this.eventSystem });
 
-            if (this.DOM.revealStack) {
-                const RevealStack = await this.assetManager.getAnimation("RevealStack");
-                this.DOM.revealStack.forEach((element) => {
-                    if (this.Manager.libraries.isElementInViewport({ el: element, debug: this.terraDebug })) {
-                        
-                        tl.add(
-                            new RevealStack({
-                                play: "instant",
-                                container: element,
-                                childrenElements: element.children,
-                                terraDebug: this.terraDebug,
-                                Manager: this.Manager,
-                            }),
-                            "preloaderFinished"
-                        );
+            // Reveals: in view on load -> played right after the preloader; below the fold -> on scroll
+            const reveals = [
+                { name: "RevealStack", elements: this.DOM.revealStack, children: true },
+                { name: "RevealIt", elements: this.DOM.revealIt },
+            ];
+            for (const { name, elements, children } of reveals) {
+                if (!elements.length) continue;
+                const Reveal = await this.assetManager.getAnimation(name);
+                elements.forEach((element) => {
+                    const inViewport = this.Manager.libraries.isElementInViewport({ el: element, debug: this.terraDebug });
+                    const reveal = new Reveal({
+                        play: inViewport ? "instant" : "onscroll",
+                        container: element,
+                        ...(children && { childrenElements: element.children }),
+                        from: element.dataset.revealFrom,
+                        terraDebug: this.terraDebug,
+                        Manager: this.Manager,
+                    });
+                    if (inViewport) {
+                        tl.add(reveal, "preloaderFinished");
                     } else {
-                        this.Manager.addInstance({
-                            name: "RevealStack",
-                            instance: new RevealStack({
-                                play: "onscroll",
-                                container: element,
-                                childrenElements: element.children,
-                                terraDebug: this.terraDebug,
-                                Manager: this.Manager,
-                            }),
-                            element,
-                        });
+                        this.Manager.addInstance({ name, instance: reveal, element });
                     }
                 });
             }

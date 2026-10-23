@@ -1,23 +1,16 @@
+/**
+ * Reveals a container's content as one sequence: headings and paragraphs first, then links and
+ * buttons, then media. Elements are found inside the container, so the markup only needs
+ * `js--reveal-it` on the wrapper (and `data-reveal-from="bottom"` to rise instead of slide).
+ * Anything inside a nested `js--reveal-it` / `js--reveal-stack` is left to that one.
+ */
 class RevealIt {
     constructor(payload) {
-        const {
-            play = "onscroll",
-            container,
-            headers = [],
-            textElements = [],
-            clickableElements = [],
-            mediaElements = [],
-            index,
-            terraDebug,
-            Manager,
-        } = payload || {};
+        const { play = "onscroll", start = "top 90%", from = "left", container, index, terraDebug, Manager } = payload || {};
 
         this.DOM = {
             container,
-            headers,
-            textElements,
-            clickableElements,
-            mediaElements,
+            ...this.getElementGroups(container),
         };
 
         this.index = index;
@@ -28,7 +21,11 @@ class RevealIt {
         this.ScrollTriggerLib = this.Manager.getLibrary("ScrollTrigger");
 
         this.scrollTrigger = null;
+        this.timeline = null;
         this.play = play;
+        this.start = start;
+        this.from = from;
+        this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (this.DOM.container) {
             if (this.play === "instant") {
@@ -40,65 +37,93 @@ class RevealIt {
     }
 
     /**
-     * Detects the alignment of the first element in the DOM
+     * Splits the container into the groups this reveal animates. Each element belongs to the
+     * first group that claims it, so nothing animates twice. A lazy image that has not loaded yet
+     * is left out of the media group: it fades in on its own once loaded.
+     * `.js--reveal-it__item` marks any visual that is none of the listed tags.
+     * @param {HTMLElement} [container]
      */
-    detectAlignment() {
-        const el = this.DOM.headers[0] || this.DOM.textElements[0];
-        if (!el) return "left"; // fallback
-        const style = window.getComputedStyle(el);
-        return style.textAlign === "center" ? "center" : "left";
+    getElementGroups(container) {
+        if (!container) return { headers: [], textElements: [], mediaElements: [], clickableElements: [] };
+
+        const claimed = [...container.querySelectorAll(".js--reveal-stack, .js--reveal-it")];
+        const claim = (selector) =>
+            [...container.querySelectorAll(selector)].filter((element) => {
+                if (claimed.some((owner) => owner.contains(element))) return false;
+                claimed.push(element);
+                return true;
+            });
+
+        // Core's lazy loader (Main.js `lazy` config) fades these in itself once loaded
+        const pendingLazy = ".g--lazy-01:not(.g--lazy-01--is-loaded)";
+
+        return {
+            headers: claim("h1, h2, h3, h4, h5, h6"),
+            textElements: claim("p, cite, li"),
+            mediaElements: claim(".js--reveal-it__item, figure, img, video, svg:not(:is(a, button) svg)").filter(
+                (element) => !element.matches(pendingLazy)
+            ),
+            clickableElements: claim("a, button"),
+        };
     }
 
     /**
-     * Combines and sorts text elements by their vertical position
+     * Detects the alignment of the first text element
      */
-    getCombinedTextElements() {
-        const allTextElements = [
-            ...this.DOM.headers,
-            ...this.DOM.textElements
-        ];
-
-        // Sort by vertical position (top offset)
-        return allTextElements.sort((a, b) => {
-            const rectA = a.getBoundingClientRect();
-            const rectB = b.getBoundingClientRect();
-            return rectA.top - rectB.top;
-        });
+    detectAlignment() {
+        const el = this.DOM.headers[0] || this.DOM.textElements[0];
+        if (!el) return "left";
+        return window.getComputedStyle(el).textAlign === "center" ? "center" : "left";
     }
 
+    getTextFromVars() {
+        if (this.reducedMotion) return {};
+        if (this.from === "bottom") return { y: 50 };
+        return this.detectAlignment() === "center" ? { scale: 0.8 } : { x: -50 };
+    }
+
+    /**
+     * Headings and paragraphs sorted by vertical position, so they stagger top to bottom
+     */
+    getCombinedTextElements() {
+        return [...this.DOM.headers, ...this.DOM.textElements].sort(
+            (a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top
+        );
+    }
+
+    /**
+     * Builds the timeline and, unless `play` is "instant", its ScrollTrigger.
+     * With reduced motion the elements only fade in.
+     * Media tweens to an explicit opacity of 1 and then hands the property back to the
+     * stylesheet, so a lazy image caught mid-fade is not frozen at its current opacity.
+     * @returns {gsap.core.Timeline|undefined} The timeline when played instantly
+     */
     init() {
         const tl = this.gsap.timeline({
             paused: true,
             defaults: { duration: 0.5, ease: "power1.out" },
         });
+        this.timeline = tl;
 
-        const alignment = this.detectAlignment();
-
-        const xFrom = alignment === "center" ? 0 : -50;
-        const scaleFrom = alignment === "center" ? 0.8 : 1;
-        
-        // Get combined text elements sorted by vertical position
         const combinedTextElements = this.getCombinedTextElements();
 
         if (combinedTextElements.length) {
-            tl.from(
-                combinedTextElements,
-                { opacity: 0, x: xFrom, scale: scaleFrom, stagger: 0.1 },
-            );
+            tl.from(combinedTextElements, { opacity: 0, ...this.getTextFromVars(), stagger: 0.1 });
         }
 
         if (this.DOM.clickableElements.length) {
             tl.from(
                 this.DOM.clickableElements,
-                { scale: 0.8, opacity: 0, stagger: 0.2 },
+                { ...(this.reducedMotion ? {} : { scale: 0.8 }), opacity: 0, stagger: 0.2 },
                 "<25%"
             );
         }
 
         if (this.DOM.mediaElements.length) {
-            tl.from(
+            tl.fromTo(
                 this.DOM.mediaElements,
-                { opacity: 0, stagger: 0.1 },
+                { opacity: 0 },
+                { opacity: 1, stagger: 0.1, clearProps: "opacity" },
                 "<25%"
             );
         }
@@ -110,7 +135,7 @@ class RevealIt {
 
         this.scrollTrigger = this.ScrollTriggerLib.create({
             trigger: this.DOM.container,
-            start: "top 80%",
+            start: this.start,
             animation: tl,
             markers: this.terraDebug,
         });
@@ -126,6 +151,10 @@ class RevealIt {
         if (this.scrollTrigger) {
             this.scrollTrigger.kill();
             this.scrollTrigger = null;
+        }
+        if (this.timeline) {
+            this.timeline.revert();
+            this.timeline = null;
         }
     }
 }

@@ -17,7 +17,7 @@ if (!$title && !$items) {
             <div class="f--row">
                 <div class="f--col-12 f--col-tabletm-8 f--offset-tabletm-2">
                     <div class="f--row">
-                        <div class="f--col-12 f--col-tabletm-4">
+                        <div class="f--col-12 f--col-tabletm-4 js--reveal-it" data-reveal-from="bottom">
                             <?php if ($title) : ?>
                                 <h2 class="c--timeline-a__title"><?= esc_html($title) ?></h2>
                             <?php endif; ?>
@@ -36,7 +36,7 @@ if (!$title && !$items) {
 
                         <?php if ($items) : ?>
                             <div class="f--col-12 f--col-tabletm-8">
-                                <div class="c--timeline-a__list-group">
+                                <div class="c--timeline-a__list-group js--reveal-stack" data-reveal-from="bottom">
                                     <?php foreach ($items as $i => $item) :
                                         $card = array(
                                             'title'       => $item['title'] ?? '',
