@@ -50,7 +50,7 @@ if (!$title && !$subtitle && empty($hero['image'])) {
                     <div class="f--col-10 f--offset-1">
                         <div class="c--hero-a__wrapper">
                             <?php include(locate_template('components/media/core-media.php', false, false)); ?>
-                            <div class="c--hero-a__wrapper__overlay"></div>
+                            <div class="c--hero-a__wrapper__overlay f--background-b"></div>
                         </div>
                     </div>
                 </div>
