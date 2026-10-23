@@ -33,11 +33,11 @@
             display: block;
 
             &__media {
-                max-height: $measure * 4;
+                max-height: $measure * 5;
                 width: auto;
 
                 @media all and ($viewport-type: $tabletl) {
-                    max-height: $measure * 6;
+                    max-height: $measure * 7;
                 }
             }
         }
