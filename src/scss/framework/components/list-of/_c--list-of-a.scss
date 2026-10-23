@@ -22,6 +22,11 @@
         margin-top: $measure * 2;
     }
 
+    // Centers a partial last row (e.g. 3 cards in a 4-per-row grid)
+    &__list-group {
+        justify-content: center;
+    }
+
     &__wrapper {
         display: flex;
         flex-wrap: wrap;
