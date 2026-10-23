@@ -1,27 +1,44 @@
 @use "@scss/framework/_var/_vars.scss" as *;
 @use "@scss/framework/foundation/foundation.scss" as *;
 
+// Below tabletl the title sits on top, centered, with the logos as a compact inline row under it;
+// from tabletl up the title goes left and the logos right.
 .c--trusted-companies-a {
     &__title {
         @extend .f--font-d;
+        text-align: center;
+
+        @media all and ($viewport-type: $tabletl) {
+            text-align: left;
+        }
     }
 
     &__list-group {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: flex-end;
-        gap: $measure * 3;
-        margin: 0;
+        justify-content: center;
+        gap: $measure * 2 $measure * 3;
+        margin: $measure * 3 0 0;
         padding: 0;
         list-style: none;
+
+        @media all and ($viewport-type: $tabletl) {
+            justify-content: flex-end;
+            gap: $measure * 3;
+            margin-top: 0;
+        }
 
         &__item {
             display: block;
 
             &__media {
-                max-height: $measure * 6;
+                max-height: $measure * 4;
                 width: auto;
+
+                @media all and ($viewport-type: $tabletl) {
+                    max-height: $measure * 6;
+                }
             }
         }
     }
