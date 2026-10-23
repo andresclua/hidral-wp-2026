@@ -5,7 +5,10 @@
             <div class="f--row">
                 <div class="f--col-12">
                     <?php include(locate_template('components/brand/brand-a.php', false, false)); ?>
-                    <p class="c--footer-a__content f--font-e">Hidral, el valor de estar cerca</p>
+                    <?php if ($footerTagline = get_field('footer_tagline', 'option')) : ?>
+                        <p class="c--footer-a__content f--font-c"><?= esc_html($footerTagline) ?></p>
+                    <?php endif; ?>
+                    <?php unset($footerTagline); ?>
                 </div>
             </div>
         </div>
