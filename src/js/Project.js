@@ -121,6 +121,7 @@ class Project {
                         container: element,
                         ...(children && { childrenElements: element.children }),
                         from: element.dataset.revealFrom,
+                        start: element.dataset.revealStart,
                         terraDebug: this.terraDebug,
                         Manager: this.Manager,
                     });

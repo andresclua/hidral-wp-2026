@@ -17,7 +17,7 @@
     <div class="c--footer-a__ft">
         <div class="f--container">
             <div class="f--row">
-                <div class="f--col-6 js--reveal-it">
+                <div class="f--col-6 js--reveal-it" data-reveal-start="top bottom">
                     <?php $copyrightText = get_field('copyright_text', 'option') ?: (date('Y') . ' ' . get_bloginfo('name') . '. Todos los derechos reservados.'); ?>
                     <p class="f--font-e">&copy; <?= esc_html($copyrightText) ?></p>
                     <?php unset($copyrightText); ?>
