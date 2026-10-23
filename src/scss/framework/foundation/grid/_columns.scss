@@ -15,7 +15,7 @@ $available-columns: (
     // 7,
     8,
     // 9,
-    // 10,
+    10,
     // 11,
     12,
 );
@@ -24,7 +24,7 @@ $columns-breakpoints: (
   all: $all,
   //    tablets: $tablets,
   tabletm: $tabletm,
-  //    tabletl: $tabletl,
+  tabletl: $tabletl,
   //   laptop: $laptop,
   //   desktop: $desktop,
 //   wide: $wide,
@@ -61,7 +61,7 @@ $columns-breakpoints: (
 /* Start Responsive Offset */
 $available-offset: (
     // 0,
-    // 1,
+    1,
     2,
     // 3,
     // 4,
