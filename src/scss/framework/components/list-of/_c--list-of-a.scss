@@ -23,15 +23,7 @@
     }
 
     &__list-group {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: $measure * 3;
-    }
-
-    &__item {
-        flex: 1 1 300px;
-        max-width: 340px;
+        row-gap: $measure * 3;
     }
 
     &__wrapper {

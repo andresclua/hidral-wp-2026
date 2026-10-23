@@ -7,7 +7,9 @@ $bgColor = in_array($listType, array('card_with_image', 'card_with_icon', 'card_
     ? get_bg_color($module['bg_color'] ?? '')
     : null;
 $textColorClass = $bgColor ? ($bgColor['isLight'] ? 'f--color-a' : 'f--color-b') : '';
-$colClass = 'f--col-' . intval(12 / intval($module['items_per_row'] ?? 4));
+$itemsPerRow = intval($module['items_per_row'] ?? 4) === 3 ? 3 : 4;
+// 1 per row on mobile, 2 on tablet, items_per_row (3 or 4) from tabletl up
+$colClass = 'f--col-12 f--col-tabletm-6 f--col-tabletl-' . (12 / $itemsPerRow);
 $textAlignClass = 'f--text-' . ($module['text_align'] ?? 'left');
 $alignItemsClass = 'f--align-items-' . (($module['text_align'] ?? 'left') === 'center' ? 'center' : 'flex-start');
 
@@ -42,7 +44,7 @@ if (!$title && !$subtitle && !$listType) {
             <?php if ($listType === 'services') :
                 $services = $module['services'] ?? [];
                 if ($services) : ?>
-                    <div class="f--row">
+                    <div class="f--row c--list-of-a__list-group">
                         <?php foreach ($services as $service) :
                             $serviceId = is_object($service) ? $service->ID : $service;
                             $card = array(
@@ -62,7 +64,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_with_image') :
                 $itemsImage = $module['items_image'] ?? [];
                 if ($itemsImage) : ?>
-                    <div class="f--row">
+                    <div class="f--row c--list-of-a__list-group">
                         <?php foreach ($itemsImage as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -79,7 +81,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_with_icon') :
                 $itemsIcon = $module['items_icon'] ?? [];
                 if ($itemsIcon) : ?>
-                    <div class="f--row">
+                    <div class="f--row c--list-of-a__list-group">
                         <?php foreach ($itemsIcon as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -97,7 +99,7 @@ if (!$title && !$subtitle && !$listType) {
             elseif ($listType === 'card_simple') :
                 $itemsSimple = $module['items_simple'] ?? [];
                 if ($itemsSimple) : ?>
-                    <div class="c--list-of-a__list-group">
+                    <div class="f--row c--list-of-a__list-group">
                         <?php foreach ($itemsSimple as $item) :
                             $card = array(
                                 'title'       => $item['title'] ?? '',
@@ -105,7 +107,7 @@ if (!$title && !$subtitle && !$listType) {
                                 'modifier'    => trim('c--card-b--third ' . $alignItemsClass . ' ' . ($bgColor && !$bgColor['isLight'] ? 'c--card-b--second' : '')),
                             );
                         ?>
-                            <div class="c--list-of-a__item <?= $textAlignClass ?>">
+                            <div class="<?= $colClass ?> <?= $textAlignClass ?>">
                                 <?php include(locate_template('components/card/card-b.php', false, false)); ?>
                             </div>
                         <?php endforeach; ?>
@@ -137,6 +139,7 @@ unset($listType);
 unset($spacingContentModule);
 unset($bgColor);
 unset($textColorClass);
+unset($itemsPerRow);
 unset($colClass);
 unset($textAlignClass);
 unset($alignItemsClass);

@@ -40,6 +40,7 @@ return array(
                 array('list_type', '==', 'services'),
                 array('list_type', '==', 'card_with_image'),
                 array('list_type', '==', 'card_with_icon'),
+                array('list_type', '==', 'card_simple'),
             )),
         )),
         ACF_Builder::select(array(
