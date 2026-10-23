@@ -27,18 +27,21 @@
                         <?php endforeach; ?>
                     </ul>
 
-                    <?php $headerButtons = get_field('header_buttons', 'option') ?: []; ?>
+                    <?php
+                    $headerButtons = array(
+                        'c--btn-a'                 => get_field('header_button_primary', 'option'),
+                        'c--btn-a c--btn-a--second' => get_field('header_button_secondary', 'option'),
+                    );
+                    $headerButtons = array_filter($headerButtons, fn($button) => !empty($button['link']['url']));
+                    ?>
                     <?php if ($headerButtons) : ?>
                         <div class="c--header-a__item-right">
-                            <?php foreach ($headerButtons as $i => $buttonRow) :
-                                render_wp_button(array(
-                                    'button' => $buttonRow['button'],
-                                    'class'  => trim('c--btn-a ' . ($i === 0 ? '' : 'c--btn-a--second')),
-                                ));
+                            <?php foreach ($headerButtons as $buttonClass => $button) :
+                                render_wp_button(array('button' => $button, 'class' => $buttonClass));
                             endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <?php unset($headerButtons); ?>
+                    <?php unset($headerButtons, $buttonClass, $button); ?>
 
                 </div>
             </div>

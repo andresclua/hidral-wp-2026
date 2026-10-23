@@ -17,17 +17,15 @@ return array(
                 )),
             ),
         )),
-        ACF_Builder::repeater(array(
-            'name'         => 'header_buttons',
-            'label'        => 'Buttons',
-            'button_label' => 'Add Button',
-            'layout'       => 'block',
-            'max'          => 2,
-            'fields'       => ACF_Builder::custom_button(array(
-                'name'  => 'button',
-                'label' => 'Button',
-                'types' => array('link'),
-            )),
+        ACF_Builder::custom_button(array(
+            'name'  => 'header_button_primary',
+            'label' => 'Primary Button (solid blue, e.g. WhatsApp)',
+            'types' => array('link'),
+        )),
+        ACF_Builder::custom_button(array(
+            'name'  => 'header_button_secondary',
+            'label' => 'Secondary Button (outline, e.g. Llamar)',
+            'types' => array('link'),
         )),
     ),
 );
