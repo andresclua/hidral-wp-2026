@@ -9,6 +9,13 @@ export const getAnimations = () => {
             },
         },
         {
+            name: "RevealTimeline",
+            resource: async () => {
+                const { default: RevealTimeline } = await import("@js/motion/modules/RevealTimeline.js");
+                return RevealTimeline;
+            },
+        },
+        {
             name: "RevealStack",
             resource: async () => {
                 const { default: RevealStack } = await import("@js/motion/modules/RevealStack.js");

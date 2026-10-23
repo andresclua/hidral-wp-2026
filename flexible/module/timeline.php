@@ -36,7 +36,7 @@ if (!$title && !$items) {
 
                         <?php if ($items) : ?>
                             <div class="f--col-12 f--col-tabletm-8">
-                                <div class="c--timeline-a__list-group js--reveal-stack" data-reveal-from="bottom">
+                                <div class="c--timeline-a__list-group js--reveal-timeline">
                                     <?php foreach ($items as $i => $item) :
                                         $card = array(
                                             'title'       => $item['title'] ?? '',

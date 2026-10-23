@@ -8,6 +8,7 @@ class Project {
             boostifyScripts: document.querySelectorAll('script[type="text/boostify"]'),
             revealStack: document.querySelectorAll(".js--reveal-stack"),
             revealIt: document.querySelectorAll(".js--reveal-it"),
+            revealTimeline: document.querySelectorAll(".js--reveal-timeline"),
             preloader: document.querySelector(".js--preloader"),
         };
 
@@ -110,6 +111,7 @@ class Project {
             const reveals = [
                 { name: "RevealStack", elements: this.DOM.revealStack, children: true },
                 { name: "RevealIt", elements: this.DOM.revealIt },
+                { name: "RevealTimeline", elements: this.DOM.revealTimeline },
             ];
             for (const { name, elements, children } of reveals) {
                 if (!elements.length) continue;
