@@ -22,6 +22,19 @@
     }
 
     &__media-wrapper {
+        position: relative;
+
+        // Brand gradient laid over the photo; kept faint so the image still reads.
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: $gradient-a;
+            border-radius: $border-radius-b;
+            opacity: .3;
+            pointer-events: none;
+        }
+
         &__media {
             width: 100%;
             aspect-ratio: 16 / 9;
