@@ -29,7 +29,14 @@ class HeroA {
         const cover = hero.querySelector('.c--hero-a__wrapper__overlay');
         const image = hero.querySelector('.c--hero-a__media-wrapper__media');
 
-        tl.from('.c--hero-a__title',{x:120,opacity:0});
+        const title = hero.querySelector('.c--hero-a__title');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (title && reducedMotion) {
+            tl.from(title, { opacity: 0, duration: 0.6 });
+        } else if (title) {
+            // each word rises out of its own mask, one after another
+            tl.from(this.splitWords(title), { yPercent: 115, rotate: 4, transformOrigin: 'left top', duration: 1.1, ease: 'power4.out', stagger: 0.08 }, 0);
+        }
         if (subtitle) tl.from(subtitle, { y: 40, opacity: 0, duration: 1 }, 0.3);
         if (buttons.length) tl.from(buttons, { y: 30, opacity: 0, duration: 0.8, stagger: 0.15 }, 0.6);
         if (cover) {
@@ -45,6 +52,30 @@ class HeroA {
         this.timeline = tl
         return tl;
     }
+    /**
+     * Wraps every word of an element in a clipping mask and returns the inner spans to animate.
+     * The original text stays available to screen readers through aria-label.
+     */
+    splitWords(element) {
+        const text = element.textContent.trim();
+        element.setAttribute('aria-label', text);
+        element.textContent = '';
+
+        return text.split(/\s+/).map((word, i, words) => {
+            const mask = document.createElement('span');
+            const inner = document.createElement('span');
+            mask.setAttribute('aria-hidden', 'true');
+            // padding keeps descenders (g, y, p) from being clipped by the mask
+            Object.assign(mask.style, { display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', paddingBottom: '0.15em', marginBottom: '-0.15em' });
+            inner.style.display = 'inline-block';
+            inner.textContent = word;
+            mask.appendChild(inner);
+            element.appendChild(mask);
+            if (i < words.length - 1) element.appendChild(document.createTextNode(' '));
+            return inner;
+        });
+    }
+
     destroy() {
         if (this.timeline) {
             this.timeline.kill();
