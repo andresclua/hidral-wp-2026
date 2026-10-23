@@ -27,10 +27,18 @@
                         <?php endforeach; ?>
                     </ul>
 
-                    <div class="c--header-a__item-right">
-                        <a href="https://wa.me/598XXXXXXXX" class="c--btn-a" target="_blank" rel="noopener">WhatsApp</a>
-                        <a href="tel:+598XXXXXXXX" class="c--btn-a c--btn-a--second">Llamar</a>
-                    </div>
+                    <?php $headerButtons = get_field('header_buttons', 'option') ?: []; ?>
+                    <?php if ($headerButtons) : ?>
+                        <div class="c--header-a__item-right">
+                            <?php foreach ($headerButtons as $i => $buttonRow) :
+                                render_wp_button(array(
+                                    'button' => $buttonRow['button'],
+                                    'class'  => trim('c--btn-a ' . ($i === 0 ? '' : 'c--btn-a--second')),
+                                ));
+                            endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php unset($headerButtons); ?>
 
                 </div>
             </div>

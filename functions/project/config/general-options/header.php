@@ -17,5 +17,17 @@ return array(
                 )),
             ),
         )),
+        ACF_Builder::repeater(array(
+            'name'         => 'header_buttons',
+            'label'        => 'Buttons',
+            'button_label' => 'Add Button',
+            'layout'       => 'block',
+            'max'          => 2,
+            'fields'       => ACF_Builder::custom_button(array(
+                'name'  => 'button',
+                'label' => 'Button',
+                'types' => array('link'),
+            )),
+        )),
     ),
 );

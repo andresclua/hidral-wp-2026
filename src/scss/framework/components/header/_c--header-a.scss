@@ -36,5 +36,11 @@
             display: flex;
             margin-left: auto;
         }
+
+        // Mobile: shown inside the burger menu, right under the nav links
+        .c--nav-a--is-active + & {
+            display: flex;
+            padding: $measure 0;
+        }
     }
 }
