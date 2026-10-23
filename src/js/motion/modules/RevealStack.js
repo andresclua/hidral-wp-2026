@@ -40,6 +40,11 @@ class RevealStack {
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const offset = this.from === "bottom" ? { y: 50 } : { x: -50 };
 
+        // A CSS `transition: all` on a child fights gsap's inline values, so transitions are off while it reveals
+        this.targets = [...this.DOM.childrenElements];
+        this.targets.forEach((element) => (element.style.transition = "none"));
+        tl.eventCallback("onComplete", () => this.releaseTargets());
+
         if (this.DOM.childrenElements.length > 0) {
             tl.from(
                 this.DOM.childrenElements,
@@ -66,6 +71,13 @@ class RevealStack {
         });
     }
 
+    releaseTargets() {
+        if (!this.targets) return;
+        this.gsap.set(this.targets, { clearProps: "transform,opacity,scale,translate,rotate" });
+        this.targets.forEach((element) => (element.style.transition = ""));
+        this.targets = null;
+    }
+
     refresh() {
         if (this.scrollTrigger) {
             this.scrollTrigger.refresh();
@@ -81,6 +93,7 @@ class RevealStack {
             this.timeline.revert();
             this.timeline = null;
         }
+        this.releaseTargets();
     }
 }
 

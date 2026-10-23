@@ -107,6 +107,12 @@ class RevealIt {
 
         const combinedTextElements = this.getCombinedTextElements();
 
+        // A CSS `transition: all` (c--btn-a has one) fights gsap's inline values and can leave the
+        // element stuck mid-tween, so transitions are switched off while it reveals.
+        this.targets = [...combinedTextElements, ...this.DOM.clickableElements, ...this.DOM.mediaElements];
+        this.targets.forEach((element) => (element.style.transition = "none"));
+        tl.eventCallback("onComplete", () => this.releaseTargets());
+
         if (combinedTextElements.length) {
             tl.from(combinedTextElements, { opacity: 0, ...this.getTextFromVars(), stagger: 0.1 });
         }
@@ -141,6 +147,16 @@ class RevealIt {
         });
     }
 
+    /**
+     * Hands the animated properties and the element's own transition back to the stylesheet.
+     */
+    releaseTargets() {
+        if (!this.targets) return;
+        this.gsap.set(this.targets, { clearProps: "transform,opacity,scale,translate,rotate" });
+        this.targets.forEach((element) => (element.style.transition = ""));
+        this.targets = null;
+    }
+
     refresh() {
         if (this.scrollTrigger) {
             this.scrollTrigger.refresh();
@@ -156,6 +172,7 @@ class RevealIt {
             this.timeline.revert();
             this.timeline = null;
         }
+        this.releaseTargets();
     }
 }
 
