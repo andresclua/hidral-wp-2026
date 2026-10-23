@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "@scss/framework/_var/_vars.scss" as *;
 @use "@scss/framework/foundation/foundation.scss" as *;
 
@@ -19,6 +20,19 @@
         justify-content: center;
         gap: $measure * 1.5;
         margin-bottom: $measure * 4;
+    }
+
+    // Clips the photo while it zooms and holds the curtain HeroA lifts to uncover it
+    &__wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: $border-radius-b;
+
+        &__overlay {
+            position: absolute;
+            inset: 0;
+            background: map.get($color-options, a);
+        }
     }
 
     &__media-wrapper {
