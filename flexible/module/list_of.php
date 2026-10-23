@@ -7,13 +7,7 @@ $bgColor = in_array($listType, array('card_with_image', 'card_with_icon', 'card_
     ? get_bg_color($module['bg_color'] ?? '')
     : null;
 $textColorClass = $bgColor ? ($bgColor['isLight'] ? 'f--color-a' : 'f--color-b') : '';
-// Saved choice wins; if the field was never set (older rows), 3 items -> 3 per row, anything else -> 4
-$itemsPerRow = intval($module['items_per_row'] ?? 0);
-if (!in_array($itemsPerRow, array(3, 4), true)) {
-    $itemsOfType = array('services' => 'services', 'card_with_image' => 'items_image', 'card_with_icon' => 'items_icon', 'card_simple' => 'items_simple');
-    $itemsList = $module[$itemsOfType[$listType] ?? ''] ?? null;
-    $itemsPerRow = is_array($itemsList) && count($itemsList) === 3 ? 3 : 4;
-}
+$itemsPerRow = intval($module['items_per_row'] ?? 4) === 3 ? 3 : 4;
 // 1 per row on mobile, 2 on tablet, items_per_row (3 or 4) from tabletl up
 $colClass = 'f--col-12 f--col-tabletm-6 f--col-tabletl-' . (12 / $itemsPerRow);
 $textAlignClass = 'f--text-' . ($module['text_align'] ?? 'left');
@@ -146,8 +140,6 @@ unset($spacingContentModule);
 unset($bgColor);
 unset($textColorClass);
 unset($itemsPerRow);
-unset($itemsOfType);
-unset($itemsList);
 unset($colClass);
 unset($textAlignClass);
 unset($alignItemsClass);
