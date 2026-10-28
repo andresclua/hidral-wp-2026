@@ -12,6 +12,14 @@ class HeroA {
             console.warn("HeroHome: No element found for the hero home.");
             return;
         }
+
+        // AssetManager only calls init() when the hero is in the viewport at load (scroll restore, slow layout...).
+        // Without init() nobody lifts the curtain and the hero stays blank, so uncover it.
+        setTimeout(() => {
+            if (this.timeline || !this.DOM) return;
+            const cover = this.DOM.hero.querySelector('.c--hero-a__wrapper__overlay');
+            if (cover) this.gsap.set(cover, { autoAlpha: 0 });
+        }, 0);
     }
 
     init() {
