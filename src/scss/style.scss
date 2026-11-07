@@ -29,6 +29,7 @@
 
 //* Media / Video
 @use "@scssComponents/media/_c--media-a.scss";
+@use "@scssComponents/media/_c--media-b.scss";
 @use "@scssComponents/video/_c--video-a.scss";
 
 //* Modal
@@ -51,6 +52,12 @@
 
 //* List Of
 @use "@scssComponents/list-of/_c--list-of-a.scss";
+
+//* SliderKit base (structural)
+@use "@andresclua/sliderkit/scss/base";
+
+//* Gallery Grid
+@use "@scssComponents/gallery-grid/_c--gallery-grid-a.scss";
 
 //* Timeline
 @use "@scssComponents/timeline/_c--timeline-a.scss";

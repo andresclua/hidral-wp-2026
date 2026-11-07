@@ -1,0 +1,25 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--gallery-grid-a {
+    // a partial row (e.g. 3 images) stays centered
+    &__list-group {
+        justify-content: center;
+    }
+
+    // the columns own the gutter, the cards own the space between rows
+    &__item {
+        margin-bottom: $measure * 4;
+
+        // slide of the endless strip: fixed width, the strip sizes itself to its slides
+        &--second {
+            width: $measure * 30;
+            margin-bottom: 0;
+            padding: 0 $measure * 2;
+
+            @media all and (min-width: $tabletl) {
+                width: $measure * 40;
+            }
+        }
+    }
+}

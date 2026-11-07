@@ -84,6 +84,16 @@ export const getModules = () => {
         },
     },
     {
+        name: "SliderKit",
+        resource: async () => {
+            const { default: SliderKit } = await import("@js/handler/sliderkit/SliderKit.js");
+            return SliderKit;
+        },
+        options: {
+            modifyHeight: true,
+        },
+    },
+    {
         name: "PinnedScroll",
         resource: async () => {
             const { default: PinnedScroll } = await import("@js/handler/pinned-scroll/PinnedScroll.js");

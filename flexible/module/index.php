@@ -5,6 +5,9 @@ switch ($module['acf_fc_layout']) {
     case 'contact':
         include get_template_directory() . '/flexible/module/contact.php';
         break;
+    case 'gallery_grid':
+        include get_template_directory() . '/flexible/module/gallery_grid.php';
+        break;
     case 'list_of':
         include get_template_directory() . '/flexible/module/list_of.php';
         break;

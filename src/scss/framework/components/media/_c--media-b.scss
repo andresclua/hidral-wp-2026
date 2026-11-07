@@ -1,0 +1,13 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+// Portrait variant of c--media-a: every image is cropped to the same 3/4 frame
+.c--media-b {
+    &__media {
+        display: block;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        border-radius: $border-radius-b;
+    }
+}
