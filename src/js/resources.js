@@ -84,6 +84,16 @@ export const getModules = () => {
         },
     },
     {
+        name: "PinnedScroll",
+        resource: async () => {
+            const { default: PinnedScroll } = await import("@js/handler/pinned-scroll/PinnedScroll.js");
+            return PinnedScroll;
+        },
+        options: {
+            modifyHeight: true,
+        },
+    },
+    {
         name: "Modal",
         resource: async () => {
             const { default: Modal } = await import("@js/handler/modal/Modal.js");

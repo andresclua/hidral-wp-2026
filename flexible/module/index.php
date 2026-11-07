@@ -11,6 +11,9 @@ switch ($module['acf_fc_layout']) {
     case 'media_text':
         include get_template_directory() . '/flexible/module/media_text.php';
         break;
+    case 'mission_vision':
+        include get_template_directory() . '/flexible/module/mission_vision.php';
+        break;
     case 'timeline':
         include get_template_directory() . '/flexible/module/timeline.php';
         break;

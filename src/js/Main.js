@@ -9,6 +9,7 @@ import VideoHandler from "@js/handler/video/Handler.js";
 import ModalHandler from "@js/handler/modal/Handler.js";
 import AnchorToHandler from "@js/handler/anchorTo/Handler.js";
 import ScrollWatcherHandler from "@js/handler/scrollWatcher/Handler.js";
+import PinnedScrollHandler from "@js/handler/pinned-scroll/Handler.js";
 
 
 class Main extends Core {
@@ -61,6 +62,7 @@ class Main extends Core {
         new ModalHandler({ ...this.handler, name: "Modal" });
         new AnchorToHandler({ ...this.handler, name: "AnchorTo" });
         new ScrollWatcherHandler({ ...this.handler, name: "ScrollWatcher" });
+        new PinnedScrollHandler({ ...this.handler, name: "PinnedScroll" });
 
         const { default: Navbar } = await import("@js/modules/Navbar/Navbar.js");
         new Navbar({

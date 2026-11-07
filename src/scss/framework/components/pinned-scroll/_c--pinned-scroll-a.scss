@@ -1,0 +1,60 @@
+@use "@scss/framework/_var/_vars.scss" as *;
+@use "@scss/framework/foundation/foundation.scss" as *;
+
+.c--pinned-scroll-a {
+    // the handler animates --pinned-scroll-bg from the first blue to the second
+    --pinned-scroll-bg: #{$color-c};
+    --pinned-scroll-bg-end: #{$color-a};
+    display: flex;
+    align-items: center;
+    min-height: 100dvh;
+
+    &__wrapper {
+        @extend .f--color-b;
+        display: grid;
+        align-items: center;
+        min-height: 70dvh;
+        padding: $measure * 6 $measure * 3;
+        overflow: hidden;
+        border-radius: $border-radius-b;
+        background-color: var(--pinned-scroll-bg);
+
+        @media all and (min-width: $tabletm) {
+            padding: $measure * 10 $measure * 8;
+        }
+    }
+
+    // vision and mission share the same cell, the handler swaps them
+    &__item {
+        grid-area: 1 / 1;
+
+        @media (prefers-reduced-motion: reduce) {
+            grid-area: auto;
+            padding-bottom: $measure * 6;
+        }
+    }
+
+    &__badge {
+        @extend .f--font-c;
+        display: block;
+        margin-bottom: $measure * 2;
+        opacity: 0.7;
+    }
+
+    &__dash {
+        width: $measure * 8;
+        height: $measure * 0.5;
+        margin-bottom: $measure * 4;
+        background-color: $color-b;
+    }
+
+    &__title {
+        @extend .f--font-b;
+        margin-bottom: $measure * 3;
+    }
+
+    &__content {
+        @extend .f--font-c;
+        opacity: 0.8;
+    }
+}
